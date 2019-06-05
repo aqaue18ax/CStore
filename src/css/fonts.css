@@ -1,0 +1,20 @@
+@font-face {  
+  font-family: 'pingfang-light';
+  src: url('../fonts/PingFang-SC-Light.ttf');
+}
+
+@font-face {  
+  font-family: 'pingfang-bold';
+  src: url('../fonts/PingFang-SC-Bold.ttf');
+}
+
+.text-bold {
+  font-family: 'pingfang-bold' 
+}
+/* .pingfang-light {
+  font-family: 'pingfang-light' 
+}
+
+.pingfang-bold {
+  font-family: 'pingfang-bold' 
+} */
