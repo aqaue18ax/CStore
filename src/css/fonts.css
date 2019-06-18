@@ -8,13 +8,28 @@
   src: url('../fonts/PingFang-SC-Bold.ttf');
 }
 
-.text-bold {
-  font-family: 'pingfang-bold' 
+@font-face {  
+  font-family: 'pingfang-regular';
+  src: url('../fonts/PingFang-SC-Regular.ttf');
 }
-/* .pingfang-light {
+
+@font-face {  
+  font-family: 'pingfang-medium';
+  src: url('../fonts/PingFang-SC-Medium.ttf');
+}
+
+.font-light {
   font-family: 'pingfang-light' 
 }
 
-.pingfang-bold {
+.font-bold {
   font-family: 'pingfang-bold' 
-} */
+}
+
+.font-regular {
+  font-family: 'pingfang-regular' 
+}
+
+.font-medium {
+  font-family: 'pingfang-medium' 
+}

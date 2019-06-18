@@ -2,18 +2,37 @@
   <div id="app">
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view/>
+    </div>-->
+
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive">
+        <!-- 这里是会被缓存的视图组件 -->
+      </router-view>
+    </keep-alive>
+
+    <router-view v-if="!$route.meta.keepAlive">
+      <!-- 这里是不被缓存的视图组件 -->
+    </router-view>
   </div>
 </template>
 
-<style>
-@import './css/normalize.css';
-@import './css/fonts.css';
+<script>
+export default {};
+</script>
 
-html, body, #app {
+
+<style>
+@import "./css/normalize.css";
+@import "./css/main.css";
+@import "./css/icon.css";
+@import "./css/fonts.css";
+
+html,
+body,
+#app {
   height: 100%;
-  font-family: 'pingfang-light';
+  font-family: "pingfang-light";
+  color: #595757;
+  background: #f5f5f5;
 }
 </style>
