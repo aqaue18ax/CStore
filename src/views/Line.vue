@@ -8,6 +8,7 @@
         :settings="settings"
         :extend="{'xAxis.0.axisLabel.rotate': 45}"
         height="100%"
+        :legend-visible="false"
       ></ve-line>
     </div>
   </div>

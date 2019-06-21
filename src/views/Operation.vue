@@ -21,11 +21,11 @@
     </dropdown-menu>
 
     <cell-group class="padding-top-sm">
-      <ve-ring :data="{columns, rows}" :colors="colors"/>
+      <ve-ring :data="{columns, rows}" :colors="colors" :legend-visible="false" />
     </cell-group>
 
     <div class="cards grid col-2 font-medium">
-      <div v-for="row in rows">
+      <div v-for="row in rows" :key="row.id">
         <div class="card">
           <div class="title flex text-xl padding-sm">
             <div class="color" :style="{background: row.color}"></div>
