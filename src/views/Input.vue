@@ -1,6 +1,6 @@
 <template>
   <div class="input">
-    <navBar :title="'设置' + $route.query.title" left-arrow @click-left="goBack" class="font-regular">
+    <navBar :title="'设置' + $route.query.title" left-arrow @click-left="$router.back()" class="font-regular">
       <div slot="right" class="text-xl" @click="onSubmit">确定</div>
     </navBar>
 
@@ -50,7 +50,7 @@
 </style>
 
 <script>
-import { NavBar, Field, CellGroup, Uploader, Icon } from "vant";
+import { NavBar, Field, CellGroup } from "vant";
 
 export default {
   data() {
@@ -61,20 +61,14 @@ export default {
   components: {
     NavBar,
     Field,
-    CellGroup,
-    Uploader,
-    Icon
+    CellGroup
   },
   methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
     onSubmit() {
       const id = this.$route.query.id;
       const key = this.$route.query.key;
       const value = this.value;
 
-      // this.$events.fire('onSubmit', {key, value});
       this.$http.put(`store/${id}`, { key, value });
     }
   }

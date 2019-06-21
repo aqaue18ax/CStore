@@ -10,9 +10,18 @@ import Stores from './views/Stores.vue'
 import Store from './views/Store.vue'
 import Intro from './views/Intro.vue'
 import Brand from './views/Brand.vue'
+import Line from './views/Line.vue'
+import Operation from './views/Operation.vue'
 
 import Index from './views/Index.vue'
 import Home from './views/Home.vue'
+
+import cStore from "./components/store.vue";
+import cLayout from "./components/layout.vue";
+
+import cMIndex from "./components/market/index.vue";
+import cMMarket from "./components/market/market.vue";
+import cMStore from "./components/market/store.vue";
 
 Vue.use(Router)
 
@@ -45,10 +54,68 @@ const router = new Router({
     {
       path: '/home',
       component: Home,
+      name: 'home',
+      children: [
+        {
+          path: 'market',
+          component: cMIndex,
+          children: [
+            {
+              path: ':id',
+              name: 'home/market',
+              component: cMMarket,
+              meta: {
+                title: '正泰门店',
+                auth: true,
+                keepAlive: true
+              }
+            },
+            {
+              path: ':id/store/:cid',
+              name: 'home/market/store',
+              component: cMStore,
+              meta: {
+                title: '正泰门店',
+                auth: true,
+                keepAlive: true
+              }
+            }
+          ]
+        },
+        {
+          path: 'store/:id',
+          name: 'home/store',
+          component: cStore,
+          meta: {
+            title: '正泰门店',
+            auth: true,
+            keepAlive: true
+          }
+        },
+        {
+          path: 'search',
+          name: 'home/search',
+          component: cLayout,
+          meta: {
+            title: '正泰门店',
+            auth: true,
+            keepAlive: true
+          }
+        }
+      ],
       meta: {
-        title: '正泰版图',
+        title: '正泰门店',
         auth: true,
         keepAlive: true
+      }
+    },
+    {
+      path: '/operation',
+      name: 'operation',
+      component: Operation,
+      meta: {
+        title: '运营状况',
+        auth: true
       }
     },
     {
@@ -110,6 +177,15 @@ const router = new Router({
       name: 'input',
       component: Input,
       meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/line/:id',
+      name: 'line',
+      component: Line,
+      meta: {
+        title: '运营情况',
         auth: true
       }
     }

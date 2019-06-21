@@ -2,11 +2,11 @@
   <popup position="bottom" :overlay="false" v-model="isShow">
     <div class="market">
       <div class="content">
-        <tabs class="bg-white tabs" background="#eee" animated swipeable>
+        <tabs class="bg-white tabs" background="#eee" animated swipeable color="#f7403a">
           <tab title="市场介绍">
             <div class="info">
-              <div class="title text-df font-medium">{{data.name}}</div>
-              <div class="introduce text-sm font-regular">{{data.introduce}}</div>
+              <div class="title text-df font-medium padding-tb-xs">{{store.name}}</div>
+              <div class="introduce text-sm font-regular">{{store.introduce}}</div>
             </div>
           </tab>
           <tab title="市场分布"></tab>
@@ -14,7 +14,7 @@
         </tabs>
         <button
           class="btn bg-blue margin-tb-xs radius padding-tb-sm text-center"
-          @click="$emit('onHide')"
+          @click="$router.push('/home')"
         >返回</button>
       </div>
     </div>
@@ -22,21 +22,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import { Popup, Tabs, Tab } from "vant";
 export default {
-  props: {
-    isShow: Boolean,
-    data: Object
-  },
   data() {
     return {
-      stores: []
+      isShow: false
     };
   },
   computed: {
-    color() {
-      return this.data[this.index] ? this.data[this.index].color : "#a0a0a0";
+    store() {
+      return this.$parent.store;
     }
   },
   components: {
@@ -44,10 +39,13 @@ export default {
     Tabs,
     Tab
   },
-  methods: {
-    pin(store) {
-      this.$emit("onPin", store);
-    }
+  async created() {
+    const id = this.$route.params.id;
+    await this.$parent.find(id);
+    this.isShow = true;
+  },
+  activated() {
+    this.isShow = true;
   }
 };
 </script>
@@ -60,7 +58,7 @@ export default {
 
 .content {
   width: 95%;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .info {
@@ -87,6 +85,10 @@ export default {
 
 .van-popup {
   background: transparent;
+}
+
+div {
+  word-wrap: break-word;
 }
 </style>
 

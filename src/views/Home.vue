@@ -11,18 +11,19 @@
     </navBar>
 
     <search @onSearch="onSearch"/>
-    <info :is-show="show.info" @onHide="show.info = false"/>
+    <info :is-show="show.info"/>
+
+    <!--
     <layout
       :is-show="show.layout"
       :data="modules"
       @onHide="show.layout = false"
       @onPin="store => center = store.coordinate"
-    />
+    />-->
 
-    <market :is-show="show.market" :data="store"/>
-    <store :is-show="show.store" :data="store"/>
+    <router-view></router-view>
 
-    <amap :stores="stores" :center="center"/>
+    <amap :stores="stores" :center="center" :zoom="zoom"/>
   </div>
 </template>
 
@@ -30,35 +31,36 @@
 import { NavBar, Icon } from "vant";
 import Search from "@/components/search.vue";
 import Info from "@/components/info.vue";
-import Layout from "@/components/layout.vue";
+// import Layout from "@/components/layout.vue";
 import Amap from "@/components/amap.vue";
-import Store from "@/components/store.vue";
-import Market from "@/components/market.vue";
 
 export default {
   name: "home",
   data() {
     return {
-      store: { name: "", area: { name: "" }, type: ''},
       modules: [],
-      stores: [],
-      center: [120.670856, 28.000986],
       show: {
-        info: true,
-        layout: false,
-        store: false,
-        market: false
+        info: false
       }
     };
   },
+  computed: {
+    stores() {
+      return this.$root.stores;
+    },
+    center() {
+      return this.$root.center;
+    },
+    zoom() {
+      return this.$root.zoom;
+    }
+  },
   components: {
-    Market,
     Search,
     Icon,
     NavBar,
     Info,
-    Layout,
-    Store,
+    // Layout,
     Amap
   },
   methods: {
@@ -66,22 +68,20 @@ export default {
       this.$router.push(url);
     },
     async onSearch(data) {
-      await this.search(data);
-
-      (this.show.info = false), (this.show.layout = true);
+      this.$router.push(`/home/search?code=${data.code}&search=${data.search}`);
     },
     async search(data) {
       await this.$http
         .get("/module/store", { name: data.search, area: data.code })
         .then(data => {
           this.modules = data;
-          this.stores = [];
 
+          let stores = [];
           data.map(v => {
-            this.stores = this.stores.concat(v.stores);
+            stores = stores.concat(v.stores);
           });
 
-          this.stores.map(store => {
+          stores.map(store => {
             store.events = {
               click: () => {
                 this.pin(store);
@@ -89,28 +89,43 @@ export default {
             };
           });
 
-          if (this.stores.length) {
-            this.center = this.stores[0].coordinate;
-          }
+          this.$root.stores = stores;
         });
     },
     pin(store) {
       this.show.info = false;
-      this.show.layout = false;
 
-      if (store.type == 'store') {
-        this.show.store = true;
+      if (store.type == "store") {
+        this.$router.push(`/home/store/${store.id}`);
       }
 
-      if (store.type == 'market') {
-        this.show.market = true;
+      if (store.type == "market") {
+        this.$router.push(`/home/market/${store.id}`);
       }
-
-      this.store = store;
     }
   },
   async created() {
-    this.search({});
+    if (this.$route.name == "home") {
+      this.show.info = true;
+      await this.search({});
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (from.name == "home/market" && to.name == "home") {
+      this.$root.zoom = 12;
+      this.search({});
+    }
+
+    if (from.name == "home/market" && to.name == "home/store") {
+      this.$root.zoom = 12;
+      this.search({});
+    }
+
+    if (from.name == "home/search") {
+      this.search({});
+    }
+
+    next();
   }
 };
 </script>
@@ -126,6 +141,10 @@ export default {
 }
 
 .van-nav-bar__title {
+  color: #fff;
+}
+
+.van-nav-bar .van-icon {
   color: #fff;
 }
 </style>

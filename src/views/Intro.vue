@@ -1,10 +1,10 @@
 <template>
   <div class="intro">
-    <navBar :title="$route.meta.title" left-arrow @click-left="goBack" class="font-regular"></navBar>
+    <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <swipe class="swipe">
-      <swipe-item v-for="(image, key) in images" :key="key">
-        <img :src="image" width="100%" height="100%">
+      <swipe-item v-for="image in store.images" :key="image.id">
+        <img :src="image.img" width="100%" height="100%">
       </swipe-item>
     </swipe>
 
@@ -37,13 +37,11 @@
 
 <script>
 import { NavBar, Swipe, SwipeItem, CellGroup, Cell } from "vant";
-import img from "@/assets/store.png";
 
 export default {
   data() {
     return {
-      store: {},
-      images: [img, img]
+      store: {}
     };
   },
   components: {
@@ -52,11 +50,6 @@ export default {
     NavBar,
     Swipe,
     SwipeItem
-  },
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-    }
   },
   async created() {
     const id = this.$route.params.id;

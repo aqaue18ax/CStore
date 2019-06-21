@@ -1,10 +1,10 @@
 <template>
   <div class="store">
-    <navBar :title="$route.meta.title" left-arrow @click-left="goBack" class="font-regular"></navBar>
+    <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <swipe class="swipe" @change="onChange">
-      <swipe-item v-for="(image, key) in images" :key="key">
-        <img :src="image" width="100%" height="100%">
+      <swipe-item v-for="image in store.images" :key="image.id">
+        <img :src="image.img" width="100%" height="100%">
       </swipe-item>
 
       <div class="swipe__indicators flex align-end justify-between" slot="indicator">
@@ -17,8 +17,8 @@
         </div>
         <div class="indicators flex padding-right-sm">
           <div
-            v-for="(image, key) in images"
-            :key="key"
+            v-for="(image, key) in store.images"
+            :key="image.id"
             class="van-swipe__indicator"
             :class="{'van-swipe__indicator--active': key === index}"
           ></div>
@@ -50,19 +50,32 @@
         :to="{name: 'input', query: {type: 'text', title: '公司地址', key: 'address', id:store.id ,value: store.address}}"
       />
     </cell-group>
+
+    <div class="cell-group padding-sm">
+      <div class="cell" @click="navTo(store.id)" v-for="store in store.children" :key="store.id">
+        <div class="store padding-bottom-sm text-df">
+          <img :src="store.cover" width="100%" height="100%" class="radius">
+          <div class="info flex justify-between padding-top-xs">
+            <div class="name">{{store.name}}</div>
+            <div class="area flex align-center">
+              <icon name="location"/>
+              <span>{{toArea(store.area.code)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { NavBar, Swipe, SwipeItem, Icon, CellGroup, Cell } from "vant";
-import img from "@/assets/store.png";
 import toArea from "@/utils/toArea";
 
 export default {
   data() {
     return {
       store: {},
-      images: [img, img],
       index: 0
     };
   },
@@ -76,30 +89,36 @@ export default {
     Cell
   },
   methods: {
-    goBack() {
-      this.$router.go(-1);
+    navTo(id) {
+      this.$router.push({ name: "store", query: { id } });
     },
     onChange(index) {
       this.index = index;
     },
     toArea
   },
-  mounted() {
-    // this.$events.listen('onSubmit', data => {this.store[data.key] = data.value;});
-  },
-  async created() {
+  created() {
     const id = this.$route.query.id;
-    await this.$http.get(`store/${id}`).then(data => {
+    this.$http.get(`store/${id}`).then(data => {
       this.store = data;
     });
   },
-  beforeDestroy() {
-    // this.$events.removeAll();
+  beforeRouteUpdate(to, from, next) {
+    const id = to.query.id;
+    this.$http.get(`store/${id}`).then(data => {
+      this.store = data;
+    });
+
+    next();
   }
 };
 </script>
 
 <style scoped>
+.cell-group {
+  background: #fff;
+}
+
 .van-nav-bar .van-icon {
   color: #333;
 }

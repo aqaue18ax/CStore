@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <navBar :title="title" left-arrow @click-left="goBack" class="font-regular"></navBar>
+    <navBar :title="title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <div v-if="user.audit_status == 1">
       <cell-group class="font-regular margin-tb-xs">
@@ -16,9 +16,13 @@
           :title="m.name"
           is-link
           :to="{name: 'stores', query: {module_id: m.id, title: m.name}}"
-          v-for="m in modules"
+          v-for="m in user.role.modules"
           :key="m.id"
         />
+      </cell-group>
+
+      <cell-group class="font-regular margin-tb-xs">
+        <cell title="运营状况" is-link :to="{name: 'operation'}"/>
       </cell-group>
 
       <cell-group class="font-regular margin-tb-xs padding">
@@ -105,9 +109,6 @@ export default {
     Icon
   },
   methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
     onUpload(data) {
       this.value = data.content;
       const name =
@@ -129,10 +130,6 @@ export default {
     });
 
     if (this.user.audit_status == 0) this.$router.replace("/audit");
-
-    await this.$http.get("/module").then(data => {
-      this.modules = data;
-    });
   }
 };
 </script>

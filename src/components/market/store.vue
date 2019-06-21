@@ -65,20 +65,19 @@ export default {
     }
   },
   async created() {
-    const id = this.$route.params.id;
-    if (!this.$root.stores.length) {
-      await this.$parent.search({});
-      await this.find(id);
-      this.$root.center = this.store.coordinate;
-    } else {
-      await this.find(id);
+    const cid = this.$route.params.cid;
+    if (!this.$root.store) {
+      const id = this.$route.params.id;
+      this.$parent.find(id)
     }
+
+    this.find(cid);
   },
   activated() {
     this.isShow = true;
   },
   beforeRouteUpdate(to, from, next) {
-    const id = to.params.id;
+    const id = to.params.cid;
     this.find(id);
 
     next();

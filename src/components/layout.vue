@@ -11,8 +11,8 @@
           @change="onChange"
           :color="color"
         >
-          <tab :title="category.name" v-for="category in data" :key="category.id">
-            <div class="store" v-for="store in category.stores" @click="pin(store)">{{store.name}}</div>
+          <tab :title="category.name" v-for="category in categories" :key="category.id">
+            <div class="store" v-for="store in category.stores" :key="store.id" @click="pin(store)">{{store.name}}</div>
           </tab>
           <tab title="级别区分">
             <div class="area">
@@ -28,7 +28,7 @@
         </tabs>
         <button
           class="btn bg-blue margin-tb-xs radius padding-tb-sm text-center"
-          @click="$emit('onHide')"
+          @click="$router.push('/home')"
         >返回</button>
       </div>
     </div>
@@ -36,21 +36,22 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import { Popup, Tabs, Tab } from "vant";
 export default {
-  props: {
-    isShow: Boolean,
-    data: Array
-  },
   data() {
     return {
+      isShow: true,
       index: 0
     };
   },
   computed: {
+    categories() {
+      return this.$parent.modules;
+    },
     color() {
-      return this.data[this.index] ? this.data[this.index].color : "#a0a0a0";
+      return this.categories[this.index]
+        ? this.categories[this.index].color
+        : "#a0a0a0";
     }
   },
   components: {
@@ -60,11 +61,25 @@ export default {
   },
   methods: {
     pin(store) {
-      this.$emit("onPin", store);
+      this.$root.center = store.coordinate;
     },
     onChange(index) {
       this.index = index;
     }
+  },
+  created() {
+    const { code, search } = this.$route.query;
+    this.$parent.search({ code, search });
+    this.$parent.show.info = false;
+  },
+  activated() {
+    this.isShow = true;
+  },
+  beforeRouteUpdate(to, from, next) {
+    const { code, search } = to.query;
+    this.$parent.search({ code, search });
+
+    next();
   }
 };
 </script>

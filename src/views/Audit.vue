@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <navBar :title="$route.meta.title" left-arrow @click-left="goBack" class="font-regular"></navBar>
+    <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <cell-group class="font-regular">
       <field label="用户名" v-model="user.name" input-align="right" placeholder="请输入用户名" required />
@@ -67,7 +67,7 @@
 </style>
 
 <script>
-import { NavBar, Cell, CellGroup, Picker, Popup, Field } from "vant";
+import { NavBar, CellGroup, Picker, Popup, Field } from "vant";
 import http from "@/utils/http";
 
 export default {
@@ -100,15 +100,11 @@ export default {
   components: {
     NavBar,
     CellGroup,
-    Cell,
     Picker,
     Popup,
     Field
   },
   methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
     onShowPicker(data) {
       this.user.role = data.name;
       this.user.role_id = data.id;
@@ -126,7 +122,7 @@ export default {
         role_id: this.user.role_id
       };
 
-      http.put('/user/audit', data).then(res => {
+      http.put('/user/audit', data).then(() => {
         this.$router.replace(`/user`);
       })
     }

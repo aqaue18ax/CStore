@@ -1,6 +1,6 @@
 <template>
-  <popup v-model="isShow" position="bottom" :overlay="false">
-    <div class="banner bg-white" @click="$emit('onHide')">
+  <popup v-model="show" position="bottom" :overlay="false">
+    <div class="banner bg-white" @click="onShow = false">
       <div class="title font-medium text-xl text-center">正泰C-Store终端建设平台</div>
       <div class="solid"></div>
       <div class="content font-regular text-lg">
@@ -16,6 +16,21 @@ import { Popup } from "vant";
 export default {
   props: {
     isShow: Boolean
+  },
+  data() {
+    return {
+      onShow: true
+    };
+  },
+  computed: {
+    show: {
+      get () {
+        return this.onShow && this.isShow
+      },
+      set (value) {
+        this.onShow = value
+      }
+    }
   },
   components: {
     Popup

@@ -1,28 +1,27 @@
 <template>
   <div class="brand flex flex-direction">
-    <navBar :title="$route.meta.title" left-arrow @click-left="goBack" class="font-regular"></navBar>
-    <div class="swiper flex-sub">
+    <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
+
+    <div class="error text-center padding-top-xl" v-if="!images.length">
+      <icon name="failure" size="8rem" color="#c0c0c2"/>
+      <div>没有相关数据</div>
+    </div>
+
+    <div class="swiper flex-sub" v-if="images.length">
       <swiper :options="swiperOptionTop" ref="swiperTop">
-        <swiper-slide :style="{'background-image': `url(${avatar})`}"></swiper-slide>
-        <swiper-slide :style="{'background-image': `url(${avatar})`}"></swiper-slide>
-        <swiper-slide :style="{'background-image': `url(${avatar})`}"></swiper-slide>
-        <swiper-slide :style="{'background-image': `url(${avatar})`}"></swiper-slide>
+        <swiper-slide
+          v-for="image in images"
+          :key="image.id"
+          :style="{'background-image': `url(${image.img})`}"
+          @click.native="open(image.url)"
+        ></swiper-slide>
       </swiper>
 
-      <div class="thumbs">
-        <div class="info text-df font-medium padding-sm">南宁品牌体验管 | 外景</div>
+      <div class="thumbs" v-if="images.length">
+        <div class="info text-df font-medium padding-sm">{{name}}</div>
         <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
-          <swiper-slide>
-            <img :src="avatar" width="100%" height="100%">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="avatar" width="100%" height="100%">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="avatar" width="100%" height="100%">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="avatar" width="100%" height="100%">
+          <swiper-slide v-for="image in images" :key="image.id">
+            <img :src="image.img" width="100%" height="100%">
           </swiper-slide>
         </swiper>
       </div>
@@ -34,14 +33,13 @@
 import "swiper/dist/css/swiper.css";
 
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import { NavBar } from "vant";
-import avatar from "@/assets/outdoor.png";
+import { NavBar, Icon } from "vant";
 
 export default {
   data() {
     return {
-      avatar,
-      images: [avatar, avatar],
+      name: "",
+      images: [],
       swiperOptionTop: {
         spaceBetween: 10,
         // loop: true,
@@ -57,22 +55,34 @@ export default {
     };
   },
   methods: {
-    goBack() {
-      this.$router.go(-1);
+    open(url) {
+      if (url) {
+        window.open(url);
+      }
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      const swiperTop = this.$refs.swiperTop.swiper;
-      const swiperThumbs = this.$refs.swiperThumbs.swiper;
-      swiperTop.controller.control = swiperThumbs;
-      swiperThumbs.controller.control = swiperTop;
-    });
-  },
+  mounted() {},
   components: {
+    Icon,
     NavBar,
     swiper,
     swiperSlide
+  },
+  created() {
+    const id = this.$route.params.id;
+    this.$http.get(`/store/${id}`).then(data => {
+      this.name = data.name;
+      this.images = data.images;
+
+      if (data.images.length) {
+        this.$nextTick(() => {
+          const swiperTop = this.$refs.swiperTop.swiper;
+          const swiperThumbs = this.$refs.swiperThumbs.swiper;
+          swiperTop.controller.control = swiperThumbs;
+          swiperThumbs.controller.control = swiperTop;
+        });
+      }
+    });
   }
 };
 </script>

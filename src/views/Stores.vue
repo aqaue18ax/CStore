@@ -1,6 +1,6 @@
 <template>
   <div class="stores" @touchstart="touchStart($event)" @touchmove="touchMove($event)">
-    <navBar :title="$route.query.title" left-arrow @click-left="goBack" class="font-regular">
+    <navBar :title="$route.query.title" left-arrow @click-left="$router.back()" class="font-regular">
       <div class="text-blue flex align-center" slot="right" @click="search = !search">
         <icon name="filter-o" color="#3672e7"/>
         <span>搜索</span>
@@ -103,9 +103,6 @@ export default {
         this.page++;
         alert(this.page);
       }
-    },
-    goBack() {
-      this.$router.go(-1);
     },
     navTo(id) {
       this.$router.push({ name: "store", query: { id } });

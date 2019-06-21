@@ -1,14 +1,15 @@
 <template>
   <div class="location">
-    <div class="title text-sm font-regular" @click="alert(1)">
-      <span :style="{background: color}">{{name}}</span>
-    </div>
     <div class="flex justify-center flex-direction align-center">
-      <div class="pin" :style="{background: color}">
+      <div class="store" :style="{background: color}">
         <img :src="cover || avatar">
       </div>
       <div class="pulse"></div>
     </div>
+    <!-- <div class="flex justify-center flex-direction align-center" v-else>
+      <div class="market":style="{'border-color': color}" ></div>
+      <div class="pulse"></div>
+    </div>-->
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import avatar from "../assets/avatar.png";
 
 export default {
   props: {
+    type: String,
     name: String,
     cover: String,
     color: {
@@ -33,26 +35,7 @@ export default {
 </script>
 
 <style scoped>
-.location {
-  width: 375px;
-  text-align: center;
-}
-
-.title {
-  margin: 18px 0;
-}
-
-.title span {
-  padding: 4px 10px;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 2px 3px 5px 0px rgba(92, 92, 92, 0.3);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.pin {
+.store {
   width: 88px;
   height: 88px;
   border-radius: 50% 50% 50% 5px;
@@ -60,6 +43,21 @@ export default {
   transform: rotate(-45deg);
   padding: 8px;
 }
+
+.market {
+  /* width: 40px;
+  height: 40px; */
+  border: 10px solid #fff;
+  border-radius: 50% 50% 50% 5px;
+  transform: rotate(-45deg);
+  padding: 8px;
+}
+
+/* .market::after {
+  background: #fff;
+  width: 40px;
+  height: 40px;
+} */
 
 /* .pin:before {
   content: "";
