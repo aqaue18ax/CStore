@@ -23,7 +23,7 @@ new Vue({
         name: '',
         address: '',
         email: '',
-        role: {}
+        role: { modules: [] }
       },
       stores: [],
       center: [120.670856, 28.000986],

@@ -21,7 +21,7 @@
         />
       </cell-group>
 
-      <cell-group class="font-regular margin-tb-xs">
+      <cell-group class="font-regular margin-tb-xs" v-if="user.role.modules.length">
         <cell title="运营状况" is-link :to="{name: 'operation'}"/>
       </cell-group>
 

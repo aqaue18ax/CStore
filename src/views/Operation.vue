@@ -60,11 +60,7 @@ export default {
   data() {
     return {
       module_id: 1,
-      option: [
-        { text: "专业市场", value: 1 },
-        { text: "正泰门店", value: 2 },
-        { text: "其他", value: 3 }
-      ],
+      option: [],
       currentDate: new Date(),
       colors: [],
       columns: ["name", "operation"],
@@ -122,6 +118,12 @@ export default {
   async created() {
     const { id, month } = this.$route.query;
     this.module_id = parseInt(id) || 1;
+
+    let option = []
+    this.$root.user.role.modules.map(m => {
+      option.push({text: m.name, value: m.id})
+    })
+    this.option = option;
 
     await this.search({ month });
   },
