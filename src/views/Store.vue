@@ -1,5 +1,5 @@
 <template>
-  <div class="store">
+  <div class="store" v-cloak>
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <swipe class="swipe" @change="onChange">
@@ -12,7 +12,7 @@
           <div class="name text-bold">{{store.name}}</div>
           <div class="area flex align-center padding-top-xs text-df">
             <icon name="location"/>
-            <span>{{toArea(store.area_code)}}</span>
+            <span>{{toArea(store.areaInfo.code)}}</span>
           </div>
         </div>
         <div class="indicators flex padding-right-sm">
@@ -59,7 +59,7 @@
             <div class="name">{{store.name}}</div>
             <div class="area flex align-center">
               <icon name="location"/>
-              <span>{{toArea(store.area.code)}}</span>
+              <span>{{toArea(store.areaInfo.code)}}</span>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ import toArea from "@/utils/toArea";
 export default {
   data() {
     return {
-      store: {},
+      store: {area_info: {}},
       index: 0
     };
   },
@@ -124,6 +124,7 @@ export default {
 }
 
 .swipe {
+  background: #333;
   height: 600px;
 }
 

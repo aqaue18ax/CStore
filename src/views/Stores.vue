@@ -15,7 +15,7 @@
             <div class="name">{{store.name}}</div>
             <div class="area flex align-center">
               <icon name="location"/>
-              <span>{{toArea(store.area.code)}}</span>
+              <span>{{toArea(store.area_info.code)}}</span>
             </div>
           </div>
         </div>

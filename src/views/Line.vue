@@ -2,7 +2,12 @@
   <div class="line flex flex-direction" v-cloak>
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
-    <div class="chart">
+    <div class="error text-center padding-top-xl" v-if="!chartData.rows.length">
+      <icon name="failure" size="8rem" color="#c0c0c2"/>
+      <div>没有相关数据</div>
+    </div>
+
+    <div class="chart" v-if="chartData.rows.length">
       <ve-line
         :data="chartData"
         :settings="settings"
@@ -44,7 +49,7 @@
 </style>
 
 <script>
-import { NavBar } from "vant";
+import { NavBar, Icon } from "vant";
 import VeLine from "v-charts/lib/line.common";
 
 export default {
@@ -60,6 +65,7 @@ export default {
     };
   },
   components: {
+    Icon,
     VeLine,
     NavBar
   },
