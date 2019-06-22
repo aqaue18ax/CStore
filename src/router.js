@@ -124,8 +124,8 @@ const router = new Router({
       component: User,
       meta: {
         title: '编辑资料',
-        auth: true,
-        keepAlive: true
+        auth: true
+        // keepAlive: true
       }
     },
     {

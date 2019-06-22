@@ -1,20 +1,42 @@
 <template>
-  <div class="user">
+  <div class="user" v-cloak>
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <cell-group class="font-regular">
-      <field label="用户名" v-model="user.name" input-align="right" placeholder="请输入用户名" required />
-      <field label="手机" v-model="user.phone" input-align="right" placeholder="请输入手机" required readonly />
-      <field label="地址" v-model="user.address" input-align="right" placeholder="请输入地址" required />
-      <field label="邮箱" v-model="user.email" input-align="right" placeholder="请输入邮箱" type="email" required />
-      <field label="权限" v-model="user.role" input-align="right" placeholder="请选择权限" required readonly @click="showPicker = true"/>
+      <field label="用户名" v-model="user.name" input-align="right" placeholder="请输入用户名" required/>
+      <field
+        label="手机"
+        v-model="user.phone"
+        input-align="right"
+        placeholder="请输入手机"
+        required
+        readonly
+      />
+      <field label="地址" v-model="user.address" input-align="right" placeholder="请输入地址" required/>
+      <field
+        label="邮箱"
+        v-model="user.email"
+        input-align="right"
+        placeholder="请输入邮箱"
+        type="email"
+        required
+      />
+      <field
+        label="权限"
+        v-model="user.role.name"
+        input-align="right"
+        placeholder="请选择权限"
+        required
+        readonly
+        @click="showPicker = true"
+      />
 
       <!-- <cell
         title="用户名"
         is-link
         :value="user.name || '请输入用户名(必填)'"
         :to="{path: 'input', query: {type: 'text', title: '用户名', store: 'user', key: 'name'}}"
-      /> -->
+      />-->
       <!-- <cell title="电话" is-link :value="user.phone"/>
 
       <cell
@@ -31,7 +53,7 @@
         :to="{path: 'input', query: {type: 'text', title: '邮箱', store: 'user', key: 'email'}}"
       />
 
-      <cell title="权限" is-link :value="user.role || '请输入权限(必填)'" @click="showPicker = true"/> -->
+      <cell title="权限" is-link :value="user.role || '请输入权限(必填)'" @click="showPicker = true"/>-->
     </cell-group>
 
     <popup v-model="showPicker" position="bottom">
@@ -73,20 +95,17 @@ import http from "@/utils/http";
 export default {
   data() {
     return {
-      user: {
-        name: '',
-        address: '',
-        email: ''
-      },
       roles: [],
       showPicker: false
     };
   },
   computed: {
     index() {
-      return this.roles.findIndex(role => {
-        role.name === this.user.role
-      }) || 0
+      return (
+        this.roles.findIndex(role => {
+          role.name === this.user.role.name;
+        }) || 0
+      );
     },
     check() {
       return (
@@ -95,6 +114,9 @@ export default {
         this.user.email.length &&
         this.user.role_id
       );
+    },
+    user() {
+      return this.$root.user;
     }
   },
   components: {
@@ -106,8 +128,8 @@ export default {
   },
   methods: {
     onShowPicker(data) {
-      this.user.role = data.name;
-      this.user.role_id = data.id;
+      this.$root.user.role.name = data.name;
+      this.$root.user.role_id = data.id;
 
       this.showPicker = false;
     },
@@ -122,18 +144,23 @@ export default {
         role_id: this.user.role_id
       };
 
-      http.put('/user/audit', data).then(() => {
+      http.put("/user/audit", data).then(() => {
+        this.$root.user.audit_status = 3;
         this.$router.replace(`/user`);
-      })
+      });
     }
   },
   async created() {
-    await http.get('/user').then(data => {
-      this.user = data;
-    })
-    await http.get('/role').then(data => {
-      this.roles = data
-    })
+    await http.get("/user").then(data => {
+      if (data.role == null) {
+        data.role = { name: "" };
+      }
+      this.$root.user = data;
+    });
+
+    await http.get("/role").then(data => {
+      this.roles = data;
+    });
   }
 };
 </script>

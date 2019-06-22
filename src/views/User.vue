@@ -81,12 +81,14 @@ import avatar from "@/assets/avatar.png";
 export default {
   data() {
     return {
-      user: {},
       modules: [],
       avatar
     };
   },
   computed: {
+    user() {
+      return this.$root.user;
+    },
     title() {
       return this.user.audit_status == 3 ? "认证审核" : "编辑资料";
     },
@@ -126,7 +128,7 @@ export default {
   },
   async created() {
     await this.$http.get("/user").then(data => {
-      this.user = data;
+      this.$root.user = data;
     });
 
     if (this.user.audit_status == 0) this.$router.replace("/audit");

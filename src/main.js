@@ -19,6 +19,12 @@ Vue.config.productionTip = false
 new Vue({
   data() {
     return {
+      user: {
+        name: '',
+        address: '',
+        email: '',
+        role: {}
+      },
       stores: [],
       center: [120.670856, 28.000986],
       zoom: 12
