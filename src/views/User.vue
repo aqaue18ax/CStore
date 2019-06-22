@@ -34,6 +34,7 @@
         <div class="text-df padding-top-xs">权限：{{user.role.name}}</div>
       </cell-group>
     </div>
+
     <div class="error text-center padding-top-xl" v-else-if="user.audit_status == 3">
       <icon name="todo-list-o" size="8rem" color="#c0c0c2"/>
       <div>正在审核您的信息</div>
@@ -131,7 +132,7 @@ export default {
       this.$root.user = data;
     });
 
-    if (this.user.audit_status == 0) this.$router.replace("/audit");
+    if (this.user.audit_status == 0 || this.user.audit_status == 2) this.$router.replace("/audit");
   }
 };
 </script>
