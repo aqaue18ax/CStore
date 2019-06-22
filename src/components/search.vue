@@ -68,6 +68,20 @@ export default {
       this.isShowPicker = false;
       this.$emit("onSearch", { search: this.search, code: this.area.code });
     }
+  },
+  created() {
+    let { code, search } = this.$route.query;
+    if (code) {
+      code = code.toString();
+      const province = code.slice(0, 2).padEnd(6, 0);
+      const city = code.slice(0, 4).padEnd(6, 0);
+      const county = code;
+      this.area.text = data.province_list[province] || this.area.text
+      this.area.text = data.city_list[city] || this.area.text
+      this.area.text = data.county_list[county] || this.area.text
+    }
+
+    this.search = search;
   }
 };
 </script>
