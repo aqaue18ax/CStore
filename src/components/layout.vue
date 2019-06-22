@@ -12,7 +12,12 @@
           :color="color"
         >
           <tab :title="category.name" v-for="category in categories" :key="category.id">
-            <div class="store" v-for="store in category.stores" :key="store.id" @click="pin(store)">{{store.name}}</div>
+            <div
+              class="store"
+              v-for="store in category.stores"
+              :key="store.id"
+              @click="pin(store)"
+            >{{store.name}}</div>
           </tab>
           <tab title="级别区分">
             <div class="area">
@@ -40,7 +45,7 @@ import { Popup, Tabs, Tab } from "vant";
 export default {
   data() {
     return {
-      isShow: true,
+      isShow: false,
       index: 0
     };
   },
@@ -67,17 +72,21 @@ export default {
       this.index = index;
     }
   },
-  created() {
+  async created() {
+    this.isShow = false;
     const { code, search } = this.$route.query;
-    this.$parent.search({ code, search });
-    this.$parent.show.info = false;
+    await this.$parent.search({ code, search }).then(() => {
+      this.$parent.show.info = false;
+      this.isShow = true;
+    });
   },
-  activated() {
-    this.isShow = true;
-  },
-  beforeRouteUpdate(to, from, next) {
+  async beforeRouteUpdate(to, from, next) {
+    this.isShow = false;
     const { code, search } = to.query;
-    this.$parent.search({ code, search });
+    await this.$parent.search({ code, search }).then(() => {
+      this.$parent.show.info = false;
+      this.isShow = true;
+    });
 
     next();
   }

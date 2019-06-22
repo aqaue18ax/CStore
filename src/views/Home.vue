@@ -108,6 +108,7 @@ export default {
     if (this.$route.name == "home") {
       this.show.info = true;
       await this.search({});
+      this.$root.center = this.$root.stores[0].coordinate;
     }
   },
   beforeRouteUpdate(to, from, next) {
