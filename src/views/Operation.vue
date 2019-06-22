@@ -21,7 +21,7 @@
     </dropdown-menu>
 
     <cell-group class="padding-top-sm">
-      <ve-ring :data="{columns, rows}" :colors="colors" :legend-visible="false" />
+      <ve-ring :data="{columns, rows}" :colors="colors" :legend-visible="false"/>
     </cell-group>
 
     <div class="cards grid col-2 font-medium">
@@ -116,13 +116,19 @@ export default {
     }
   },
   async created() {
+    if (!this.$root.user.id) {
+      await this.$http.get("/user").then(data => {
+        this.$root.user = data;
+      });
+    }
+
     const { id, month } = this.$route.query;
     this.module_id = parseInt(id) || 1;
 
-    let option = []
+    let option = [];
     this.$root.user.role.modules.map(m => {
-      option.push({text: m.name, value: m.id})
-    })
+      option.push({ text: m.name, value: m.id });
+    });
     this.option = option;
 
     await this.search({ month });
