@@ -9,8 +9,48 @@
               <div class="introduce text-sm font-regular">{{store.introduce}}</div>
             </div>
           </tab>
-          <tab title="市场分布"></tab>
-          <tab title="级别区分"></tab>
+          <tab title="市场分布">
+            <div
+              class="store"
+              v-for="store in store.children"
+              :key="store.id"
+              @click="pin(store)"
+            >{{store.name}}</div>
+          </tab>
+          <tab title="级别区分">
+            <div class="flex flex-wrap padding">
+              <div class="area">
+                <div class="color" style="background: #ffad01"></div>一级经销商
+              </div>
+              <div class="area">
+                <div class="color" style="background: #33ccc7"></div>二级经销商
+              </div>
+              <div class="area">
+                <div class="color" style="background: #6179ff"></div>品牌体验店
+              </div>
+              <div class="area">
+                <div class="color" style="background: #2babff"></div>二级形象店
+              </div>
+              <div class="area">
+                <div class="color" style="background: #4472b7"></div>户外广告
+              </div>
+              <div class="area">
+                <div class="color" style="background: #6f4b93"></div>SI专卖店
+              </div>
+              <div class="area">
+                <div class="color" style="background: #8193d7"></div>工业超市
+              </div>
+              <div class="area">
+                <div class="color" style="background: #e46660"></div>二级门招
+              </div>
+              <div class="area">
+                <div class="color" style="background: #60bbc9"></div>二级货架
+              </div>
+              <div class="area">
+                <div class="color" style="background: #6cc15b"></div>正泰岗亭
+              </div>
+            </div>
+          </tab>
         </tabs>
         <button
           class="btn bg-blue margin-tb-xs radius padding-tb-sm text-center"
@@ -38,6 +78,11 @@ export default {
     Popup,
     Tabs,
     Tab
+  },
+  methods: {
+    pin(store) {
+      this.$root.center = store.coordinate;
+    }
   },
   async created() {
     const id = this.$route.params.id;
@@ -87,8 +132,30 @@ export default {
   background: transparent;
 }
 
+.store {
+  text-align: center;
+  padding: 26px 20px;
+  margin: 0 30px;
+  border-bottom: 1px solid #b0b0b0;
+}
+
 div {
   word-wrap: break-word;
+}
+
+.area {
+  width: 200px;
+  /* padding: 26px 20px; */
+  margin: 12px;
+  /* border-bottom: 1px solid #b0b0b0; */
+  display: flex;
+  align-items: center;
+}
+
+.color {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
 }
 </style>
 
