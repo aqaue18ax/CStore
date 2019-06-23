@@ -65,7 +65,7 @@ export default {
       await this.$http
         .get("/module/store", {
           name: data.search,
-          area: localStorage.getItem("area") || "330300"
+          area: localStorage.getItem("area") || ""
         })
         .then(data => {
           this.modules = data;
