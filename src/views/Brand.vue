@@ -106,7 +106,7 @@ export default {
   width: 100%;
   bottom: 140px;
   z-index: 2;
-  height: 10% !important;
+  height: 20% !important;
 }
 
 .info {

@@ -4,7 +4,7 @@
 
     <swipe class="swipe">
       <swipe-item v-for="image in store.images" :key="image.id">
-        <img :src="image.img" width="100%" height="100%">
+        <van-image :src="image.img" fit="cover" width="100%" height="100%" />
       </swipe-item>
     </swipe>
 
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { NavBar, Swipe, SwipeItem, CellGroup, Cell } from "vant";
+import { NavBar, Swipe, SwipeItem, CellGroup, Cell, Image } from "vant";
 
 export default {
   data() {
@@ -45,6 +45,7 @@ export default {
     };
   },
   components: {
+    VanImage: Image,
     CellGroup,
     Cell,
     NavBar,
@@ -62,7 +63,7 @@ export default {
 
 <style scoped>
 .swipe {
-  height: 400px;
+  height: 600px;
 }
 
 /* .cell {
