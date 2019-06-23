@@ -2,7 +2,7 @@
   <div class="location">
     <div class="flex justify-center flex-direction align-center">
       <div class="store" :style="{background: color}">
-        <img :src="cover || avatar">
+        <img :src="cover || avatar" width="43" height="43">
       </div>
       <div class="pulse"></div>
     </div>

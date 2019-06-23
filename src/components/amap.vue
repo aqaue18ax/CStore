@@ -9,7 +9,7 @@
         :offset="[-28, -70]"
         :events="store.events"
       >
-        <Pin :name="store.name" :cover="store.cover_url" :color="store.color" :type="type"/>
+        <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type"/>
       </el-amap-marker>
       <el-amap-marker
         vid="marker"
