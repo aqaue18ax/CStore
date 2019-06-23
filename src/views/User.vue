@@ -1,6 +1,6 @@
 <template>
-  <div class="user">
-    <navBar :title="title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
+  <div class="user" v-cloak>
+    <navBar :title="title" :left-arrow="goBack" @click-left="$router.back()" class="font-regular"></navBar>
 
     <div v-if="user.audit_status == 1">
       <cell-group class="font-regular margin-tb-xs">
@@ -33,6 +33,8 @@
         <div class="text-df padding-top-xs">地址：{{user.address}}</div>
         <div class="text-df padding-top-xs">权限：{{user.role.name}}</div>
       </cell-group>
+
+      <div class="btn bg-blue" @click="logout">退出</div>
     </div>
 
     <div class="error text-center padding-top-xl" v-else-if="user.audit_status == 3">
@@ -54,11 +56,11 @@
 }
 
 .btn {
-  height: 80px;
-  width: 100%;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
   border: none;
   border-radius: 5px;
-  border: 1px solid #f0f0f0;
 }
 
 .img {
@@ -82,6 +84,7 @@ import avatar from "@/assets/avatar.png";
 export default {
   data() {
     return {
+      goBack: false,
       modules: [],
       avatar
     };
@@ -92,14 +95,6 @@ export default {
     },
     title() {
       return this.user.audit_status == 3 ? "认证审核" : "编辑资料";
-    },
-    check() {
-      return (
-        this.user.name.length &&
-        this.user.address.length &&
-        this.user.email.length &&
-        this.user.roles.length
-      );
     }
   },
   components: {
@@ -112,6 +107,10 @@ export default {
     Icon
   },
   methods: {
+    logout () {
+      localStorage.removeItem('token');
+      this.$router.replace('/login');
+    },
     onUpload(data) {
       this.value = data.content;
       const name =
@@ -129,10 +128,16 @@ export default {
   },
   async created() {
     await this.$http.get("/user").then(data => {
-      this.$root.user = data;
-    });
+      if (data.role == null) {
+        data.role = { name: "" };
+      }
 
-    if (this.user.audit_status == 0 || this.user.audit_status == 2) this.$router.replace("/audit");
+      this.$root.user = data;
+
+      if (data.audit_status == 1) this.goBack = true;
+      if (data.audit_status == 0 || data.audit_status == 2)
+        this.$router.replace("/audit");
+    });
   }
 };
 </script>

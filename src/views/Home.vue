@@ -3,7 +3,7 @@
     <navBar
       :title="$route.meta.title"
       :z-index="9"
-      @click-right="navTo('/user')"
+      @click-right="navTo('/user?back=1')"
       class="font-regular"
       fixed
     >
@@ -12,14 +12,6 @@
 
     <search @onSearch="onSearch"/>
     <info :is-show="show.info"/>
-
-    <!--
-    <layout
-      :is-show="show.layout"
-      :data="modules"
-      @onHide="show.layout = false"
-      @onPin="store => center = store.coordinate"
-    />-->
 
     <router-view></router-view>
 
@@ -31,7 +23,6 @@
 import { NavBar, Icon } from "vant";
 import Search from "@/components/search.vue";
 import Info from "@/components/info.vue";
-// import Layout from "@/components/layout.vue";
 import Amap from "@/components/amap.vue";
 
 export default {
@@ -68,11 +59,14 @@ export default {
       this.$router.push(url);
     },
     async onSearch(data) {
-      this.$router.push(`/home/search?code=${data.code}&search=${data.search}`);
+      this.$router.push(`/home/search?search=${data.search}`);
     },
     async search(data) {
       await this.$http
-        .get("/module/store", { name: data.search, area: data.code })
+        .get("/module/store", {
+          name: data.search,
+          area: localStorage.getItem("area") || "330300"
+        })
         .then(data => {
           this.modules = data;
 
@@ -105,10 +99,29 @@ export default {
     }
   },
   async created() {
+    if (!this.$root.user.id) {
+      await this.$http
+        .get("/user")
+        .then(data => {
+          if (data.role == null) {
+            data.role = { name: "" };
+          }
+
+          this.$root.user = data;
+
+          if (this.$root.user.audit_status != 1) {
+            this.$router.replace("/user");
+          }
+        })
+    } else {
+      if (this.$root.user.audit_status != 1) {
+        this.$router.replace("/user");
+      }
+    }
+
     if (this.$route.name == "home") {
       this.show.info = true;
       await this.search({});
-      this.$root.center = this.$root.stores[0].coordinate;
     }
   },
   beforeRouteUpdate(to, from, next) {

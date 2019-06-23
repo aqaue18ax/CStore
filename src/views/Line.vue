@@ -61,7 +61,9 @@ export default {
           money: "营业额"
         }
       },
-      chartData: {}
+      chartData: {
+        rows: []
+      }
     };
   },
   components: {

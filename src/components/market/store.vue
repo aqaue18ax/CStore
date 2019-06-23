@@ -7,7 +7,7 @@
           <img :src="store.cover || avatar" width="88" height="88">
         </div>
         <div class="address_info text-df flex">
-          <div class="area">{{store.area_info.name}}</div>
+          <div class="area">{{store.areaInfo.name}}</div>
           <div class="hr">|</div>
           <div class="address">{{store.address}}</div>
         </div>
@@ -45,7 +45,7 @@ export default {
       brand,
       operation,
       isShow: false,
-      store: { area: {} }
+      store: { areaInfo: {} }
     };
   },
   components: {

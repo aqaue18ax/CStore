@@ -1,5 +1,5 @@
 <template>
-  <div class="stores" @touchstart="touchStart($event)" @touchmove="touchMove($event)">
+  <div class="stores">
     <navBar :title="$route.query.title" left-arrow @click-left="$router.back()" class="font-regular">
       <div class="text-blue flex align-center" slot="right" @click="search = !search">
         <icon name="filter-o" color="#3672e7"/>
@@ -67,11 +67,6 @@ export default {
       area
     };
   },
-  computed: {
-    pullUpReload() {
-      return this.$store.state.pullUpReload;
-    }
-  },
   components: {
     NavBar,
     Icon,
@@ -79,31 +74,6 @@ export default {
     myArea: Area
   },
   methods: {
-    touchStart(e) {
-      this.startY = e.targetTouches[0].pageY;
-    },
-    touchMove(e) {
-      if (e.targetTouches[0].pageY < this.startY) {
-        this.judgeScrollBarToTheEnd();
-      }
-    },
-    judgeScrollBarToTheEnd() {
-      if (!this.pullUpReload) return;
-      let innerHeight = document.querySelector(".stores").clientHeight;
-      // 变量scrollTop是滚动条滚动时，距离顶部的距离
-      let scrollTop =
-        document.documentElement.scrollTop ||
-        window.pageYOffset ||
-        document.body.scrollTop;
-      // 变量scrollHeight是滚动条的总高度
-      let scrollHeight =
-        document.documentElement.clientHeight || document.body.scrollHeight;
-      // 滚动条到底部的条件
-      if (scrollTop + scrollHeight >= innerHeight) {
-        this.page++;
-        alert(this.page);
-      }
-    },
     navTo(id) {
       this.$router.push({ name: "store", query: { id } });
     },

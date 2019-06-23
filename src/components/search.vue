@@ -62,7 +62,12 @@ export default {
         that.area.code = area.code;
       });
 
-      this.isShowPicker = false;
+      this.$http.get(`/area/${this.area.code}`).then(data => {
+        this.$root.center = [data.lng, data.lat];
+        localStorage.setItem("lat&lng", JSON.stringify([data.lng, data.lat]));
+        localStorage.setItem("area", this.area.code);
+        this.isShowPicker = false;
+      });
     },
     onSubmit() {
       this.isShowPicker = false;
@@ -70,18 +75,20 @@ export default {
     }
   },
   created() {
-    let { code, search } = this.$route.query;
+    let search = this.$route.query.search;
+    let code = localStorage.getItem('area');
+
     if (code) {
       code = code.toString();
       const province = code.slice(0, 2).padEnd(6, 0);
       const city = code.slice(0, 4).padEnd(6, 0);
       const county = code;
-      this.area.text = data.province_list[province] || this.area.text
-      this.area.text = data.city_list[city] || this.area.text
-      this.area.text = data.county_list[county] || this.area.text
+      this.area.text = data.province_list[province] || this.area.text;
+      this.area.text = data.city_list[city] || this.area.text;
+      this.area.text = data.county_list[county] || this.area.text;
     }
 
-    this.search = search;
+    this.search = search || "";
   }
 };
 </script>

@@ -4,7 +4,7 @@
 
     <swipe class="swipe" @change="onChange">
       <swipe-item v-for="image in store.images" :key="image.id">
-        <img :src="image.img" width="100%" height="100%">
+        <van-image :src="image.img" fit="cover" width="100%" height="100%" />
       </swipe-item>
 
       <div class="swipe__indicators flex align-end justify-between" slot="indicator">
@@ -51,7 +51,7 @@
       />
     </cell-group>
 
-    <div class="cell-group padding-sm">
+    <div class="cell-group padding-sm" v-if="store.children.length">
       <div class="cell" @click="navTo(store.id)" v-for="store in store.children" :key="store.id">
         <div class="store padding-bottom-sm text-df">
           <img :src="store.cover" width="100%" height="100%" class="radius">
@@ -69,18 +69,19 @@
 </template>
 
 <script>
-import { NavBar, Swipe, SwipeItem, Icon, CellGroup, Cell } from "vant";
+import { NavBar, Swipe, SwipeItem, Icon, CellGroup, Cell, Image } from "vant";
 import toArea from "@/utils/toArea";
 
 export default {
   data() {
     return {
-      store: {area_info: {}},
+      store: {areaInfo: {}, children: []},
       index: 0
     };
   },
   computed: {},
   components: {
+    VanImage: Image,
     NavBar,
     Icon,
     Swipe,
@@ -124,7 +125,6 @@ export default {
 }
 
 .swipe {
-  background: #333;
   height: 600px;
 }
 

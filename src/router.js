@@ -67,6 +67,7 @@ const router = new Router({
               meta: {
                 title: '正泰门店',
                 auth: true,
+                audit: true,
                 keepAlive: true
               }
             },
@@ -77,6 +78,7 @@ const router = new Router({
               meta: {
                 title: '正泰门店',
                 auth: true,
+                audit: true,
                 keepAlive: true
               }
             }
@@ -89,6 +91,7 @@ const router = new Router({
           meta: {
             title: '正泰门店',
             auth: true,
+            audit: true,
             keepAlive: true
           }
         },
@@ -99,12 +102,14 @@ const router = new Router({
           meta: {
             title: '正泰门店',
             auth: true,
+            audit: true,
             keepAlive: true
           }
         }
       ],
       meta: {
         title: '正泰门店',
+        audit: true,
         auth: true,
         keepAlive: true
       }
@@ -115,6 +120,7 @@ const router = new Router({
       component: Operation,
       meta: {
         title: '运营状况',
+        audit: true,
         auth: true
       }
     },
@@ -151,6 +157,7 @@ const router = new Router({
       component: Intro,
       meta: {
         title: '门店简介',
+        audit: true,
         auth: true
       }
     },
@@ -160,6 +167,7 @@ const router = new Router({
       component: Brand,
       meta: {
         title: '品牌形象',
+        audit: true,
         auth: true
       }
     },
@@ -169,6 +177,7 @@ const router = new Router({
       component: Store,
       meta: {
         title: '详细资料',
+        audit: true,
         auth: true
       }
     },
@@ -177,6 +186,7 @@ const router = new Router({
       name: 'input',
       component: Input,
       meta: {
+        audit: true,
         auth: true
       }
     },
@@ -186,6 +196,7 @@ const router = new Router({
       component: Line,
       meta: {
         title: '运营情况',
+        audit: true,
         auth: true
       }
     }

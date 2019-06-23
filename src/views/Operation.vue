@@ -2,10 +2,6 @@
   <div class="operation" v-cloak>
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
-    <!-- <div class="flex text-center">
-      <div class="btn bg-blue padding-xs margin-xs radius">专业市场</div>
-      <div class="btn bg-blue padding-xs margin-xs radius">2019-04</div>
-    </div>-->
     <dropdown-menu>
       <dropdown-item v-model="module_id" :options="option" @change="item"/>
       <dropdown-item :title="month" ref="item">
@@ -108,7 +104,7 @@ export default {
           });
 
           data.map(m => {
-            m.percent = ((m.operation / total) * 100 || 0) + "%";
+            m.percent = ((m.operation / total) * 100 || 0).toFixed(2) + "%";
           });
 
           this.rows = data;
@@ -124,6 +120,7 @@ export default {
 
     const { id, month } = this.$route.query;
     this.module_id = parseInt(id) || 1;
+    this.currentDate = month ? new Date(month) : this.currentDate
 
     let option = [];
     this.$root.user.role.modules.map(m => {

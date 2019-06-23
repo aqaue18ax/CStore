@@ -26,7 +26,7 @@ new Vue({
         role: { modules: [] }
       },
       stores: [],
-      center: [120.670856, 28.000986],
+      center: JSON.parse(localStorage.getItem("lat&lng")) || [120.670856, 28.000986],
       zoom: 12
     }
   },

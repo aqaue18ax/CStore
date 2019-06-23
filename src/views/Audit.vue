@@ -151,13 +151,6 @@ export default {
     }
   },
   async created() {
-    await http.get("/user").then(data => {
-      if (data.role == null) {
-        data.role = { name: "" };
-      }
-      this.$root.user = data;
-    });
-
     await http.get("/role").then(data => {
       this.roles = data;
     });
