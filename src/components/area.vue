@@ -16,6 +16,9 @@
 </template>
 
 <style scoped>
+.picker {
+  width: 100%;
+}
 
 .toolbar {
   background: #fff;

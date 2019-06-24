@@ -76,7 +76,7 @@ export default {
   },
   created() {
     let search = this.$route.query.search;
-    let code = localStorage.getItem('area');
+    let code = localStorage.getItem("area");
 
     if (code) {
       code = code.toString();
@@ -113,13 +113,30 @@ export default {
 .area {
   width: 200px;
   height: 65px;
-  line-height: 67px;
+  line-height: 65px;
 }
 
 .input {
   width: 420px;
   height: 65px;
   padding-left: 20px;
+  line-height: 65px;
+}
+
+@media (max-width: 320px) {
+  .search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .area {
+    width: 180px;
+    overflow: hidden;
+  }
+
+  .input {
+    width: 355px;
+  }
 }
 
 input {
@@ -152,6 +169,12 @@ input {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   height: 100%;
   background: #fff;
+}
+
+@media (max-width: 320px) {
+  .picker {
+    width: 100%;
+  }
 }
 
 .btn {
