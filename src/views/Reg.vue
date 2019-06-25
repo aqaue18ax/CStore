@@ -9,6 +9,8 @@
           id="phone"
           class="form-control text-lg text-gray"
           placeholder="请输入手机号码"
+          @focus="$root.logo = false"
+          @blur="$root.logo = true"
           v-model="phone"
         >
       </div>
@@ -20,6 +22,8 @@
           id="password"
           class="form-control text-lg text-gray"
           placeholder="请输入密码"
+          @focus="$root.logo = false"
+          @blur="$root.logo = true"
           v-model="pwd"
         >
       </div>
@@ -31,6 +35,8 @@
           id="confirm_password"
           class="form-control text-lg text-gray"
           placeholder="确认密码"
+          @focus="$root.logo = false"
+          @blur="$root.logo = true"
           v-model="confirm_pwd"
         >
       </div>
@@ -41,6 +47,8 @@
             name="code"
             id="code"
             class="form-control text-lg text-gray"
+            @focus="$root.logo = false"
+            @blur="$root.logo = true"
             placeholder="请输入验证码"
             v-model="code"
           >

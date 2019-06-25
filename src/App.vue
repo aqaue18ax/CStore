@@ -14,8 +14,7 @@
 
 <script>
 export default {
-  async created() {
-  }
+  async created() {}
 };
 </script>
 

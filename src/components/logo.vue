@@ -1,5 +1,5 @@
 <template>
-  <div class="logo">
+  <div class="logo" v-if="$root.logo">
     <img src="../assets/logo.png">
   </div>
 </template>

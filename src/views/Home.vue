@@ -3,7 +3,7 @@
     <navBar
       :title="$route.meta.title"
       :z-index="9"
-      @click-right="navTo('/user?back=1')"
+      @click-right="navTo('/user')"
       class="font-regular"
       fixed
     >

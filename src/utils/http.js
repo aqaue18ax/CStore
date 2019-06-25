@@ -3,7 +3,7 @@ import { Toast } from "vant";
 import router from "../router";
 
 
-const baseURL = process.env.NODE_ENV == 'development' ? 'http://test.test/api' : 'http://39.96.71.175:8090/api'
+const baseURL = 'http://39.96.71.175:8090/api'
 axios.defaults.baseURL = baseURL;
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';

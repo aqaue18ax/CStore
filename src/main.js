@@ -19,6 +19,7 @@ Vue.config.productionTip = false
 new Vue({
   data() {
     return {
+      logo: true,
       user: {
         name: '',
         address: '',
