@@ -2,13 +2,12 @@
   <div class="search-box">
     <div class="search flex justify-between radius">
       <div
-        class="area font-medium radius bg-gray text-center text-sm"
+        class="area font-medium radius bg-gray text-sm flex align-center justify-center"
         @click="isShowPicker = !isShowPicker"
       >
-        {{area.text}}
-        <icon name="arrow-down"/>
+        <span class="padding-right-xs">{{area.text}}</span><icon name="arrow-down"/>
       </div>
-      <div class="input radius bg-gray flex">
+      <div class="input radius bg-gray flex align-center justify-center">
         <input
           type="text"
           name="search"
@@ -139,6 +138,10 @@ export default {
   }
 }
 
+.btn-search {
+  width: 100px;
+}
+
 input {
   display: block;
   box-sizing: border-box;
@@ -151,11 +154,6 @@ input {
   background-color: transparent;
   border: 0;
   resize: none;
-}
-
-.btn-search {
-  width: 90px;
-  line-height: 67px;
 }
 
 .van-icon {

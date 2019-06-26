@@ -1,35 +1,17 @@
-@font-face {  
-  font-family: 'pingfang-light';
-  src: url('../fonts/PingFang-SC-Light.ttf');
-}
-
-@font-face {  
-  font-family: 'pingfang-bold';
-  src: url('../fonts/PingFang-SC-Bold.ttf');
-}
-
-@font-face {  
-  font-family: 'pingfang-regular';
-  src: url('../fonts/PingFang-SC-Regular.ttf');
-}
-
-@font-face {  
-  font-family: 'pingfang-medium';
-  src: url('../fonts/PingFang-SC-Medium.ttf');
-}
-
 .font-light {
-  font-family: 'pingfang-light' 
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 .font-bold {
-  font-family: 'pingfang-bold' 
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-weight: bold;
 }
 
 .font-regular {
-  font-family: 'pingfang-regular' 
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 .font-medium {
-  font-family: 'pingfang-medium' 
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-weight: bold;
 }
