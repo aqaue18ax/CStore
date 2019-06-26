@@ -15,7 +15,8 @@
           placeholder="请输入关键字搜索"
           v-model="search"
         >
-        <div class="text-sm btn-search" @click="onSubmit">| 搜索</div>
+        |
+        <div class="text-sm btn-search" @click="onSubmit">搜索</div>
       </div>
     </div>
 
@@ -140,6 +141,7 @@ export default {
 
 .btn-search {
   width: 100px;
+  text-align: center;
 }
 
 input {
