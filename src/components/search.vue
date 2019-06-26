@@ -5,9 +5,9 @@
         class="area font-medium radius bg-gray text-sm flex align-center justify-center"
         @click="isShowPicker = !isShowPicker"
       >
-        <span class="padding-right-xs">{{area.text}}</span><icon name="arrow-down"/>
+        <div class="padding-right-xs">{{area.text}}</div><icon name="arrow-down"/>
       </div>
-      <div class="input radius bg-gray flex align-center justify-center">
+      <div class="input radius bg-gray flex align-center">
         <input
           type="text"
           name="search"
@@ -15,7 +15,6 @@
           placeholder="请输入关键字搜索"
           v-model="search"
         >
-        |
         <div class="text-sm btn-search" @click="onSubmit">搜索</div>
       </div>
     </div>
@@ -113,14 +112,13 @@ export default {
 .area {
   width: 200px;
   height: 65px;
-  line-height: 74px;
 }
 
 .input {
   width: 420px;
   height: 65px;
   padding-left: 20px;
-  line-height: 65px;
+  /* line-height: 65px; */
 }
 
 @media (max-width: 320px) {
@@ -140,10 +138,11 @@ export default {
 }
 
 .btn-search {
+  padding-top: 1px;
   width: 100px;
   text-align: center;
-  height: 65px;
-  line-height: 74px;
+  vertical-align: middle;
+  border-left: 1px solid rgba(0,0,0,.7);
 }
 
 input {

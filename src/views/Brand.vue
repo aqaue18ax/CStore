@@ -42,14 +42,16 @@ export default {
       images: [],
       swiperOptionTop: {
         spaceBetween: 10,
-        // loop: true,
+        loop: true,
         loopedSlides: 5
       },
       swiperOptionThumbs: {
+        loopedSlides: 5,
         spaceBetween: 10,
         centeredSlides: true,
         slidesPerView: "auto",
         touchRatio: 0.2,
+        loop: true,
         slideToClickedSlide: true
       }
     };
