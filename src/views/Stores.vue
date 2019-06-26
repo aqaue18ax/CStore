@@ -82,6 +82,7 @@ export default {
       const module_id = this.$route.query.module_id;
       await this.$http.get(`/store`, { module_id, area: area[2].code }).then(data => {
         this.stores = data;
+        this.search = false;
       });
     }
   },

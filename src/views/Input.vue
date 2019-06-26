@@ -69,7 +69,9 @@ export default {
       const key = this.$route.query.key;
       const value = this.value;
 
-      this.$http.put(`store/${id}`, { key, value });
+      this.$http.put(`store/${id}`, { key, value }).then(() => {
+        this.$router.back()
+      })
     }
   }
 };
