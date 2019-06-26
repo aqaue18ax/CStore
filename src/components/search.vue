@@ -113,7 +113,7 @@ export default {
 .area {
   width: 200px;
   height: 65px;
-  line-height: 65px;
+  line-height: 74px;
 }
 
 .input {
@@ -143,7 +143,7 @@ export default {
   width: 100px;
   text-align: center;
   height: 65px;
-  line-height: 70px;
+  line-height: 74px;
 }
 
 input {
