@@ -114,6 +114,12 @@ export default {
   height: 65px;
 }
 
+.area > div, i {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
 .input {
   width: 420px;
   height: 65px;
@@ -138,10 +144,13 @@ export default {
 }
 
 .btn-search {
-  padding-top: 1px;
+  height: 40px;
+  line-height: 40px;
   width: 100px;
   text-align: center;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-left: 1px solid rgba(0,0,0,.7);
 }
 
