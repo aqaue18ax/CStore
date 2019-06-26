@@ -142,6 +142,8 @@ export default {
 .btn-search {
   width: 100px;
   text-align: center;
+  height: 65px;
+  line-height: 70px;
 }
 
 input {
