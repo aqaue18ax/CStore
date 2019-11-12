@@ -15,7 +15,7 @@
 
     <router-view></router-view>
 
-    <amap :stores="stores" :center="center" :zoom="zoom"/>
+    <amap :stores="stores" :center="center" :zoom="zoom" :range="range" />
   </div>
 </template>
 
@@ -44,6 +44,9 @@ export default {
     },
     zoom() {
       return this.$root.zoom;
+    },
+    range () {
+      return this.$root.range;
     }
   },
   components: {
@@ -126,6 +129,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     if (from.name == "home/market" && to.name == "home") {
+      this.$root.range = [];
       this.$root.zoom = 12;
       this.search({});
     }

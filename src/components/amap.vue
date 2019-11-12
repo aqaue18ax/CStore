@@ -1,27 +1,34 @@
 <template>
   <div class="map">
-    <el-amap ref="map" class="amap" :zoom="zoom" :zooms="[4, 19]" :center="center">
+    <el-amap ref="map" class="amap" :zoom="zoom" :zooms="[8, 18]" :center="center" :events="events">
       <el-amap-marker
         vid="marker"
         v-for="store in stores"
         :key="store.id"
         :position="store.coordinate"
-        :offset="[-28, -70]"
+        :offset="[-28 * z / 16, -70 * z / 16]"
         :events="store.events"
       >
-        <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type"/>
+        <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type" :zoom="(z / 16)"/>
       </el-amap-marker>
       <el-amap-marker
+        v-if="z >= 14"
         vid="marker"
         v-for="store in stores"
         :key="'name' + store.id"
         :position="store.coordinate"
-        :offset="[-98, -102]"
+        :offset="[-102 * z / 16, -102 * z / 16]"
       >
-        <div class="title text-sm font-regular">
+        <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': 'center'}">
           <span :style="{background: store.color}">{{store.name}}</span>
         </div>
       </el-amap-marker>
+      <div v-if="z >= 14 && !range.length">
+        <el-amap-polygon v-for="(store, index) in stores" :vid="index" v-if="store.range" :ref="`polygon_${index}`" :path="store.range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
+      </div>
+      <div v-if="z >= 14 && range.length">
+        <el-amap-polygon :ref="`polygon`" :path="range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
+      </div>
     </el-amap>
   </div>
 </template>
@@ -35,12 +42,20 @@ export default {
     stores: Array,
     zoom: {
       type: Number,
-      default: 10
+      default: 12
     },
-    center: Array
+    center: Array,
+    range: Array
   },
   data() {
-    return {};
+    return {
+      events: {
+        zoomend: () => {
+          this.z = this.$refs.map.$$getInstance().getZoom()
+        }
+      },
+      z: 12
+    };
   },
   components: {
     Pin

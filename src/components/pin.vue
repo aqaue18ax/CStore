@@ -1,5 +1,5 @@
 <template>
-  <div class="location">
+  <div class="location" :style="{transform: `scale(${zoom})`, 'transform-origin': 'center'}">
     <div class="flex justify-center flex-direction align-center">
       <div class="store" :style="{background: color}">
         <img :src="cover || avatar" width="43" height="43">
@@ -21,6 +21,7 @@ export default {
     type: String,
     name: String,
     cover: String,
+    zoom: Number,
     color: {
       type: String,
       default: "#00cae9"
@@ -36,8 +37,8 @@ export default {
 
 <style scoped>
 .store {
-  width: 88px;
-  height: 88px;
+  width: 70px;
+  height: 70px;
   border-radius: 50% 50% 50% 5px;
   border: 1px solid #fff;
   transform: rotate(-45deg);
@@ -72,7 +73,8 @@ export default {
 } */
 
 img {
-  width: 80px;
+  width: 63px;
+  height: 63px;
   border: 2px solid #fff;
   transform: rotate(45deg);
   border-radius: 100%;

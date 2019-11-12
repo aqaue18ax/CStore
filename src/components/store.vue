@@ -45,7 +45,7 @@ export default {
       brand,
       operation,
       isShow: false,
-      store: { area: {} }
+      store: { name: '', area: {}, area_info: {} }
     };
   },
   components: {

@@ -50,6 +50,6 @@ export default {
 }
 
 .content {
-  margin: 35px 80px 35px 80px;
+  padding: 35px 80px 35px 80px;
 }
 </style>

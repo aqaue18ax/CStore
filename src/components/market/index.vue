@@ -12,6 +12,7 @@ export default {
   methods: {
     async find(id) {
       this.isShow = false;
+      this.$root.zoom = 12;
       await this.$http.get(`/store/${id}`).then(data => {
         data.children.map(store => {
           store.events = {
@@ -23,10 +24,12 @@ export default {
 
         this.store = data;
 
+        this.$root.range = data.range
         this.$root.stores = data.children;
-        this.$root.zoom = 14;
+        this.$root.zoom = 16;
         this.$root.center = data.coordinate;
       });
+
       this.isShow = true;
     },
     pin(store) {
@@ -37,9 +40,5 @@ export default {
       }
     }
   }
-  // async created() {
-  //   const id = this.$route.params.id;
-  //   await this.find(id);
-  // }
 };
 </script>
