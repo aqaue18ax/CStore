@@ -12,7 +12,7 @@
         <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type" :zoom="(z / 16)"/>
       </el-amap-marker>
       <el-amap-marker
-        v-if="z >= 14"
+        :visible="z >= 14"
         vid="marker"
         v-for="store in stores"
         :key="'name' + store.id"
@@ -24,7 +24,7 @@
         </div>
       </el-amap-marker>
       <div v-if="z >= 14 && !range.length">
-        <el-amap-polygon v-for="(store, index) in stores" :vid="index" v-if="store.range" :ref="`polygon_${index}`" :path="store.range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
+        <el-amap-polygon v-for="(store, index) in stores" :key="index" :vid="index" :ref="`polygon_${index}`" :path="store.range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
       </div>
       <div v-if="z >= 14 && range.length">
         <el-amap-polygon :ref="`polygon`" :path="range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
