@@ -6,7 +6,7 @@
         v-for="store in stores"
         :key="store.id"
         :position="store.coordinate"
-        :offset="[-28 * z / 16, -70 * z / 16]"
+        :offset="[-24 * z / 16, -57 * z / 16]"
         :events="store.events"
       >
         <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type" :zoom="(z / 16)"/>
@@ -17,7 +17,7 @@
         v-for="store in stores"
         :key="'name' + store.id"
         :position="store.coordinate"
-        :offset="[-102 * z / 16, -102 * z / 16]"
+        :offset="[-92 * z / 16, -92 * z / 16]"
       >
         <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': 'center'}">
           <span :style="{background: store.color}">{{store.name}}</span>

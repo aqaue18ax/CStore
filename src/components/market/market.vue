@@ -19,12 +19,12 @@
           </tab>
           <tab title="级别区分">
             <div class="flex flex-wrap padding">
-              <div class="area">
+              <!-- <div class="area">
                 <div class="color" style="background: #ffad01"></div>一级经销商
               </div>
               <div class="area">
                 <div class="color" style="background: #33ccc7"></div>二级经销商
-              </div>
+              </div> -->
               <div class="area">
                 <div class="color" style="background: #6179ff"></div>品牌体验店
               </div>

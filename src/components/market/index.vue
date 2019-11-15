@@ -24,8 +24,13 @@ export default {
 
         this.store = data;
 
+        let children = []
+        data.children.map(c => {
+          children = children.concat(c.children);
+        })
+
         this.$root.range = data.range
-        this.$root.stores = data.children;
+        this.$root.stores = children;
         this.$root.zoom = 16;
         this.$root.center = data.coordinate;
       });
