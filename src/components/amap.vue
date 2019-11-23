@@ -6,18 +6,18 @@
         v-for="store in stores"
         :key="store.id"
         :position="store.coordinate"
-        :offset="[-24 * z / 16, -57 * z / 16]"
+        :offset="[-21 * z / 16, -54 * z / 16]"
         :events="store.events"
       >
         <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type" :zoom="(z / 16)"/>
       </el-amap-marker>
       <el-amap-marker
-        :visible="z >= 14"
+        :visible="z > 16"
         vid="marker"
         v-for="store in stores"
         :key="'name' + store.id"
         :position="store.coordinate"
-        :offset="[-92 * z / 16, -92 * z / 16]"
+        :offset="[-85 * z / 15, -92 * z / 16]"
       >
         <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': 'center'}">
           <span :style="{background: store.color}">{{store.name}}</span>

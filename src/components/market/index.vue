@@ -26,8 +26,13 @@ export default {
 
         let children = []
         data.children.map(c => {
-          children = children.concat(c.children);
+          if (c.children) {
+            children = children.concat(c.children);
+          } else {
+            children = children.concat(c);
+          }
         })
+
 
         this.$root.range = data.range
         this.$root.stores = children;
