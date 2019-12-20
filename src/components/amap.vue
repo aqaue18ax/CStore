@@ -12,14 +12,13 @@
         <Pin :name="store.name" :cover="store.cover" :color="store.color" :type="type" :zoom="(z / 16)"/>
       </el-amap-marker>
       <el-amap-marker
-        :visible="z > 16"
         vid="marker"
         v-for="store in stores"
         :key="'name' + store.id"
         :position="store.coordinate"
         :offset="[-85 * z / 15, -92 * z / 16]"
       >
-        <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': 'center'}">
+        <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': z >= 16 ? 'center' : 'left'}">
           <span :style="{background: store.color}">{{store.name}}</span>
         </div>
       </el-amap-marker>
@@ -42,7 +41,7 @@ export default {
     stores: Array,
     zoom: {
       type: Number,
-      default: 12
+      default: 14
     },
     center: Array,
     range: Array

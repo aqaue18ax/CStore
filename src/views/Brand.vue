@@ -9,19 +9,23 @@
 
     <div class="swiper flex-sub" v-if="images.length">
       <swiper :options="swiperOptionTop" ref="swiperTop">
-        <swiper-slide
+        <!-- <swiper-slide
           v-for="image in images"
           :key="image.id"
-          :style="{'background-image': `url(${image.img})`}"
+          :style="{'background': `url(${image.img}) center center no-repeat;`, 'width': '100%'}"
           @click.native="open(image.url)"
-        ></swiper-slide>
+        ></swiper-slide> -->
+
+        <swiper-slide v-for="image in images" :key="image.id" class="flex align-center">
+          <img :src="image.img" style="width: 100%; height: auto;" />
+        </swiper-slide>
       </swiper>
 
       <div class="thumbs" v-if="images.length">
         <div class="info text-df font-medium padding-sm">{{name}}</div>
         <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
           <swiper-slide v-for="image in images" :key="image.id">
-            <img :src="image.img" width="100%" height="100%">
+            <img class="border" :src="image.img" width="100%" height="100%">
           </swiper-slide>
         </swiper>
       </div>
@@ -94,6 +98,10 @@ export default {
   height: 100%;
 }
 
+.swiper {
+  background: #000;
+}
+
 .swiper-container {
   height: 100%;
 }
@@ -131,11 +139,11 @@ export default {
   opacity: 1;
 } */
 
-.swiper-slide img {
+.thumbs .swiper-slide img {
   border: 2px solid #fff;
 }
 
-.swiper-slide-active img {
+.thumbs .swiper-slide-active img {
   border: 2px solid #34569b;
 }
 

@@ -14,7 +14,7 @@
         <div class="opening text-df padding-tb-xs flex align-center">
           <icon name="clock-o padding-right-xs"/>营业时间 {{store.business_hours}}
         </div>
-        <div class="btn flex justify-around align-center">
+        <div class="btn-group flex justify-around align-center">
           <div class="flex align-center" @click="navTo(`/store/intro/${store.id}`)">
             <img :src="home" width="16" class="padding-right-xs">门店简介
           </div>
@@ -24,8 +24,14 @@
           <div class="flex align-center" @click="navTo(`/line/${store.id}`)">
             <img :src="operation" width="16" class="padding-right-xs">运营状况
           </div>
+          <div class="flex align-center">
+            <img :src="material" width="16" class="padding-right-xs">物料审批
+          </div>
         </div>
       </div>
+    </div>
+    <div style="width: 95%; margin: 10px auto;">
+      <button class="btn bg-blue radius padding-tb-sm text-center" @click="$router.back()" style="width: 100%;">返回</button>
     </div>
   </popup>
 </template>
@@ -36,6 +42,7 @@ import avatar from "@/assets/avatar.png";
 import home from "@/assets/home.png";
 import brand from "@/assets/brand.png";
 import operation from "@/assets/operation.png";
+import material from "@/assets/material.png";
 
 export default {
   data() {
@@ -44,6 +51,7 @@ export default {
       home,
       brand,
       operation,
+      material,
       isShow: false,
       store: { name: '', area: {}, area_info: {} }
     };
@@ -70,6 +78,7 @@ export default {
       await this.$parent.search({});
       await this.find(id);
       this.$root.center = this.store.coordinate;
+      this.$root.zoom = 18;
     } else {
       await this.find(id);
     }
@@ -87,8 +96,13 @@ export default {
 </script>
 
 <style scoped>
+.van-popup {
+  background: transparent;
+}
+
 .store {
   padding: 20px 20px 0 20px;
+  background: #fff;
 }
 
 .title {
@@ -110,10 +124,17 @@ export default {
   border: 2px solid #fff;
 }
 
-.btn {
+.btn-group {
   margin-top: 10px;
   border-top: 2px solid #d3d3d3;
   padding: 26px 0;
+}
+
+.btn {
+  width: 95%;
+  border: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9;
 }
 </style>
 

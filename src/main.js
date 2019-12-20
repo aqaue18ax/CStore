@@ -29,7 +29,7 @@ new Vue({
       range: [],
       stores: [],
       center: JSON.parse(localStorage.getItem("lat&lng")) || [120.670856, 28.000986],
-      zoom: 12,
+      zoom: 14,
     }
   },
   methods: {},
