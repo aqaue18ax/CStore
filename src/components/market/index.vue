@@ -12,7 +12,7 @@ export default {
   methods: {
     async find(id) {
       this.isShow = false;
-      this.$root.zoom = 14;
+      // this.$root.zoom = 14;
       await this.$http.get(`/store/${id}`).then(data => {
         data.children.map(store => {
           store.events = {
@@ -36,7 +36,7 @@ export default {
 
         this.$root.range = data.range
         this.$root.stores = children;
-        this.$root.zoom = 18;
+        // this.$root.zoom = 18;
         this.$root.center = data.coordinate;
       });
 

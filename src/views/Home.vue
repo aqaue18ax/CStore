@@ -130,12 +130,10 @@ export default {
   beforeRouteUpdate(to, from, next) {
     if (from.name == "home/market" && to.name == "home") {
       this.$root.range = [];
-      this.$root.zoom = 14;
       this.search({});
     }
 
     if (from.name == "home/market" && to.name == "home/store") {
-      this.$root.zoom = 14;
       this.search({});
     }
 
