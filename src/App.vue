@@ -29,7 +29,7 @@ html,
 body,
 #app {
   height: 100%;
-  font-family: "pingfang-light";
+  font-family: "Microsoft YaHei";
   color: #595757;
   background: #f5f5f5;
 }

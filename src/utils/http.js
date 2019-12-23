@@ -4,9 +4,7 @@ import { Toast } from "vant";
 import router from "../router";
 
 
-const baseURL = 'http://39.96.71.175:8090/api'
-// const baseURL = 'http://test.test/api'
-axios.defaults.baseURL = baseURL;
+axios.defaults.baseURL = process.env.VUE_APP_URL;
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
