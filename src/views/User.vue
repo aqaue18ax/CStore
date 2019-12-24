@@ -25,6 +25,10 @@
         <cell title="运营状况" is-link :to="{name: 'operation'}"/>
       </cell-group>
 
+      <cell-group class="font-regular margin-tb-xs">
+        <cell title="开发统计" is-link :to="{name: 'develop'}"/>
+      </cell-group>
+
       <cell-group class="font-regular margin-tb-xs padding">
         <div class="title padding-bottom-xs solid-bottom">我的资料</div>
         <div class="text-df padding-top-xs">用户名：{{user.name}}</div>

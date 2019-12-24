@@ -3,9 +3,11 @@ import App from './App.vue'
 import router from './router'
 import VueAMap from 'vue-amap';
 import http from './utils/http'
+import { ImagePreview } from 'vant';
 
 Vue.prototype.$http = http;
 Vue.use(VueAMap);
+Vue.use(ImagePreview);
 
 VueAMap.initAMapApiLoader({
   key: '124ac7da3c120c5129671386c225180f',

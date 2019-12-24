@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div style="width: 95%; margin: 10px auto;">
+    <div class="bbtn">
       <button class="btn bg-blue radius padding-tb-sm text-center" @click="$router.back()" style="width: 100%;">返回</button>
     </div>
   </popup>
@@ -136,6 +136,10 @@ export default {
   border: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   z-index: 9;
+}
+
+.bbtn {
+  margin: 10px;
 }
 </style>
 
