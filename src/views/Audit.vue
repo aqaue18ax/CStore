@@ -144,14 +144,14 @@ export default {
         role_id: this.user.role_id
       };
 
-      http.put("/user/audit", data).then(() => {
+      http.put("api/user/audit", data).then(() => {
         this.$root.user.audit_status = 3;
         this.$router.replace(`/user`);
       });
     }
   },
   async created() {
-    await http.get("/role").then(data => {
+    await http.get("api/role").then(data => {
       this.roles = data;
     });
   }

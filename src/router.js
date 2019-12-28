@@ -12,6 +12,7 @@ import Intro from './views/Intro.vue'
 import Brand from './views/Brand.vue'
 import Line from './views/Line.vue'
 import Operation from './views/Operation.vue'
+import Develop from './views/Develop.vue'
 
 import Index from './views/Index.vue'
 import Home from './views/Home.vue'
@@ -121,6 +122,15 @@ const router = new Router({
       meta: {
         title: '运营状况',
         audit: true,
+        auth: true
+      }
+    },
+    {
+      path: '/develop',
+      name: 'develop',
+      component: Develop,
+      meta: {
+        title: '开发统计',
         auth: true
       }
     },

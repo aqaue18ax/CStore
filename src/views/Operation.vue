@@ -113,7 +113,7 @@ export default {
   },
   async created() {
     if (!this.$root.user.id) {
-      await this.$http.get("/user").then(data => {
+      await this.$http.get("/api/user").then(data => {
         this.$root.user = data;
       });
     }

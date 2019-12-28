@@ -9,8 +9,6 @@
           id="phone"
           class="form-control text-lg text-gray"
           placeholder="请输入手机号码"
-          @focus="$root.logo = false"
-          @blur="$root.logo = true"
           v-model="phone"
         >
       </div>
@@ -22,8 +20,6 @@
           id="password"
           class="form-control text-lg text-gray"
           placeholder="请输入密码"
-          @focus="$root.logo = false"
-          @blur="$root.logo = true"
           v-model="pwd"
         >
       </div>
@@ -63,7 +59,7 @@ export default {
       if (!this.check) return;
 
       http
-        .post("/login", { phone: this.phone, password: this.pwd })
+        .post("/api/login", { phone: this.phone, password: this.pwd })
         .then(res => {
           localStorage.setItem("token", res.token);
           this.$router.replace(`/home`);

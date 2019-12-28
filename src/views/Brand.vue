@@ -76,7 +76,7 @@ export default {
   },
   created() {
     const id = this.$route.params.id;
-    this.$http.get(`/store/${id}`).then(data => {
+    this.$http.get(`api/store/${id}`).then(data => {
       this.name = data.name;
       this.images = data.images;
 

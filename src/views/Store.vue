@@ -100,13 +100,13 @@ export default {
   },
   created() {
     const id = this.$route.query.id;
-    this.$http.get(`store/${id}`).then(data => {
+    this.$http.get(`api/store/${id}`).then(data => {
       this.store = data;
     });
   },
   beforeRouteUpdate(to, from, next) {
     const id = to.query.id;
-    this.$http.get(`store/${id}`).then(data => {
+    this.$http.get(`api/store/${id}`).then(data => {
       this.store = data;
     });
 

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -13,7 +14,18 @@ export default {
     async find(id) {
       this.isShow = false;
       // this.$root.zoom = 14;
-      await this.$http.get(`/store/${id}`).then(data => {
+      await this.$http.get(`api/store/${id}`).then(async data => {
+        data.establishment_time = new Date(data.establishment_time * 1000).Format('yyyy年MM月dd日')
+        data.competitors = JSON.parse(data.competitors)
+
+        await this.$http.get(`api/file/${data.plan_file_id}`).then(v => {
+          data.plan = v.url
+        })
+
+        await this.$http.get(`api/market/statistics/${data.id}`).then(v => {
+          data.area = v
+        })
+
         data.children.map(store => {
           store.events = {
             click: () => {

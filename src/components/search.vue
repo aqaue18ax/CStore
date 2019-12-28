@@ -61,7 +61,7 @@ export default {
         that.area.code = area.code;
       });
 
-      this.$http.get(`/area/${this.area.code}`).then(data => {
+      this.$http.get(`api/area/${this.area.code}`).then(data => {
         this.$root.center = [data.lng, data.lat];
         localStorage.setItem("lat&lng", JSON.stringify([data.lng, data.lat]));
         localStorage.setItem("area", this.area.code);

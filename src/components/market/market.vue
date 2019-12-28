@@ -2,9 +2,9 @@
   <popup position="bottom" :overlay="false" v-model="isShow">
     <div class="market">
       <div class="content">
-        <div class="img" v-if="domain">
+        <div class="img" v-if="domain && store.plan">
           <icon name="close" size="25" color="#f7403a" class="icon" @click="domain = false" />
-          <img src="/assets/temp.png" width="100%" @click="preview" />
+          <img :src="store.plan" width="100%" @click="preview" />
         </div>
         <tabs class="bg-white tabs" background="#eee" animated swipeable color="#f7403a">
           <tab title="市场介绍">
@@ -12,32 +12,19 @@
               <div class="text-xl font-medium padding-tb-xs">{{store.name}}</div>
 
               <div class="text-lg font-medium padding-tb-xs">建店时间</div>
-              <div class="padding-bottom-xs">2017年10月05日</div>
+              <div class="padding-bottom-xs">{{store.establishment_time}}</div>
 
               <div class="text-lg font-medium padding-tb-xs">销售范围</div>
-              <div class="padding-bottom-xs">示意产品、示意产品、示意产品、示意产品、示意产品、示意产品</div>
+              <div class="padding-bottom-xs">{{store.sales_area}}</div>
 
               <div>
                 <div class="text-lg font-medium padding-tb-xs">竞争对手情况</div>
-                <div class="padding-tb-xs">
+                <div class="padding-tb-xs" v-for="competitor in store.competitors" v-bind:key="competitor.name">
                   <div class="flex justify-between">
-                    <div class="font-medium padding-bottom-xs">竞争对手一</div>
-                    <div class="sale">
-                      预估销售额：
-                      <span>500万</span>
-                    </div>
+                    <div class="font-medium padding-bottom-xs">{{competitor.name}}</div>
+                    <div class="sale"> 预估销售额： <span>{{competitor.money}}</span> </div>
                   </div>
-                  <div class>竞争对手情况</div>
-                </div>
-                <div class="padding-tb-xs">
-                  <div class="flex justify-between">
-                    <div class="font-medium padding-bottom-xs">竞争对手一</div>
-                    <div class="sale">
-                      预估销售额：
-                      <span>500万</span>
-                    </div>
-                  </div>
-                  <div>竞争对手情况</div>
+                  <div class>{{competitor.introduce}}</div>
                 </div>
               </div>
             </div>
@@ -52,29 +39,8 @@
           </tab>
           <tab title="级别区分">
             <div class="flex flex-wrap padding text-df">
-              <div class="area">
-                <div class="color" style="background: #8492d8"></div>品牌体验店 32
-              </div>
-              <div class="area">
-                <div class="color" style="background: #3b35be"></div>电器工业超市 24
-              </div>
-              <div class="area">
-                <div class="color" style="background: #6d4b95"></div>SI专卖店 21
-              </div>
-              <div class="area">
-                <div class="color" style="background: #4aacff"></div>二级形象店 39
-              </div>
-              <div class="area">
-                <div class="color" style="background: #db655f"></div>二级门招 31
-              </div>
-              <div class="area">
-                <div class="color" style="background: #6dbbcd"></div>二级货架 35
-              </div>
-              <div class="area">
-                <div class="color" style="background: #76c055"></div>正泰岗亭 15
-              </div>
-              <div class="area">
-                <div class="color" style="background: #f6814e"></div>户外广告 46
+              <div class="area" v-for="v in store.area" v-bind:key="v.name">
+                <div class="color" :style="`background: ${v.color}`"></div>{{v.name}} {{v.count}}
               </div>
             </div>
           </tab>

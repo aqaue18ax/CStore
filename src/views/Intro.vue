@@ -54,7 +54,7 @@ export default {
   },
   async created() {
     const id = this.$route.params.id;
-    await this.$http.get(`store/${id}`).then(data => {
+    await this.$http.get(`api/store/${id}`).then(data => {
       this.store = data
     });
   }

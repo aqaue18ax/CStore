@@ -6,27 +6,29 @@
       <cell-group class="font-regular margin-tb-xs">
         <cell title="头像" center style="line-height: 0">
           <uploader :after-read="onUpload">
-            <img width="100" height="100" :src="user.headimg || avatar" class="img">
+            <img width="100" height="100" :src="user.headimg || avatar" class="img" />
           </uploader>
         </cell>
       </cell-group>
 
       <cell-group class="font-regular margin-tb-xs">
-        <cell
+        <!-- <cell
           :title="m.name"
           is-link
           :to="{name: 'stores', query: {module_id: m.id, title: m.name}}"
           v-for="m in user.role.modules"
           :key="m.id"
-        />
+        />-->
+        <cell title="专业市场" is-link :to="{name: 'stores', query: {module_id: 1, title: '专业市场'}}" />
+        <cell title="正泰门店" is-link :to="{name: 'stores', query: {module_id: 21, title: '正泰门店'}}" />
       </cell-group>
 
       <cell-group class="font-regular margin-tb-xs" v-if="user.role.modules.length">
-        <cell title="运营状况" is-link :to="{name: 'operation'}"/>
+        <cell title="运营状况" is-link :to="{name: 'operation'}" />
       </cell-group>
 
       <cell-group class="font-regular margin-tb-xs">
-        <cell title="开发统计" is-link :to="{name: 'develop'}"/>
+        <cell title="开发统计" is-link :to="{name: 'develop'}" />
       </cell-group>
 
       <cell-group class="font-regular margin-tb-xs padding">
@@ -42,11 +44,11 @@
     </div>
 
     <div class="error text-center padding-top-xl" v-else-if="user.audit_status == 3">
-      <icon name="todo-list-o" size="8rem" color="#c0c0c2"/>
+      <icon name="todo-list-o" size="8rem" color="#c0c0c2" />
       <div>正在审核您的信息</div>
     </div>
 
-    <logo/>
+    <logo />
   </div>
 </template>
 
@@ -111,9 +113,9 @@ export default {
     Icon
   },
   methods: {
-    logout () {
-      localStorage.removeItem('token');
-      this.$router.replace('/login');
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.replace("/login");
     },
     onUpload(data) {
       this.value = data.content;
@@ -125,13 +127,15 @@ export default {
         "." +
         data.file.name.split(".").pop();
 
-      this.$http.file("/user/avatar", { file: data.file, name }).then(url => {
-        this.user.headimg = url;
-      });
+      this.$http
+        .file("api/user/avatar", { file: data.file, name })
+        .then(url => {
+          this.user.headimg = url;
+        });
     }
   },
   async created() {
-    await this.$http.get("/user").then(data => {
+    await this.$http.get("/api/user").then(data => {
       if (data.role == null) {
         data.role = { name: "" };
       }

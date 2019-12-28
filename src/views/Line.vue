@@ -100,7 +100,7 @@ export default {
   async beforeMount() {},
   async created() {
     // const id = this.$route.params.id;
-    // await this.$http.get(`/store/${id}/income`).then(data => {
+    // await this.$http.get(`api/store/${id}/income`).then(data => {
     //   this.chartData = {
     //     columns: ["date", ""营业额""],
     //     rows: data

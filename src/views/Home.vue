@@ -66,7 +66,7 @@ export default {
     },
     async search(data) {
       await this.$http
-        .get("/module/store", {
+        .get("/api/module/store", {
           name: data.search,
           area: localStorage.getItem("area") || ""
         })
@@ -104,7 +104,7 @@ export default {
   async created() {
     if (!this.$root.user.id) {
       await this.$http
-        .get("/user")
+        .get("api/user")
         .then(data => {
           if (data.role == null) {
             data.role = { name: "" };

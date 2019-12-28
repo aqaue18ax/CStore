@@ -9,8 +9,6 @@
           id="phone"
           class="form-control text-lg text-gray"
           placeholder="请输入手机号码"
-          @focus="$root.logo = false"
-          @blur="$root.logo = true"
           v-model="phone"
         >
       </div>
@@ -22,8 +20,6 @@
           id="password"
           class="form-control text-lg text-gray"
           placeholder="请输入密码"
-          @focus="$root.logo = false"
-          @blur="$root.logo = true"
           v-model="pwd"
         >
       </div>
@@ -35,8 +31,6 @@
           id="confirm_password"
           class="form-control text-lg text-gray"
           placeholder="确认密码"
-          @focus="$root.logo = false"
-          @blur="$root.logo = true"
           v-model="confirm_pwd"
         >
       </div>
@@ -47,8 +41,6 @@
             name="code"
             id="code"
             class="form-control text-lg text-gray"
-            @focus="$root.logo = false"
-            @blur="$root.logo = true"
             placeholder="请输入验证码"
             v-model="code"
           >
@@ -118,7 +110,7 @@ export default {
         }
       }, 1000);
 
-      http.post('/sms', {phone: this.phone})
+      http.post('api/sms', {phone: this.phone})
     },
     reg() {
       if (this.phone.length != 11 || this.pwd.length < 6 || this.confirm_pwd.length < 6 || this.code.length < 6) return;
@@ -130,7 +122,7 @@ export default {
         code: this.code
       };
 
-      http.post("/reg", data).then(res => {
+      http.post("api/reg", data).then(res => {
         localStorage.setItem("token", res.token);
         this.$router.replace(`/home`);
       })

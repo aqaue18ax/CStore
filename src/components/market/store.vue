@@ -66,7 +66,7 @@ export default {
     },
     async find(id) {
       this.isShow = false;
-      await this.$http.get(`/store/${id}`).then(data => {
+      await this.$http.get(`api/store/${id}`).then(data => {
         this.store = data;
       });
       this.isShow = true;
