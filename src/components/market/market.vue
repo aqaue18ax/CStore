@@ -22,7 +22,7 @@
                 <div class="padding-tb-xs" v-for="competitor in store.competitors" v-bind:key="competitor.name">
                   <div class="flex justify-between">
                     <div class="font-medium padding-bottom-xs">{{competitor.name}}</div>
-                    <div class="sale"> 预估销售额： <span>{{competitor.money}}</span> </div>
+                    <div class="sale"> 预估销售额： <span>{{addChineseUnit(competitor.money, 1)}}</span> </div>
                   </div>
                   <div class>{{competitor.introduce}}</div>
                 </div>
@@ -56,6 +56,8 @@
 
 <script>
 import { Popup, Tabs, Tab, Icon, ImagePreview } from "vant";
+import { addChineseUnit } from "@/utils/utils";
+
 export default {
   data() {
     return {
@@ -84,7 +86,8 @@ export default {
         images: ["/assets/temp.png"],
         showIndex: false
       });
-    }
+    },
+    addChineseUnit
   },
   async created() {
     const id = this.$route.params.id;

@@ -2,7 +2,7 @@
   <div class="competitor">
     <div class="header flex justify-between">
       <div class="name text-bold">{{name}}</div>
-      <div class="sale">预估销售额：<span>{{sale}}</span></div>
+      <div class="sale">预估销售额：<span>{{addSaleUnit}}</span></div>
     </div>
     <div class="body">
       {{info}}
@@ -11,11 +11,18 @@
 </template>
 
 <script>
+import { addChineseUnit } from "@/utils/utils";
 export default {
   props: {
     name: String,
     sale: String,
     info: String
+  },
+
+  computed: {
+    addSaleUnit() {
+      return addChineseUnit(120000, 1);
+    }
   }
 };
 </script>

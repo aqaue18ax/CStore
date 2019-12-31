@@ -1,25 +1,25 @@
 <template>
-  <div class="line flex flex-direction" v-cloak>
+  <div class="line flex flex-direction" v-cloak v-if="loaded">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
     <panel type="time" title="建店时间">
       <div class="pbody">
-        <span class="number">2017</span>
+        <span class="number">{{create.year}}</span>
         <span class="padding-xs">年</span>
-        <span class="number">10</span>
+        <span class="number">{{create.month}}</span>
         <span class="padding-xs">月</span>
-        <span class="number">05</span>
+        <span class="number">{{create.date}}</span>
         <span class="padding-xs">日</span>
       </div>
     </panel>
 
     <panel type="computer" title="终端化建设">
-      <div class="pbody">示意文字示意文字示意文字示意文字示意文字示意文示意文字示意文字示意文字示意文字示意文字示意文</div>
+      <div class="pbody">{{data.terminal_construction}}</div>
     </panel>
 
-    <panel type="rmb" title="营收收入" label="(月)">
+    <panel type="rmb" title="营收收入" label="(上月)">
       <div class="pbody">
-        <span class="number">51,506</span>
+        <span class="number">{{sale.month}}</span>
         <span class="padding-xs">元</span>
       </div>
     </panel>
@@ -35,17 +35,21 @@
     </panel>
 
     <panel type="box" title="经营产品">
-      <div class="pbody">示意文字示意文字示意文字示意文字示意文字示意文示意文字示意文字示意文字示意文字示意文字示意文</div>
+      <div class="pbody">{{data.business_product}}</div>
     </panel>
 
     <panel type="memory" title="销售范围">
-      <div class="pbody">示意文字示意文字示意文字示意文字示意文字示意文示意文字示意文字示意文字示意文字示意文字示意文</div>
+      <div class="pbody">{{data.business_scope}}</div>
     </panel>
 
     <panel type="attack" title="竞争对手情况">
       <div class="pbody">
-        <competitor name="竞争对手一号店" sale="1亿2000万" info="竞争对手一号店简单介绍" />
-        <competitor name="竞争对手二号店" sale="8000万" info="竞争对手二号店简单介绍" />
+        <competitor
+          v-for="competitor in data.competitors"
+          :name="competitor.name"
+          :sale="competitor.money"
+          :info="competitor.introduce"
+        />
       </div>
     </panel>
   </div>
@@ -60,12 +64,18 @@ import VeHistogram from "v-charts/lib/histogram.common";
 export default {
   data: function() {
     return {
+      data: {},
+      loaded: false,
       chart: {
         settings: {
+          labelMap: {
+            money: "营业额"
+          },
           yAxisType: ["KMB"],
           itemStyle: {
             color: "#686cff"
-          }
+          },
+          digit: 1
         },
         grid: {
           top: 20,
@@ -73,22 +83,10 @@ export default {
         }
       },
       sale: {
-        columns: ["月份", "营业额"],
-        rows: [
-          { 月份: 1, 营业额: 3121 },
-          { 月份: 2, 营业额: 3621 },
-          { 月份: 3, 营业额: 3321 },
-          { 月份: 12, 营业额: 3001 },
-          { 月份: 11, 营业额: 3134 },
-          { 月份: 10, 营业额: 3221 },
-          { 月份: 9, 营业额: 3131 },
-          { 月份: 8, 营业额: 3321 },
-          { 月份: 7, 营业额: 5321 },
-          { 月份: 6, 营业额: 2693 },
-          { 月份: 5, 营业额: 3858 },
-          { 月份: 4, 营业额: 983 }
-        ]
-      }
+        columns: ["date", "money"],
+        rows: []
+      },
+      create: {}
     };
   },
   components: {
@@ -99,14 +97,28 @@ export default {
   },
   async beforeMount() {},
   async created() {
-    // const id = this.$route.params.id;
-    // await this.$http.get(`api/store/${id}/income`).then(data => {
-    //   this.chartData = {
-    //     columns: ["date", ""营业额""],
-    //     rows: data
-    //   };
-    // });
-    // console.log((111123).toLocaleString('en-US'))
+    const id = this.$route.params.id;
+    await this.$http.get(`api/store/${id}`).then(data => {
+      if (data.competitors) {
+        data.competitors = JSON.parse(data.competitors) || [];
+      }
+
+      this.data = data;
+
+      let create = new Date(data.establishment_time * 1000);
+      this.create = {
+        year: create.getFullYear(),
+        month: create.getMonth() + 1,
+        date: create.getDate()
+      };
+    });
+
+    await this.$http.get(`api/store/${id}/income`).then(data => {
+      this.sale.rows = data;
+      this.sale.month = (data[data.length - 1].money).toLocaleString('en-US');
+    });
+
+    this.loaded = true;
   }
 };
 </script>
