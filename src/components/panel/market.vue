@@ -1,5 +1,5 @@
 <template>
-  <panel type="pie" title="市场开发统计">
+  <panel type="pie" title="市场开发统计" :data="data">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>区域门店数量（家）
@@ -13,7 +13,7 @@
           <van-icon name="arrow-down" class="padding-left-xs" />
         </div>
         <div class="btn margin-lr-xs" @click="onSelect('store')">
-          {{select.store}}
+          {{stores[select.store]}}
           <van-icon name="arrow-down" class="padding-left-xs" />
         </div>
       </div>
@@ -22,8 +22,8 @@
     <char-bar :data="data" />
 
     <van-popup v-model="show" get-container="body" position="bottom">
-      <van-picker :columns="stores" v-if="type == 'store'" show-toolbar @cancel="show = false" @confirm="onConfirm" />
-      <van-area v-if="type == 'province'" :area-list="area" columns-num="1" @cancel="show = false" @confirm="onConfirm" />
+      <van-picker :columns="stores" v-if="type == 'store'" show-toolbar @cancel="show = false" @confirm="onConfirm" :default-index="select.store" />
+      <van-area v-if="type == 'province'" :area-list="area" columns-num="1" @cancel="show = false" @confirm="onConfirm" :value="select.code" />
     </van-popup>
   </panel>
 </template>
@@ -36,17 +36,12 @@ import area from "@/utils/area";
 export default {
   data() {
     return {
-      data: [
-        { area: "杭州", value: 302 },
-        { area: "温州", value: 312 },
-        { area: "宁波", value: 231 },
-        { area: "绍兴", value: 278 },
-        { area: "台州", value: 212 }
-      ],
-      stores: ['品牌体验馆', '电器工业超市', 'SI专卖店', '二级形象店', '二级门招', '二级货架', '正泰岗亭', '户外广告'],
+      data: [],
+      stores: ['品牌体验馆', '电气工业超市', 'SI专卖店', '二级形象店', '二级门招', '二级货架', '正泰岗亭', '户外广告'],
       select: {
         province: "北京市",
-        store: '品牌体验馆'
+        code: '110000',
+        store: 0
       },
       area,
       show: false,
@@ -60,26 +55,44 @@ export default {
   },
 
   methods: {
+    onPost(){
+      this.$http.post('api/statistics/marketDevelopment', {area: this.select.code, type: this.stores[this.select.store]}).then(data => {
+        this.data = data.sort((a, b) => {
+          return b.value - a.value
+        });
+      })
+    },
     onSelect(type) {
       this.show = true;
       this.type = type;
     },
-    onConfirm(v) {
+    onConfirm(v, i) {
       this.show = false;
 
       switch (this.type) {
         case "store":
-          this.select.store = v;
+          this.select.store = i;
           break;
         case "province":
           this.select.province = v[0].name;
-          break;
-        case "year":
-          this.select.year = v;
+          this.select.code = v[0].code;
           break;
       }
+
+      localStorage.market = JSON.stringify(this.select)
+      this.onPost()
     }
   },
+
+  async created () {
+    if (!localStorage.market) {
+      localStorage.market = JSON.stringify(this.select)
+    } else {
+      this.select = JSON.parse(localStorage.market)
+    }
+
+    await this.onPost()
+  }
 
 };
 </script>

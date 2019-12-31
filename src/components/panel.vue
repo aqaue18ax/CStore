@@ -25,35 +25,39 @@ export default {
   props: {
     title: String,
     type: String,
-    label: String
+    label: String,
+    data: Array
   },
 
-  data () {
+  data() {
     return {
-      maxHeight: '100%',
+      maxHeight: "100%",
       unfold: false,
       show: false
+    };
+  },
+
+  watch: {
+    data() {
+      this.$nextTick(() => {
+        this.height = this.$refs.body.clientHeight;
+        if (this.height > 180) {
+          this.unfold = true;
+          this.show = false;
+          this.maxHeight = "180px";
+        }
+      });
     }
   },
 
-  mounted() {
-    this.$nextTick(() => {
-      this.height = this.$refs.body.clientHeight
-      if (this.height > 180) {
-        this.unfold = true
-        this.maxHeight = '160px'
-      }
-    });
-  },
-
   methods: {
-    onClick () {
-      this.show = !this.show
+    onClick() {
+      this.show = !this.show;
 
       if (this.show) {
-        this.maxHeight = '100%'
+        this.maxHeight = "100%";
       } else {
-        this.maxHeight = '160px'
+        this.maxHeight = "180px";
       }
     }
   }

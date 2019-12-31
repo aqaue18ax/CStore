@@ -1,0 +1,53 @@
+<template>
+  <div class="flex align-center block">
+    <div class="title">{{y}}</div>
+    <div class="process flex align-center">
+      <div class="process__portion" :style="{width: process + '%', background: '#686cff'}"></div>
+      <span class="padding-left-xs text-xs">{{value}}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    y: String,
+    value: {
+      type: Number,
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: 1
+    }
+  },
+
+  computed: {
+    process() {
+      return Math.floor((this.value / this.max) * 100) || 0;
+    }
+  }
+};
+</script>
+
+<style scoped>
+.block {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.title {
+  width: 100px;
+  padding-left: 20px;
+}
+
+.process {
+  height: 28px;
+  width: 100%;
+  background: #f1f1f1
+}
+
+.process__portion {
+  height: 28px;
+}
+</style>

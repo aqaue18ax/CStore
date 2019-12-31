@@ -1,8 +1,8 @@
 <template>
-  <panel type="memory" title="销售额统计">
+  <panel type="memory" title="销售额统计" :data="data">
     <div slot="label" class="flex">
       <div class="flex align-center">
-        <div class="color" style="background: #686cff"></div>预估销售额（亿）
+        <div class="color" style="background: #686cff"></div>预估销售额（万）
       </div>
     </div>
 
@@ -19,18 +19,18 @@
       </div>
     </div>
 
-    <char-bar :data="data" />
+    <char-bar :data="data" :unit="Math.pow(10, 8)" />
 
     <van-popup v-model="show" get-container="body" position="bottom">
       <van-area
         v-if="type == 'province'"
         :area-list="area"
-        value="100000"
+        :value="select.code"
         columns-num="1"
         @cancel="show = false"
         @confirm="onConfirm"
       />
-      <year @cancel="show = false" @confirm="onConfirm" v-if="type == 'year'" />
+      <year @cancel="show = false" @confirm="onConfirm" v-if="type == 'year'" :value="select.year" />
     </van-popup>
   </panel>
 </template>
@@ -44,27 +44,10 @@ import area from "@/utils/area";
 export default {
   data() {
     return {
-      data: [
-        { area: "杭州", value: 2 },
-        { area: "绍兴", value: 1.65 },
-        { area: "温州", value: 1.9 },
-        { area: "绍兴", value: 1.65 },
-        { area: "温州", value: 1.9 },
-        { area: "温州", value: 1.9 },
-        { area: "绍兴", value: 1.65 },
-        { area: "宁波", value: 1.8 },
-        { area: "温州", value: 1.9 },
-        { area: "绍兴", value: 1.65 },
-        { area: "温州", value: 1.9 },
-        { area: "温州", value: 1.9 },
-        { area: "绍兴", value: 1.65 },
-        { area: "温州", value: 1.9 },
-        { area: "绍兴", value: 1.65 },
-        { area: "温州", value: 1.9 },
-        { area: "台州", value: 1.5 }
-      ],
+      data: [],
       select: {
         province: "全国",
+        code: 100000,
         year: new Date().getFullYear()
       },
       show: false,
@@ -89,6 +72,18 @@ export default {
   },
 
   methods: {
+    onPost() {
+      this.$http
+        .post("api/statistics/sale", {
+          area: this.select.code,
+          year: this.select.year
+        })
+        .then(data => {
+          this.data = data.sort((a, b) => {
+            return b.value - a.value
+          });
+        });
+    },
     onSelect(type) {
       this.show = true;
       this.type = type;
@@ -102,12 +97,26 @@ export default {
           break;
         case "province":
           this.select.province = v[0].name;
+          this.select.code = v[0].code;
           break;
         case "year":
           this.select.year = v;
           break;
       }
+
+      localStorage.sale = JSON.stringify(this.select);
+      this.onPost();
     }
+  },
+
+  created() {
+    if (!localStorage.sale) {
+      localStorage.sale = JSON.stringify(this.select);
+    } else {
+      this.select = JSON.parse(localStorage.sale);
+    }
+
+    this.onPost();
   }
 };
 </script>

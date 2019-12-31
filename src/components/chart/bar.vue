@@ -1,6 +1,11 @@
 <template>
   <div>
-    <process :max="max" v-for="v in data" :y="v.area" :value="v.value" />
+    <div class="flex align-center block" v-for="(v,i) in data" :key="i">
+      <div class="title">{{v.area}}</div>
+      <div class="process">
+        <process :width="Math.ceil(v.value / max * 80)" color="#686cff" :value="v.value" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -9,12 +14,8 @@ import Process from "@/components/chart/process";
 
 export default {
   props: {
-    data: Array
-  },
-
-  data () {
-    return {
-      max: 0
+    data: {
+      type: Array
     }
   },
 
@@ -22,20 +23,34 @@ export default {
     Process
   },
 
-  created() {
-    let max = this.max;
-    this.data.map(({ value }) => {
-      max = max < value ? value : max;
-    });
+  computed: {
+    max () {
+      let max = 0;
+      this.data.map(({ value }) => {
+        max = max < value ? value : max;
+      });
 
-    let len = max.toString().length - 1;
-
-    if (len) {
-      let tmp = Math.pow(10, len);
-      this.max = Math.ceil(max / tmp) * tmp;
-    } else {
-      this.max = max + 0.3
+      let len = Math.ceil(max).toString().length;
+      let tmp = Math.pow(10, len - 1);
+      return Math.ceil(max / tmp) * tmp;
     }
   }
 }
 </script>
+
+<style scoped>
+.block {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.title {
+  width: 100px;
+  padding-left: 20px;
+  height: auto;
+}
+
+.process {
+  width: 100%;
+}
+</style>

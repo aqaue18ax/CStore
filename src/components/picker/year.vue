@@ -4,12 +4,21 @@
 
 <script>
 export default {
+  props: {
+    value: Number
+  },
   data () {
     return {
-      min: 2018,
-      index: 0
+      min: 2010
     }
   },
+
+  computed: {
+    index () {
+      return new Date().getFullYear() - this.value
+    }
+  },
+
   methods: {
     columns () {
       const now = new Date().getFullYear()
@@ -18,8 +27,7 @@ export default {
         columns.push(i)
       }
 
-      this.index = columns.length
-      return columns
+      return columns.reverse()
     },
     cancel () {
       this.$emit('cancel')

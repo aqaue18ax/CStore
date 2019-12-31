@@ -1,5 +1,5 @@
 <template>
-  <panel type="attack" title="竞争对手统计" :data="data">
+  <panel type="attack" title="竞争对手统计" :data="rows">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>预估销售额(万)
@@ -14,7 +14,7 @@
           {{types[select.type]}}
           <van-icon name="arrow-down" class="padding-left-xs" />
         </div>
-        <div class="btn margin-lr-xs" @click="onSelect('province')" v-if="select.type != 1">
+        <div class="btn margin-lr-xs" @click="onSelect('province')">
           {{select.province}}
           <van-icon name="arrow-down" class="padding-left-xs" />
         </div>
@@ -24,7 +24,14 @@
         </div>-->
       </div>
 
-      <d-bar :data="data" :y="select.type == 1 ? 'name' : 'area'" />
+      <ve-bar
+        :settings="settings"
+        :height="height"
+        :legend-visible="false"
+        :colors="['#e94c46', '#686cff']"
+        :grid="{top: 10, bottom: 0}"
+        :data="data"
+      />
     </div>
 
     <van-popup v-model="show" get-container="body" position="bottom">
@@ -51,15 +58,30 @@
 
 <script>
 import Panel from "@/components/panel";
-import dBar from "@/components/chart/dbar";
+import VeBar from "v-charts/lib/bar.common";
 import area from "@/utils/area";
 import Year from "@/components/picker/year";
 
 export default {
   data() {
     return {
+      settings: {
+        xAxisType: ['KMB', 'KMB'],
+        labelMap: {
+          num: '对手数',
+          value: '销售额'
+        },
+        dataOrder: {
+          label: 'num',
+          order: 'desc'
+        },
+        axisSite: {
+          top: ['num']
+        }
+      },
       types: ['区域', '市场'],
-      data: [],
+      columns: ["area", "num", "value"],
+      rows: [],
       select: {
         type: 0,
         province: "北京市",
@@ -72,7 +94,18 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    data() {
+      return {
+        columns: this.columns,
+        rows: this.rows
+      };
+    },
+    height() {
+      let len = this.rows.length
+      return len * 36 + 40 + 'px'
+    }
+  },
 
   methods: {
     onPost() {
@@ -83,9 +116,7 @@ export default {
           // year: this.select.year
         })
         .then(data => {
-          this.data = data.sort((a, b) => {
-            return b.value - a.value
-          });
+          this.rows = data;
         });
     },
     onSelect(type) {
@@ -125,8 +156,8 @@ export default {
 
   components: {
     Panel,
-    Year,
-    dBar
+    VeBar,
+    Year
   }
 };
 </script>
