@@ -41,6 +41,8 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
+if (!localStorage.area) localStorage.area = 330300
+
 new Vue({
   data() {
     return {

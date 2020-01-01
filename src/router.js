@@ -26,7 +26,7 @@ import cMStore from "./components/market/store.vue";
 
 Vue.use(Router)
 
-const roles = JSON.parse(localStorage.roles)
+const roles = localStorage.roles ? JSON.parse(localStorage.roles) : {market: {}, store: {}, dev: {}}
 
 const router = new Router({
   routes: [
@@ -133,7 +133,7 @@ const router = new Router({
       meta: {
         title: '开发统计',
         auth: true,
-        role: roles.dev.devStatistics
+        role: roles.dev.devStatistics || false
       }
     },
     {
@@ -171,7 +171,7 @@ const router = new Router({
         title: '门店简介',
         audit: true,
         auth: true,
-        role: roles.store.intro
+        role: roles.store.intro || false
       }
     },
     {
@@ -182,7 +182,7 @@ const router = new Router({
         title: '品牌形象',
         audit: true,
         auth: true,
-        role: roles.store.brandImage
+        role: roles.store.brandImage || false
       }
     },
     {
@@ -212,7 +212,7 @@ const router = new Router({
         title: '运营情况',
         audit: true,
         auth: true,
-        role: roles.store.operation
+        role: roles.store.operation || false
       }
     }
   ]

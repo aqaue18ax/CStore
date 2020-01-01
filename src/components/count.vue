@@ -34,7 +34,7 @@ export default {
 
   methods: {
     onGet() {
-      const area = localStorage.getItem("area");
+      const area = localStorage.getItem("area") || 330300;
       this.$http.get(`api/store/count/${area}`).then(data => {
         this.data = data
       });
