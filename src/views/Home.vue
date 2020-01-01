@@ -118,6 +118,10 @@ export default {
       this.show.count = true;
     }
 
+    if (to.name == 'home/search') {
+      this.show.count = false
+    }
+
     if (from.name == "home/market" && to.name == "home") {
       this.$root.range = [];
       this.search({});
@@ -128,6 +132,7 @@ export default {
     }
 
     if (from.name == "home/search") {
+      this.show.count = true
       this.search({});
     }
 
