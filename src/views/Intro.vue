@@ -2,11 +2,11 @@
   <div class="intro">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
-    <swipe class="swipe">
+    <!-- <swipe class="swipe">
       <swipe-item v-for="image in store.images" :key="image.id">
         <van-image :src="image.img" fit="cover" width="100%" height="100%" />
       </swipe-item>
-    </swipe>
+    </swipe>-->
 
     <cell-group class="margin-top-xs">
       <cell>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { NavBar, Swipe, SwipeItem, CellGroup, Cell, Image } from "vant";
+import { NavBar, CellGroup, Cell } from "vant";
 
 export default {
   data() {
@@ -45,17 +45,17 @@ export default {
     };
   },
   components: {
-    VanImage: Image,
+    // VanImage: Image,
     CellGroup,
     Cell,
-    NavBar,
-    Swipe,
-    SwipeItem
+    NavBar
+    // Swipe,
+    // SwipeItem
   },
   async created() {
     const id = this.$route.params.id;
     await this.$http.get(`api/store/${id}`).then(data => {
-      this.store = data
+      this.store = data;
     });
   }
 };

@@ -11,6 +11,7 @@
     </navBar>
 
     <search @onSearch="onSearch"/>
+    <count :isShow="show.count" />
     <info :is-show="show.info"/>
 
     <router-view></router-view>
@@ -23,6 +24,7 @@
 import { NavBar, Icon } from "vant";
 import Search from "@/components/search.vue";
 import Info from "@/components/info.vue";
+import Count from "@/components/count.vue";
 import Amap from "@/components/amap.vue";
 
 export default {
@@ -31,7 +33,8 @@ export default {
     return {
       modules: [],
       show: {
-        info: false
+        info: false,
+        count: false,
       }
     };
   },
@@ -54,6 +57,7 @@ export default {
     Icon,
     NavBar,
     Info,
+    Count,
     // Layout,
     Amap
   },
@@ -91,6 +95,7 @@ export default {
     },
     pin(store) {
       this.show.info = false;
+      this.show.count = false;
 
       if (store.type == "store") {
         this.$router.push(`/home/store/${store.id}`);
@@ -102,32 +107,17 @@ export default {
     }
   },
   async created() {
-    if (!this.$root.user.id) {
-      await this.$http
-        .get("api/user")
-        .then(data => {
-          if (data.role == null) {
-            data.role = { name: "" };
-          }
-
-          this.$root.user = data;
-
-          if (this.$root.user.audit_status != 1) {
-            this.$router.replace("/user");
-          }
-        })
-    } else {
-      if (this.$root.user.audit_status != 1) {
-        this.$router.replace("/user");
-      }
-    }
-
     if (this.$route.name == "home") {
       this.show.info = true;
+      this.show.count = true;
       await this.search({});
     }
   },
   beforeRouteUpdate(to, from, next) {
+    if (to.name == 'home') {
+      this.show.count = true;
+    }
+
     if (from.name == "home/market" && to.name == "home") {
       this.$root.range = [];
       this.search({});

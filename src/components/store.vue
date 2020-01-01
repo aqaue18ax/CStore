@@ -15,13 +15,13 @@
           <icon name="clock-o padding-right-xs"/>营业时间 {{store.business_hours}}
         </div>
         <div class="btn-group flex justify-around align-center">
-          <div class="flex align-center" @click="navTo(`/store/intro/${store.id}`)">
+          <div class="flex align-center" @click="navTo(`/store/intro/${store.id}`)" v-if="$root.store.intro">
             <img :src="home" width="16" class="padding-right-xs">门店简介
           </div>
-          <div class="flex align-center" @click="navTo(`/store/brand/${store.id}`)">
+          <div class="flex align-center" @click="navTo(`/store/brand/${store.id}`)" v-if="$root.store.brandImage">
             <img :src="brand" width="16" class="padding-right-xs">品牌形象
           </div>
-          <div class="flex align-center" @click="navTo(`/line/${store.id}`)">
+          <div class="flex align-center" @click="navTo(`/line/${store.id}`)" v-if="$root.store.operation">
             <img :src="operation" width="16" class="padding-right-xs">运营状况
           </div>
           <div class="flex align-center">

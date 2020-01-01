@@ -46,6 +46,7 @@
       <div class="pbody">
         <competitor
           v-for="competitor in data.competitors"
+          :key="competitor.name"
           :name="competitor.name"
           :sale="competitor.money"
           :info="competitor.introduce"
@@ -71,7 +72,7 @@ export default {
           labelMap: {
             money: "营业额"
           },
-          yAxisType: ["KMB"],
+          // yAxisType: ["KMB"],
           itemStyle: {
             color: "#686cff"
           },

@@ -49,7 +49,8 @@ new Vue({
         name: '',
         address: '',
         email: '',
-        role: { modules: [] }
+        role: { modules: [] },
+        roles: {market: {}, store: {}, dev: {}}
       },
       range: [],
       stores: [],
@@ -57,7 +58,38 @@ new Vue({
       zoom: 14,
     }
   },
+  computed: {
+    market () {
+      return this.user.roles.market
+    },
+    store () {
+      return this.user.roles.store
+    }
+  },
   methods: {},
+  async created() {
+    if (!this.$root.user.id) {
+      await this.$http
+        .get("api/user")
+        .then(data => {
+          if (data.role == null) {
+            data.role = { name: "" };
+          }
+
+          this.$root.user = data;
+
+          localStorage.roles = JSON.stringify(data.roles);
+
+          if (this.$root.user.audit_status != 1) {
+            this.$router.replace("/user");
+          }
+        })
+    } else {
+      if (this.$root.user.audit_status != 1) {
+        this.$router.replace("/user");
+      }
+    }
+  },
   router,
   render: h => h(App)
 }).$mount('#app')

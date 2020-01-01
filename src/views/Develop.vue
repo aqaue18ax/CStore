@@ -2,10 +2,10 @@
   <div class="line flex flex-direction">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
-    <market />
-    <newly />
-    <sale />
-    <competitor />
+    <market v-if="$root.user.roles.dev.market" />
+    <newly v-if="$root.user.roles.dev.newly" />
+    <sale v-if="$root.user.roles.dev.sale" />
+    <competitor v-if="$root.user.roles.dev.competitor" />
 
   </div>
 </template>

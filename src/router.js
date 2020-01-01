@@ -26,6 +26,8 @@ import cMStore from "./components/market/store.vue";
 
 Vue.use(Router)
 
+const roles = JSON.parse(localStorage.roles)
+
 const router = new Router({
   routes: [
     {
@@ -93,7 +95,6 @@ const router = new Router({
             title: '正泰门店',
             auth: true,
             audit: true,
-            keepAlive: true
           }
         },
         {
@@ -131,7 +132,8 @@ const router = new Router({
       component: Develop,
       meta: {
         title: '开发统计',
-        auth: true
+        auth: true,
+        role: roles.dev.devStatistics
       }
     },
     {
@@ -168,7 +170,8 @@ const router = new Router({
       meta: {
         title: '门店简介',
         audit: true,
-        auth: true
+        auth: true,
+        role: roles.store.intro
       }
     },
     {
@@ -178,7 +181,8 @@ const router = new Router({
       meta: {
         title: '品牌形象',
         audit: true,
-        auth: true
+        auth: true,
+        role: roles.store.brandImage
       }
     },
     {
@@ -207,7 +211,8 @@ const router = new Router({
       meta: {
         title: '运营情况',
         audit: true,
-        auth: true
+        auth: true,
+        role: roles.store.operation
       }
     }
   ]
@@ -224,6 +229,12 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.auth && !localStorage.getItem('token')) {
     next({ path: '/login' })
+  }
+
+  if (to.meta.role == undefined) to.meta.role = true
+
+  if (!to.meta.role) {
+    next({ path: '/home' })
   }
 
   next()

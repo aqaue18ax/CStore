@@ -6,8 +6,8 @@
           <icon name="close" size="25" color="#f7403a" class="icon" @click="domain = false" />
           <img :src="store.plan" width="100%" @click="preview" />
         </div>
-        <tabs class="bg-white tabs" background="#eee" animated swipeable color="#f7403a">
-          <tab title="市场介绍">
+        <tabs class="bg-white tabs" background="#eee" animated swipeable color="#f7403a" v-if="$root.market.intro || $root.market.distribution || $root.market.level ">
+          <tab title="市场介绍" v-if="$root.market.intro">
             <div class="info text-df">
               <div class="text-xl font-medium padding-tb-xs">{{store.name}}</div>
 
@@ -29,7 +29,7 @@
               </div>
             </div>
           </tab>
-          <tab title="市场分布">
+          <tab title="市场分布" v-if="$root.market.distribution">
             <div
               class="store text-df"
               v-for="store in store.children"
@@ -37,7 +37,7 @@
               @click="pin(store)"
             >{{store.name}}</div>
           </tab>
-          <tab title="级别区分">
+          <tab title="级别区分" v-if="$root.market.level">
             <div class="flex flex-wrap padding text-df">
               <div class="area" v-for="v in store.area" v-bind:key="v.name">
                 <div class="color" :style="`background: ${v.color}`"></div>{{v.name}} {{v.count}}

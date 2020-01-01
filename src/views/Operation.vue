@@ -23,7 +23,7 @@
     <div class="cards grid col-2 font-medium">
       <div v-for="row in rows" :key="row.id">
         <div class="card">
-          <div class="title flex text-xl padding-sm">
+          <div class="title flex text-df padding-sm">
             <div class="color" :style="{background: row.color}"></div>
             <span>{{row.name}}</span>
           </div>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       module_id: 1,
-      option: [],
+      option: [{text: '专业市场', value: 1}, {text: '正泰门店', value: 21}],
       currentDate: new Date(),
       colors: [],
       columns: ["name", "operation"],
@@ -95,7 +95,7 @@ export default {
     },
     search(params) {
       this.$http
-        .get(`/module/${this.module_id}/operation`, params)
+        .get(`api/module/${this.module_id}/operation`, params)
         .then(data => {
           let total = 0;
           data.map(m => {
@@ -112,21 +112,9 @@ export default {
     }
   },
   async created() {
-    if (!this.$root.user.id) {
-      await this.$http.get("/api/user").then(data => {
-        this.$root.user = data;
-      });
-    }
-
     const { id, month } = this.$route.query;
     this.module_id = parseInt(id) || 1;
     this.currentDate = month ? new Date(month) : this.currentDate
-
-    let option = [];
-    this.$root.user.role.modules.map(m => {
-      option.push({ text: m.name, value: m.id });
-    });
-    this.option = option;
 
     await this.search({ month });
   },
@@ -195,8 +183,8 @@ export default {
 }
 
 .color {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
 }
 

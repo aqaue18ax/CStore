@@ -19,14 +19,6 @@
               @click="pin(store)"
             >{{store.name}}</div>
           </tab>
-          <!-- <tab title="级别区分">
-            <div class="area">
-              <div class="color" style="background: #f8403a"></div>专业市场
-            </div>
-            <div class="area">
-              <div class="color" style="background: #507fd9"></div>正泰门店
-            </div>
-          </tab> -->
         </tabs>
         <button
           class="btn bg-blue margin-tb-xs radius padding-tb-sm text-center"
@@ -64,6 +56,7 @@ export default {
   methods: {
     pin(store) {
       this.$root.center = store.coordinate;
+      this.$root.zoom = 18;
     },
     onChange(index) {
       this.index = index;

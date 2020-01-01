@@ -11,23 +11,16 @@
         </cell>
       </cell-group>
 
-      <cell-group class="font-regular margin-tb-xs">
-        <!-- <cell
-          :title="m.name"
-          is-link
-          :to="{name: 'stores', query: {module_id: m.id, title: m.name}}"
-          v-for="m in user.role.modules"
-          :key="m.id"
-        />-->
-        <cell title="专业市场" is-link :to="{name: 'stores', query: {module_id: 1, title: '专业市场'}}" />
-        <cell title="正泰门店" is-link :to="{name: 'stores', query: {module_id: 21, title: '正泰门店'}}" />
-      </cell-group>
+      <!-- <cell-group class="font-regular margin-tb-xs">
+        <cell title="专业市场" is-link :to="{name: 'stores', query: {module_id: 1, title: '专业市场'}}" v-if="user.roles.market.market" />
+        <cell title="正泰门店" is-link :to="{name: 'stores', query: {module_id: 21, title: '正泰门店'}}" v-if="user.roles.store.CHINTStore" />
+      </cell-group> -->
 
       <cell-group class="font-regular margin-tb-xs" v-if="user.role.modules.length">
         <cell title="运营状况" is-link :to="{name: 'operation'}" />
       </cell-group>
 
-      <cell-group class="font-regular margin-tb-xs">
+      <cell-group class="font-regular margin-tb-xs" v-if="user.roles.dev.devStatistics">
         <cell title="开发统计" is-link :to="{name: 'develop'}" />
       </cell-group>
 
