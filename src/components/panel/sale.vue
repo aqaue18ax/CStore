@@ -25,7 +25,7 @@
       <van-area
         v-if="type == 'province'"
         :area-list="area"
-        :value="select.code"
+        :value="select.code.toString()"
         columns-num="1"
         @cancel="show = false"
         @confirm="onConfirm"

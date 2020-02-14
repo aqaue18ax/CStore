@@ -23,7 +23,7 @@
 
     <van-popup v-model="show" get-container="body" position="bottom">
       <van-picker :columns="stores" v-if="type == 'store'" show-toolbar @cancel="show = false" @confirm="onConfirm" :default-index="select.store" />
-      <van-area v-if="type == 'province'" :area-list="area" columns-num="1" @cancel="show = false" @confirm="onConfirm" :value="select.code" />
+      <van-area v-if="type == 'province'" :area-list="area" columns-num="1" @cancel="show = false" @confirm="onConfirm" :value="select.code.toString()" />
     </van-popup>
   </panel>
 </template>

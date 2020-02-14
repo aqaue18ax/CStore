@@ -26,23 +26,8 @@
     <char-bar :data="data" />
 
     <van-popup v-model="show" get-container="body" position="bottom">
-      <van-picker
-        :columns="stores"
-        v-if="type == 'store'"
-        show-toolbar
-        @cancel="show = false"
-        @confirm="onConfirm"
-
-        :default-index="select.store"
-      />
-      <van-area
-        v-if="type == 'province'"
-        :area-list="area"
-        :value="select.code"
-        columns-num="1"
-        @cancel="show = false"
-        @confirm="onConfirm"
-      />
+      <van-picker :columns="stores" v-if="type == 'store'" show-toolbar @cancel="show = false" @confirm="onConfirm" :default-index="select.store" />
+      <van-area v-if="type == 'province'" :area-list="area" columns-num="1" @cancel="show = false" @confirm="onConfirm" :value="select.code.toString()" />
       <year @cancel="show = false" @confirm="onConfirm" v-if="type == 'year'" :value="select.year" />
     </van-popup>
   </panel>
@@ -113,7 +98,7 @@ export default {
           break;
         case "province":
           this.select.province = v[0].name;
-          this.select.code = v[0].code;
+          this.select.code = v[0];
           break;
         case "year":
           this.select.year = v;

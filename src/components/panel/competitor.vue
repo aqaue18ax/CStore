@@ -42,7 +42,7 @@
         columns-num="1"
         @cancel="show = false"
         @confirm="onConfirm"
-        :value="select.code"
+        :value="select.code.toString()"
       />
       <year @cancel="show = false" @confirm="onConfirm" v-if="type == 'year'" />
     </van-popup>
