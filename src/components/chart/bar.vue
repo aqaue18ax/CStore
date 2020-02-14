@@ -3,7 +3,7 @@
     <div class="flex align-center block" v-for="(v,i) in data" :key="i">
       <div class="title">{{v.area}}</div>
       <div class="process">
-        <process :width="Math.ceil(v.value / max * 80)" color="#686cff" :value="v.value" />
+        <process :width="Math.ceil(v.value / max * 80) || 0" color="#686cff" :value="v.value" />
       </div>
     </div>
   </div>
