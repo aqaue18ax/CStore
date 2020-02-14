@@ -98,7 +98,7 @@ export default {
           break;
         case "province":
           this.select.province = v[0].name;
-          this.select.code = v[0];
+          this.select.code = v[0].code;
           break;
         case "year":
           this.select.year = v;
