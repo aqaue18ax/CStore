@@ -25,7 +25,7 @@
       <div v-if="z >= 14 && !range.length">
         <el-amap-polygon v-for="(store, index) in stores" :key="index" :vid="index" :ref="`polygon_${index}`" :path="store.range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
       </div>
-      <div v-if="z >= 14 && range.length">
+      <div v-if="range.length">
         <el-amap-polygon :ref="`polygon`" :path="range" strokeStyle="dashed" strokeColor="#f8403a" fillOpacity="0"></el-amap-polygon>
       </div>
     </el-amap>

@@ -2,6 +2,18 @@
   <div class="line flex flex-direction" v-cloak v-if="loaded">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
+    <panel type="no" title="客户编号">
+      <div class="pbody">
+        <span class="number">{{data.no}}</span>
+      </div>
+    </panel>
+
+    <panel type="dealer" title="一级经销商">
+      <div class="pbody">
+        <span class="boolean">{{data.is_one ? '是' : '否'}}</span>
+      </div>
+    </panel>
+
     <panel type="time" title="建店时间">
       <div class="pbody">
         <span class="number">{{create.year}}</span>
@@ -39,7 +51,7 @@
     </panel>
 
     <panel type="memory" title="销售范围">
-      <div class="pbody">{{data.business_scope}}</div>
+      <div class="pbody">{{data.sales_area}}</div>
     </panel>
 
     <panel type="attack" title="竞争对手情况">
@@ -102,6 +114,9 @@ export default {
     await this.$http.get(`api/store/${id}`).then(data => {
       if (data.competitors) {
         data.competitors = JSON.parse(data.competitors) || [];
+        if (data.competitors[0].name == "") {
+          data.competitors = [];
+        }
       }
 
       this.data = data;
@@ -149,6 +164,12 @@ export default {
 
 .number {
   font-size: 48px;
+  font-weight: bold;
+  color: #34579b;
+}
+
+.boolean {
+  font-size: 32px;
   font-weight: bold;
   color: #34579b;
 }

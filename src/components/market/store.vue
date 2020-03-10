@@ -4,7 +4,7 @@
       <div class="shop">
         <div class="title text-xl font-medium">{{store.name}}</div>
         <div class="cover">
-          <img :src="store.cover || avatar" width="88" height="88">
+          <img :src="store.cover || avatar" width="88" height="88" />
         </div>
         <div class="address_info text-df flex">
           <div class="area">{{store.areaInfo.name}}</div>
@@ -12,26 +12,31 @@
           <div class="address">{{store.address}}</div>
         </div>
         <div class="opening text-df padding-tb-xs flex align-center">
-          <icon name="clock-o padding-right-xs"/>营业时间 {{store.business_hours}}
+          <icon name="clock-o padding-right-xs" />
+          营业时间 {{store.business_hours}}
         </div>
         <div class="btn-group flex justify-around align-center">
           <div class="flex align-center" @click="navTo(`/store/intro/${store.id}`)">
-            <img :src="home" width="16" class="padding-right-xs">门店简介
+            <img :src="home" width="16" class="padding-right-xs" />门店简介
           </div>
           <div class="flex align-center" @click="navTo(`/store/brand/${store.id}`)">
-            <img :src="brand" width="16" class="padding-right-xs">品牌形象
+            <img :src="brand" width="16" class="padding-right-xs" />品牌形象
           </div>
           <div class="flex align-center" @click="navTo(`/line/${store.id}`)">
-            <img :src="operation" width="16" class="padding-right-xs">运营状况
+            <img :src="operation" width="16" class="padding-right-xs" />运营状况
           </div>
           <div class="flex align-center">
-            <img :src="material" width="16" class="padding-right-xs">物料审批
+            <img :src="material" width="16" class="padding-right-xs" />物料审批
           </div>
         </div>
       </div>
     </div>
     <div class="bbtn">
-      <button class="btn bg-blue radius padding-tb-sm text-center" @click="$router.back()" style="width: 100%;">返回</button>
+      <button
+        class="btn bg-blue radius padding-tb-sm text-center"
+        @click="$router.back()"
+        style="width: 100%;"
+      >返回</button>
     </div>
   </popup>
 </template>
@@ -74,9 +79,9 @@ export default {
   },
   async created() {
     const cid = this.$route.params.cid;
-    if (!this.$root.store) {
+    if (!this.$parent.store) {
       const id = this.$route.params.id;
-      this.$parent.find(id)
+      await this.$parent.find(id);
     }
 
     await this.find(cid);

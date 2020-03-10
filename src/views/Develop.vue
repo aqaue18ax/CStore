@@ -6,6 +6,7 @@
     <newly v-if="$root.user.roles.dev.newly" />
     <sale v-if="$root.user.roles.dev.sale" />
     <competitor v-if="$root.user.roles.dev.competitor" />
+    <china />
 
   </div>
 </template>
@@ -16,6 +17,7 @@ import Competitor from "@/components/panel/competitor";
 import Market from "@/components/panel/market";
 import Sale from "@/components/panel/sale";
 import Newly from "@/components/panel/newly";
+import China from "@/components/panel/china";
 
 export default {
   data() {
@@ -26,6 +28,7 @@ export default {
     Market,
     Newly,
     Sale,
+    China,
     Competitor
   },
   computed: {},

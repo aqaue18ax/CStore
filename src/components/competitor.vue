@@ -21,7 +21,7 @@ export default {
 
   computed: {
     addSaleUnit() {
-      return addChineseUnit(120000, 1);
+      return addChineseUnit(this.sale, 1);
     }
   }
 };

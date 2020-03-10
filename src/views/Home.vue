@@ -114,9 +114,9 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    if (to.name == 'home') {
-      this.show.count = true;
-    }
+    // if (to.name == 'home') {
+    //   this.show.count = true;
+    // }
 
     if (to.name == 'home/search') {
       this.show.count = false

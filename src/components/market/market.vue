@@ -6,7 +6,14 @@
           <icon name="close" size="25" color="#f7403a" class="icon" @click="domain = false" />
           <img :src="store.plan" width="100%" @click="preview" />
         </div>
-        <tabs class="bg-white tabs" background="#eee" animated swipeable color="#f7403a" v-if="$root.market.intro || $root.market.distribution || $root.market.level ">
+        <tabs
+          class="bg-white tabs"
+          background="#eee"
+          animated
+          swipeable
+          color="#f7403a"
+          v-if="$root.market.intro || $root.market.distribution || $root.market.level "
+        >
           <tab title="市场介绍" v-if="$root.market.intro">
             <div class="info text-df">
               <div class="text-xl font-medium padding-tb-xs">{{store.name}}</div>
@@ -16,17 +23,6 @@
 
               <div class="text-lg font-medium padding-tb-xs">销售范围</div>
               <div class="padding-bottom-xs">{{store.sales_area}}</div>
-
-              <div>
-                <div class="text-lg font-medium padding-tb-xs">竞争对手情况</div>
-                <div class="padding-tb-xs" v-for="competitor in store.competitors" v-bind:key="competitor.name">
-                  <div class="flex justify-between">
-                    <div class="font-medium padding-bottom-xs">{{competitor.name}}</div>
-                    <div class="sale"> 预估销售额： <span>{{addChineseUnit(competitor.money, 1)}}</span> </div>
-                  </div>
-                  <div class>{{competitor.introduce}}</div>
-                </div>
-              </div>
             </div>
           </tab>
           <tab title="市场分布" v-if="$root.market.distribution">
@@ -40,7 +36,44 @@
           <tab title="级别区分" v-if="$root.market.level">
             <div class="flex flex-wrap padding text-df">
               <div class="area" v-for="v in store.area" v-bind:key="v.name">
-                <div class="color" :style="`background: ${v.color}`"></div>{{v.name}} {{v.count}}
+                <div class="color" :style="`background: ${v.color}`"></div>
+                {{v.name}} {{v.count}}
+              </div>
+            </div>
+          </tab>
+          <tab title="竞争对手">
+            <div class="info text-df">
+              <div
+                class="padding-tb-xs"
+                v-for="competitor in store.competitors"
+                v-bind:key="competitor.name"
+              >
+                <div class="flex justify-between">
+                  <div class="font-medium padding-bottom-xs">{{competitor.name}}</div>
+                  <div class="red padding-bottom-xs">
+                    预估销售额：
+                    <span>{{addChineseUnit(competitor.money, 1)}}</span>
+                  </div>
+                </div>
+                <div class="padding-bottom-xs">1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+                <div>
+                  <div class="red padding-bottom-xs">
+                    一级数量：
+                    <span>32</span>
+                  </div>
+                  <div class="red padding-bottom-xs">
+                    二级数量：
+                    <span>32</span>
+                  </div>
+                  <div class="red padding-bottom-xs">
+                    户外广告：
+                    <span>32</span>
+                  </div>
+                  <div class="red padding-bottom-xs">
+                    终端形象建设：
+                    <span>32</span>
+                  </div>
+                </div>
               </div>
             </div>
           </tab>
@@ -83,7 +116,7 @@ export default {
     },
     preview() {
       ImagePreview({
-        images: ["/assets/temp.png"],
+        images: [this.store.plan],
         showIndex: false
       });
     },
@@ -161,7 +194,7 @@ div {
   margin-right: 20px;
 }
 
-.sale span {
+.red span {
   color: #f34e4a;
 }
 
