@@ -1,25 +1,21 @@
 <template>
   <div>
     <div class="flex align-center block" v-for="(v,i) in data" :key="i">
-      <div class="title">{{v[y]}}</div>
+      <div class="title">{{v.area}}</div>
       <div class="process">
-        <process :width="Math.ceil(v.value / vMax * 88)" color="#686cff" :value="v.value" />
-        <process :width="Math.ceil(v.num / nMax * 88)" color="#e94c46" :value="v.num" />
+        <process :width="v.value ? Math.ceil(v.value / vMax * 88) : 0" color="#686cff" :value="v.value" />
+        <process :width="v.value ? Math.ceil(v.num / nMax * 88) : 0" color="#e94c46" :value="v.num" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Process from "@/components/chart/process";
+import Process from "./process";
 
 export default {
   props: {
     name: String,
-    y: {
-      type: String,
-      default: 'area'
-    },
     data: Array
   },
 

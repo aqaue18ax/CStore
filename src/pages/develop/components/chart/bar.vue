@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Process from "@/components/chart/process";
+import Process from "./process";
 
 export default {
   props: {

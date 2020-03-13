@@ -13,11 +13,12 @@
 
 <script>
 import { NavBar } from "vant";
-import Competitor from "@/components/panel/competitor";
-import Market from "@/components/panel/market";
-import Sale from "@/components/panel/sale";
-import Newly from "@/components/panel/newly";
-import China from "@/components/panel/china";
+
+import Market from "./components/market";
+import Newly from "./components/newly";
+import Sale from "./components/sale";
+import Competitor from "./components/competitor";
+import China from "./components/china";
 
 export default {
   data() {
@@ -28,12 +29,12 @@ export default {
     Market,
     Newly,
     Sale,
-    China,
-    Competitor
+    Competitor,
+    China
   },
-  computed: {},
-  methods: {},
-  async created() {}
+  created() {
+    this.$store.dispatch('develop/init')
+  }
 };
 </script>
 

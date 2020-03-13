@@ -3,7 +3,10 @@ import App from './App.vue'
 import router from './router'
 import VueAMap from 'vue-amap';
 import http from './utils/http'
-import { ImagePreview, Popup, Picker, Icon, Area } from 'vant';
+import { ImagePreview, Popup, Picker, Icon, Area, Loading } from 'vant';
+import store from './store'
+
+localStorage.setItem('loading', 0)
 
 Vue.use(VueAMap);
 
@@ -13,6 +16,7 @@ Vue.use(Icon);
 Vue.use(Area);
 Vue.use(Popup);
 Vue.use(Picker);
+Vue.use(Loading);
 Vue.use(ImagePreview);
 
 
@@ -60,6 +64,7 @@ new Vue({
       zoom: 18,
     }
   },
+
   computed: {
     market () {
       return this.user.roles.market
@@ -68,7 +73,9 @@ new Vue({
       return this.user.roles.store
     }
   },
+
   methods: {},
+
   async created() {
     if (!this.$root.user.id) {
       await this.$http
@@ -92,6 +99,8 @@ new Vue({
       }
     }
   },
+
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

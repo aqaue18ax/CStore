@@ -13,9 +13,13 @@ var toast;
 axios.interceptors.request.use(
   config => {
     toast = Toast.loading({
+      duration: 0,
       mask: true,
       message: '加载中...'
     })
+
+    const loading = parseInt(localStorage.getItem('loading')) + 1;
+    localStorage.setItem('loading', loading);
 
     if (localStorage.getItem('token')) {
       config.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
@@ -27,7 +31,14 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   res => {
-    toast.clear()
+    const loading = parseInt(localStorage.getItem('loading')) - 1;
+    localStorage.setItem('loading', loading);
+
+    if (!loading) {
+      setTimeout(() => {
+        toast.clear()
+      }, 360);
+    }
 
     return res
   },

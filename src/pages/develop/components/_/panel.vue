@@ -11,7 +11,12 @@
       </div>
     </div>
     <div class="body" ref="body" :style="{maxHeight: maxHeight}">
-      <slot />
+      <!-- <div v-show="!loading"> -->
+        <slot />
+      <!-- </div>
+      <div class="flex justify-center" v-show="loading">
+        <van-loading />
+      </div> -->
     </div>
     <div class="text-center" v-if="unfold">
       <van-icon name="arrow-down" size="20" v-if="!show" @click="onClick" />
@@ -26,7 +31,11 @@ export default {
     title: String,
     type: String,
     label: String,
-    data: Array
+    data: Array,
+    // loading: {
+    //   type: Number,
+    //   default: 0
+    // }
   },
 
   data() {
@@ -52,6 +61,9 @@ export default {
   },
 
   methods: {
+    load() {
+      this.loading -= 1;
+    },
     onClick() {
       this.show = !this.show;
 
