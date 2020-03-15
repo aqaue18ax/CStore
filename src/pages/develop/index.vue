@@ -2,6 +2,7 @@
   <div class="line flex flex-direction">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
+    <agent />
     <market v-if="$root.user.roles.dev.market" />
     <newly v-if="$root.user.roles.dev.newly" />
     <sale v-if="$root.user.roles.dev.sale" />
@@ -14,6 +15,7 @@
 <script>
 import { NavBar } from "vant";
 
+import Agent from "./components/agent";
 import Market from "./components/market";
 import Newly from "./components/newly";
 import Sale from "./components/sale";
@@ -26,6 +28,7 @@ export default {
   },
   components: {
     NavBar,
+    Agent,
     Market,
     Newly,
     Sale,

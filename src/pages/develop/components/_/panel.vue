@@ -10,7 +10,7 @@
         {{label}}
       </div>
     </div>
-    <div class="body" ref="body" :style="{maxHeight: maxHeight}">
+    <div class="body" ref="body" :style="{maxHeight: maxHeight, overflow: unfold ? 'hidden' : ''}">
       <!-- <div v-show="!loading"> -->
         <slot />
       <!-- </div>
@@ -101,7 +101,7 @@ export default {
 .body {
   font-size: 24px;
   padding-top: 25px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .panel:last-child {
