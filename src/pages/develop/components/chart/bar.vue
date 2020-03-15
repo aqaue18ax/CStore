@@ -1,45 +1,101 @@
 <template>
-  <div>
-    <div class="flex align-center block" v-for="(v,i) in data" :key="i">
-      <div class="title">{{v.area}}</div>
-      <div class="process">
-        <process :width="Math.ceil(v.value / max * 80) || 0" color="#686cff" :value="v.value" />
-      </div>
-    </div>
-  </div>
+  <vebar :extend="chartExtend" :height="data.length * 20 + 'px'" />
 </template>
 
 <script>
-import Process from "./process";
+import vebar from "v-charts/lib/bar.common";
 
 export default {
   props: {
-    data: {
-      type: Array
+    y: Array,
+    data: Array,
+    tooltip: String
+  },
+
+  computed: {
+    maxs() {
+      let max = Math.max(...this.data) * 1.2 || 10;
+
+      const maxs = [];
+      for (let i = 0; i < this.data.length; i++) {
+        maxs.push(max);
+      }
+
+      return maxs;
+    },
+    chartExtend() {
+      return {
+        color: ["#686cff"],
+        grid: {
+          left: 10,
+          right: 0,
+          top: 0,
+          bottom: 0
+        },
+        tooltip: {
+          show: false,
+          formatter: `{b0}<br/>${this.tooltip}: {c1}`,
+          axisPointer: {
+            type: "none"
+          }
+        },
+        xAxis: {
+          show: false,
+          axisLabel: {
+            show: false
+          },
+          max: Number
+        },
+        yAxis: {
+          data: this.y,
+          inverse: true
+        },
+        series: [
+          {
+            type: "bar",
+            itemStyle: { color: "#f1f1f1" },
+            silent: true,
+            barGap: "-100%",
+            barWidth: 15,
+            emphasis: {
+              itemStyle: {
+                color: "#f1f1f1"
+              }
+            },
+            animation: false,
+            data: this.maxs
+          },
+          {
+            type: "bar",
+            silent: true,
+            label: {
+              normal: {
+                show: true,
+                position: "right",
+                color: "black"
+              }
+            },
+            emphasis: {
+              itemStyle: {
+                color: "#ffdf33"
+              }
+            },
+            barWidth: 15,
+            data: this.data
+          }
+        ]
+      };
     }
   },
 
   components: {
-    Process
-  },
-
-  computed: {
-    max () {
-      let max = 0;
-      this.data.map(({ value }) => {
-        max = max < value ? value : max;
-      });
-
-      let len = Math.ceil(max).toString().length;
-      let tmp = Math.pow(10, len - 1);
-      return Math.ceil(max / tmp) * tmp;
-    }
+    vebar
   }
-}
+};
 </script>
 
 <style scoped>
-.block {
+/* .block {
   padding-top: 6px;
   padding-bottom: 6px;
 }
@@ -52,5 +108,5 @@ export default {
 
 .process {
   width: 100%;
-}
+} */
 </style>

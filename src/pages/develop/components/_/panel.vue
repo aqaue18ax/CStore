@@ -31,32 +31,19 @@ export default {
     title: String,
     type: String,
     label: String,
-    data: Array,
-    // loading: {
-    //   type: Number,
-    //   default: 0
-    // }
+    height: Number
   },
 
   data() {
     return {
-      maxHeight: "100%",
-      unfold: false,
+      maxHeight: "170px",
       show: false
     };
   },
 
-  watch: {
-    data() {
-      this.$nextTick(() => {
-        this.unfold = false;
-        this.height = this.$refs.body.clientHeight;
-        if (this.height > 180) {
-          this.unfold = true;
-          this.show = false;
-          this.maxHeight = "180px";
-        }
-      });
+  computed: {
+    unfold () {
+      return this.height > 180
     }
   },
 
@@ -70,7 +57,7 @@ export default {
       if (this.show) {
         this.maxHeight = "100%";
       } else {
-        this.maxHeight = "180px";
+        this.maxHeight = "170px";
       }
     }
   }
