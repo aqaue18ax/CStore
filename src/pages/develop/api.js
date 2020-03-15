@@ -1,7 +1,5 @@
 import http from '@/utils/http'
 
-
-
 function agency() {
   return http.get("api/agency")
 }
@@ -14,7 +12,7 @@ function module() {
   return http.get("api/module/tree")
 }
 
-function markey(province, module, agency) {
+function market(province, module, agency) {
   return http.post("api/statistics/dev", { province, module, agency })
 }
 
@@ -35,7 +33,7 @@ export default {
   province,
   module,
 
-  markey,
+  market,
   newly,
   sale,
   competitor
