@@ -238,7 +238,7 @@ div {
 }
 
 .van-tab__pane {
-  height: 192px;
+  height: 147px;
   overflow: scroll;
 }
 </style>

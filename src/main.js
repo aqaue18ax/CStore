@@ -4,7 +4,6 @@ import router from './router'
 import VueAMap from 'vue-amap';
 import http from './utils/http'
 import { ImagePreview, Popup, Picker, Icon, Area, Loading } from 'vant';
-import store from './store'
 
 localStorage.setItem('loading', 0)
 
@@ -101,6 +100,5 @@ new Vue({
   },
 
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')
