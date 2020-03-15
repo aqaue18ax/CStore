@@ -2,41 +2,61 @@
   <div class="line flex flex-direction">
     <navBar :title="$route.meta.title" left-arrow @click-left="$router.back()" class="font-regular"></navBar>
 
-    <agent />
-    <market v-if="$root.user.roles.dev.market" />
+    <!-- <agent />
+    <market v-if="$root.user.roles.dev.market" /> -->
     <newly v-if="$root.user.roles.dev.newly" />
-    <sale v-if="$root.user.roles.dev.sale" />
-    <competitor v-if="$root.user.roles.dev.competitor" />
-    <china />
-
+    <!-- <sale v-if="$root.user.roles.dev.sale" /> -->
+    <!-- <competitor v-if="$root.user.roles.dev.competitor" /> -->
+    <!-- <china /> -->
   </div>
 </template>
 
 <script>
 import { NavBar } from "vant";
 
-import Agent from "./components/agent";
-import Market from "./components/market";
+import api from "./api";
+
+// import Agent from "./components/agent";
+// import Market from "./components/market";
 import Newly from "./components/newly";
-import Sale from "./components/sale";
-import Competitor from "./components/competitor";
-import China from "./components/china";
+// import Sale from "./components/sale";
+// import Competitor from "./components/competitor";
+// import China from "./components/china";
 
 export default {
   data() {
-    return {};
+    return {
+      agencies: [],
+      provinces: [],
+      modules: []
+    };
   },
   components: {
     NavBar,
-    Agent,
-    Market,
+    // Agent,
+    // Market
     Newly,
-    Sale,
-    Competitor,
-    China
+    // Sale,
+    // Competitor,
+    // China
+  },
+  methods: {
+    init() {
+      api.agency().then(data => {
+        this.agencies = data;
+      });
+
+      api.province(0).then(data => {
+        this.provinces = data;
+      });
+
+      api.module().then(data => {
+        this.modules = data;
+      });
+    }
   },
   created() {
-    this.$store.dispatch('develop/init')
+    this.init();
   }
 };
 </script>
