@@ -13,6 +13,9 @@ export default {
   },
 
   computed: {
+    max () {
+      return Math.max(...this.data) * 1.2 || 10;
+    },
     maxs() {
       let max = Math.max(...this.data) * 1.2 || 10;
 
@@ -44,7 +47,7 @@ export default {
           axisLabel: {
             show: false
           },
-          max: Number
+          max: this.maxs,
         },
         yAxis: {
           data: this.y,
