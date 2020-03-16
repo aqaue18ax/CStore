@@ -1,5 +1,5 @@
 <template>
-  <panel type="memory" title="销售额统计" :data="data.statistics">
+  <panel type="memory" title="销售额统计" :height="20 * chart.data.length">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>预估销售额（万）
@@ -7,20 +7,20 @@
     </div>
 
     <div class="pbody flex flex-wrap">
-      <agency :columns="data.agencies" @confirm="confirm" />
-      <province :columns="data.provinces" @confirm="confirm" />
+      <agency :columns="agencies" @confirm="confirm" />
+      <province :columns="provinces" @confirm="confirm" />
       <year @confirm="confirm" />
     </div>
 
-    <char-bar :data="data.statistics" />
+    <char-bar :y="chart.y" :data="chart.data" />
 
   </panel>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import api from "../api";
 
-import Panel from "@/components/panel";
+import Panel from "./_/panel";
 import CharBar from "./chart/bar";
 
 import Agency from "./_/agency";
@@ -30,10 +30,19 @@ import Year from "./_/year";
 export default {
   name: 'sale',
 
-  computed: {
-    ...mapGetters({
-      data: 'develop/sale'
-    })
+  data() {
+    return {
+      mProvinces: [],
+
+      agency: 0,
+      province: 110000,
+      year: new Date().getFullYear(),
+
+      chart: {
+        y: ["北京市"],
+        data: [0]
+      }
+    }
   },
 
   components: {
@@ -45,10 +54,66 @@ export default {
   },
 
   methods: {
-    confirm(e) {
-      e.key = this.$options._componentTag
-      this.$store.dispatch("develop/change", e)
+    async confirm(e) {
+      if (e.type == "agency") {
+        if (e.id == 0) {
+          this.mProvinces = [];
+        } else {
+          await api.province(e.id).then(data => {
+            if (data.length == 0) {
+              data = [{code: 0, name: '无数据'}]
+            }
+            this.mProvinces = data;
+          });
+        }
+        this.province = this.provinces[0].code;
+      }
+
+      if (e.type == "province") {
+        this.province = e.code;
+      }
+
+      if (e.type == "module") {
+        this.module = e.id
+      }
+
+      if (e.type == "year") {
+        this.year = e.value
+      }
+
+      this.onPost();
+    },
+    onPost() {
+      api.sale(this.province, this.agency, this.year).then(data => {
+        let y = [];
+        let chart = [];
+
+        data.sort((a, b) => {
+          return b.value - a.value;
+        });
+
+        data.map(v => {
+          y.push(v.area);
+          chart.push(v.value);
+        });
+
+        this.chart.y = y;
+        this.chart.data = chart;
+      });
     }
+  },
+
+  computed: {
+    agencies() {
+      return this.$parent.agencies;
+    },
+    provinces() {
+      return this.mProvinces.length > 0 ? this.mProvinces : this.$parent.provinces;
+    }
+  },
+
+  async created() {
+    await this.onPost();
   }
 };
 </script>
