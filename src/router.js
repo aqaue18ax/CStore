@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import { Toast } from "vant";
+
 import Reg from './views/Reg.vue'
 import Login from './views/Login.vue'
 import User from './views/User.vue'
@@ -234,7 +236,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.role == undefined) to.meta.role = true
 
   if (!to.meta.role) {
-    next({ path: '/home' })
+    return Toast.fail('没有权限')
   }
 
   next()
