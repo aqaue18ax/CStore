@@ -26,7 +26,8 @@ export default {
   data() {
     return {
       name: "专业市场",
-      show: false
+      show: false,
+      id: 1
     };
   },
   methods: {
@@ -35,6 +36,10 @@ export default {
       const id = this.columns[i[0]].children[i[1]].children[i[2]].id;
 
       this.show = false;
+
+      if (id == this.id) return
+
+      this.id = id;
       this.$emit("confirm", { id, name: this.name, type: this.$options._componentTag });
     }
   }

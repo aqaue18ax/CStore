@@ -10,11 +10,19 @@ export default {
   props: {
     columns: Array
   },
+  data() {
+    return {
+      code: '110000'
+    }
+  },
   components: {
     popup
   },
   methods: {
     confirm(v) {
+      if (v.code == this.code) return 
+
+      this.code = v.code
       v.type = this.$options._componentTag;
       this.$emit("confirm", v);
     }

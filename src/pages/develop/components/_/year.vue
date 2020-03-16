@@ -27,6 +27,9 @@ export default {
   methods: {
     confirm(v, i) {
       this.show = false;
+
+      if (this.select == i) return;
+
       this.select = i;
       this.$emit("confirm", {value: v, type: this.$options._componentTag});
     }
