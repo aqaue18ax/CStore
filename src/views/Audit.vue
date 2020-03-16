@@ -30,30 +30,15 @@
         readonly
         @click="showPicker = true"
       />
-
-      <!-- <cell
-        title="用户名"
-        is-link
-        :value="user.name || '请输入用户名(必填)'"
-        :to="{path: 'input', query: {type: 'text', title: '用户名', store: 'user', key: 'name'}}"
-      />-->
-      <!-- <cell title="电话" is-link :value="user.phone"/>
-
-      <cell
-        title="地址"
-        is-link
-        :value="user.address || '请输入地址(必填)'"
-        :to="{path: 'input', query: {type: 'text', title: '地址', store: 'user', key: 'address'}}"
+      <field
+        label="办事处"
+        :value="user.agency ? user.agency.name : ''"
+        input-align="right"
+        placeholder="请选择办事处"
+        required
+        readonly
+        @click="showPicker2 = true"
       />
-
-      <cell
-        title="邮箱"
-        is-link
-        :value="user.email || '请输入邮箱(必填)'"
-        :to="{path: 'input', query: {type: 'text', title: '邮箱', store: 'user', key: 'email'}}"
-      />
-
-      <cell title="权限" is-link :value="user.role || '请输入权限(必填)'" @click="showPicker = true"/>-->
     </cell-group>
 
     <popup v-model="showPicker" position="bottom">
@@ -65,6 +50,18 @@
         @confirm="onShowPicker"
         @cancel="showPicker = false"
         :default-index="index"
+      />
+    </popup>
+
+    <popup v-model="showPicker2" position="bottom">
+      <picker
+        :columns="agencies"
+        show-toolbar
+        title="办事处选择"
+        value-key="name"
+        @confirm="onShowPicker2"
+        @cancel="showPicker = false"
+        :default-index="index2"
       />
     </popup>
 
@@ -96,7 +93,9 @@ export default {
   data() {
     return {
       roles: [],
-      showPicker: false
+      agencies: [],
+      showPicker: false,
+      showPicker2: false
     };
   },
   computed: {
@@ -104,6 +103,13 @@ export default {
       return (
         this.roles.findIndex(role => {
           role.name === this.user.role.name;
+        }) || 0
+      );
+    },
+    index2() {
+      return (
+        this.agencies.findIndex(agency => {
+          agency.id === this.user.agency_id;
         }) || 0
       );
     },
@@ -133,6 +139,12 @@ export default {
 
       this.showPicker = false;
     },
+    onShowPicker2(data) {
+      this.$root.user.agency_id = data.id;
+      this.$root.user.agency = {name: data.name};
+
+      this.showPicker2 = false;
+    },
     onSubmit() {
       if (!this.check) return;
 
@@ -141,7 +153,8 @@ export default {
         email: this.user.email,
         address: this.user.address,
         name: this.user.name,
-        role_id: this.user.role_id
+        role_id: this.user.role_id,
+        agency_id: this.user.agency_id
       };
 
       http.put("api/user/audit", data).then(() => {
@@ -154,6 +167,10 @@ export default {
     await http.get("api/role").then(data => {
       this.roles = data;
     });
+
+    await http.get("api/agency").then(data => {
+      this.agencies = data
+    })
   }
 };
 </script>

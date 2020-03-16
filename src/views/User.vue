@@ -31,6 +31,7 @@
         <div class="text-df padding-top-xs">邮箱：{{user.email}}</div>
         <div class="text-df padding-top-xs">地址：{{user.address}}</div>
         <div class="text-df padding-top-xs">权限：{{user.role.name}}</div>
+        <div class="text-df padding-top-xs">办事处：{{user.agency.name}}</div>
       </cell-group>
 
       <div class="btn bg-blue" @click="logout">退出</div>

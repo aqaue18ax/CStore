@@ -54,8 +54,9 @@ new Vue({
         name: '',
         address: '',
         email: '',
+        agency: {},
         role: { modules: [] },
-        roles: {market: {}, store: {}, dev: {}}
+        roles: {market: {}, store: {}, dev: {}},
       },
       range: [],
       stores: [],
@@ -82,6 +83,10 @@ new Vue({
         .then(data => {
           if (data.role == null) {
             data.role = { name: "" };
+          }
+
+          if (data.agency == null) {
+            data.agency = { name: "" };
           }
 
           this.$root.user = data;
