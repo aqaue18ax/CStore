@@ -24,7 +24,7 @@ function sale(province, agency, year) {
   return http.post("api/statistics/sale", { province, agency, year })
 }
 
-function competitor(province, agency, module) {
+function competitor(province, module, agency) {
   return http.post("api/statistics/competitor", { province, agency, module })
 }
 
