@@ -1,7 +1,7 @@
 import http from '@/utils/http'
 
 function agency() {
-  return http.get("api/agency")
+  return http.get("api/agency?all=1")
 }
 
 function province(agency_id) {
