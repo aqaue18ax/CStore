@@ -13,7 +13,7 @@ var toast;
 axios.interceptors.request.use(
   config => {
     toast = Toast.loading({
-      duration: 0,
+      duration: 3000,
       mask: true,
       message: '加载中...'
     })
