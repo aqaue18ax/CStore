@@ -62,7 +62,9 @@ export default {
         .post("/api/login", { phone: this.phone, password: this.pwd })
         .then(res => {
           localStorage.setItem("token", res.token);
-          this.$router.replace(`/home`);
+          localStorage.setItem("roles", JSON.stringify(res.roles));
+          // this.$router.replace(`/home`);
+          location.reload()
         });
     },
     navTo(url) {

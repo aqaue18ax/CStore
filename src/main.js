@@ -91,7 +91,7 @@ new Vue({
 
           this.$root.user = data;
 
-          localStorage.roles = JSON.stringify(data.roles);
+          localStorage.setItem('roles', JSON.stringify(data.roles));
 
           if (this.$root.user.audit_status != 1) {
             this.$router.replace("/user");

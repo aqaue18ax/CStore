@@ -115,7 +115,8 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     // if (to.name == 'home') {
-    //   this.show.count = true;
+    //   this.show.count = false;
+    //   this.show.info = false;
     // }
 
     if (to.name == 'home/search') {
@@ -132,7 +133,7 @@ export default {
     }
 
     if (from.name == "home/search") {
-      this.show.count = true
+      // this.show.count = true
       this.search({});
     }
 
