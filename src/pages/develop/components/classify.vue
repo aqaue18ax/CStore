@@ -27,22 +27,18 @@ import City from "./_/city";
 export default {
   data() {
     return {
-      mProvinces: [],
+      provinces: [],
       cities: [],
       data: [],
 
-      province: 110000,
-      city: 110100
+      agency: 0,
+      province: 'all',
+      city: 'all'
     };
   },
   computed: {
     agencies() {
       return this.$parent.agencies;
-    },
-    provinces() {
-      return this.mProvinces.length > 0
-        ? this.mProvinces
-        : this.$parent.provinces;
     }
   },
   components: {
@@ -63,26 +59,33 @@ export default {
       }
 
       if (e.type == "city") {
-        this.post(e.code);
+        this.city = e.code
+        this.post();
       }
     },
 
     changeAgency(id) {
-      if (id == 0) this.mProvinces = [];
+      api.province(id, 1).then(data => {
+        this.provinces = data;
 
-      api.province(id).then(data => {
-        this.mProvinces = data;
+        this.agency = id;
+        this.province = data[0].code;
+
         this.changeProvince(data[0].code);
       });
     },
     changeProvince(code) {
-      api.city(code).then(data => {
+      this.province = code;
+      api.city(code, 1).then(data => {
+
         this.cities = data;
-        this.post(data[0].code);
+        this.city = data[0].code;
+
+        this.post();
       });
     },
-    post(code) {
-      this.$http.get(`api/store/count/${code}`).then(data => {
+    post() {
+      this.$http.get(`api/store/count2/${this.agency}/${this.province}/${this.city}`).then(data => {
         this.data = data;
       });
     }

@@ -4,12 +4,12 @@ function agency() {
   return http.get("api/agency?all=1")
 }
 
-function province(agency_id) {
-  return http.get(`api/agency/province/${agency_id}`)
+function province(agency_id, all = 0) {
+  return http.get(`api/agency/province/${agency_id}/${all}`)
 }
 
-function city(code) {
-  return http.get(`api/area/city/${code}`)
+function city(code, all) {
+  return http.get(`api/area/city/${code}?all=all`)
 }
 
 function module() {

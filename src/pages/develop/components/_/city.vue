@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      code: '110100'
+      code: ''
     }
   },
   components: {
