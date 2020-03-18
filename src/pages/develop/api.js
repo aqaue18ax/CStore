@@ -28,6 +28,10 @@ function sale(province, agency, year) {
   return http.post("api/statistics/sale", { province, agency, year })
 }
 
+function kpi(province, agency, year) {
+  return http.post("api/statistics/kpi", { province, agency, year })
+}
+
 function competitor(province, module, agency) {
   return http.post("api/statistics/competitor", { province, agency, module })
 }
@@ -41,5 +45,6 @@ export default {
   market,
   newly,
   sale,
+  kpi,
   competitor
 }
