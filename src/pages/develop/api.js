@@ -8,6 +8,10 @@ function province(agency_id) {
   return http.get(`api/agency/province/${agency_id}`)
 }
 
+function city(code) {
+  return http.get(`api/area/city/${code}`)
+}
+
 function module() {
   return http.get("api/module/tree")
 }
@@ -31,6 +35,7 @@ function competitor(province, module, agency) {
 export default {
   agency,
   province,
+  city,
   module,
 
   market,
