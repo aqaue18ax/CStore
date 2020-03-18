@@ -1,5 +1,5 @@
 <template>
-  <panel type="chart" title="新增门店数排名" :height="20 * chart.data.length">
+  <panel type="chart" title="新增门店数排名" :height="22 * chart.data.length">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>新增门店数量（家）

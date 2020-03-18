@@ -1,5 +1,5 @@
 <template>
-  <panel type="attack" title="竞争对手统计" :height="40 * chart.sale.length">
+  <panel type="attack" title="竞争对手统计" :height="44 * chart.sale.length">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>预估销售额(万)
