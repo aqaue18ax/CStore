@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      code: '110000'
+      code: 0
     }
   },
   components: {
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     confirm(v) {
-      if (v.code == this.code) return 
+      // if (v.code == this.code) return 
 
       this.code = v.code
       v.type = this.$options._componentTag;
