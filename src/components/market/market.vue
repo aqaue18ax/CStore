@@ -55,23 +55,23 @@
                     <span>{{addChineseUnit(competitor.money, 1)}}</span>
                   </div>
                 </div>
-                <div class="padding-bottom-xs">1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+                <div class="padding-bottom-sm">{{competitor.introduce}}</div>
                 <div>
                   <div class="red padding-bottom-xs">
                     一级数量：
-                    <span>32</span>
+                    <span>{{competitor.one_count}}</span>
                   </div>
                   <div class="red padding-bottom-xs">
                     二级数量：
-                    <span>32</span>
+                    <span>{{competitor.two_count}}</span>
                   </div>
                   <div class="red padding-bottom-xs">
                     户外广告：
-                    <span>32</span>
+                    <span>{{competitor.outdoor}}</span>
                   </div>
                   <div class="red padding-bottom-xs">
                     终端形象建设：
-                    <span>32</span>
+                    <span>{{competitor.content}}</span>
                   </div>
                 </div>
               </div>
