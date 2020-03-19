@@ -7,7 +7,6 @@
     <market v-if="$root.user.roles.dev.market" />
     <newly v-if="$root.user.roles.dev.newly" />
     <sale v-if="$root.user.roles.dev.sale" />
-    <kpi />
     <competitor v-if="$root.user.roles.dev.competitor" />
     <operation />
     <terminal />
@@ -24,7 +23,6 @@ import Agent from "./components/agent";
 import Market from "./components/market";
 import Newly from "./components/newly";
 import Sale from "./components/sale";
-import Kpi from "./components/kpi";
 import Competitor from "./components/competitor";
 import Operation from "./components/operation";
 import Terminal from "./components/terminal";
@@ -45,7 +43,6 @@ export default {
     Market,
     Newly,
     Sale,
-    Kpi,
     Competitor,
     Operation,
     Terminal,
