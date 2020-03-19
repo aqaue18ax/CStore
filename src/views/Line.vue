@@ -26,7 +26,7 @@
     </panel>
 
     <panel type="computer" title="终端化建设">
-      <div class="pbody">{{data.terminal_construction}}</div>
+      <div class="pbody">{{data.terminal_construction_text}}</div>
     </panel>
 
     <panel type="rmb" title="营收收入" label="(上月)">
