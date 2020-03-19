@@ -9,7 +9,7 @@ function province(agency_id, all = 0) {
 }
 
 function city(code, all) {
-  return http.get(`api/area/city/${code}?all=all`)
+  return http.get(`api/area/city/${code}?all=${all}`)
 }
 
 function module() {
@@ -40,6 +40,14 @@ function terminal(code) {
   return http.post("api/statistics/terminal", { code })
 }
 
+function marketTop10(type = 'performance', year) {
+  return http.post(`api/statistics/marketTop10`, { type, year })
+}
+
+function storeTop10(type = 'performance', year) {
+  return http.post(`api/statistics/storeTop10`, { type, year })
+}
+
 export default {
   agency,
   province,
@@ -51,5 +59,7 @@ export default {
   sale,
   kpi,
   competitor,
-  terminal
+  terminal,
+  marketTop10,
+  storeTop10
 }
