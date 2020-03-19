@@ -11,10 +11,6 @@
           <div class="hr">|</div>
           <div class="address">{{store.address}}</div>
         </div>
-        <div class="opening text-df padding-tb-xs flex align-center">
-          <icon name="clock-o padding-right-xs" />
-          营业时间 {{store.business_hours}}
-        </div>
         <div class="btn-group flex justify-around align-center">
           <div class="flex align-center" @click="navTo(`/store/intro/${store.id}`)" v-if="$root.user.roles.store.intro">
             <img :src="home" width="16" class="padding-right-xs" />门店简介
@@ -42,7 +38,7 @@
 </template>
 
 <script>
-import { Popup, Icon } from "vant";
+import { Popup } from "vant";
 import avatar from "@/assets/avatar.png";
 import home from "@/assets/home.png";
 import brand from "@/assets/brand.png";
@@ -62,8 +58,7 @@ export default {
     };
   },
   components: {
-    Popup,
-    Icon
+    Popup
   },
   methods: {
     navTo(url) {
