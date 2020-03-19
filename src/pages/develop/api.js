@@ -36,6 +36,10 @@ function competitor(province, module, agency) {
   return http.post("api/statistics/competitor", { province, agency, module })
 }
 
+function terminal(code) {
+  return http.post("api/statistics/terminal", { code })
+}
+
 export default {
   agency,
   province,
@@ -46,5 +50,6 @@ export default {
   newly,
   sale,
   kpi,
-  competitor
+  competitor,
+  terminal
 }
