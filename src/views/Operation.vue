@@ -92,7 +92,7 @@ export default {
         query: { id: this.id, month: this.month }
       });
 
-      this.$refs.item.hide();
+      this.$refs.item.toggle(false)
     },
     search(params) {
       this.$http
