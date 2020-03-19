@@ -10,7 +10,7 @@
           ref="datePicker"
           :show-toolbar="false"
           type="year-month"
-          :max-date="new Date()"
+          :max-date="maxDate"
         />
         <button class="btn bg-blue" @click="datePicker">确认</button>
       </dropdown-item>
@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       module_id: 1,
+      maxDate: new Date(),
       option: [{text: '专业市场', value: 1}, {text: '正泰门店', value: 21}],
       currentDate: new Date(),
       colors: [],
