@@ -39,9 +39,21 @@
     <panel type="chart" title="销售业绩" label="(元)">
       <ve-histogram
         :data="sale"
-        :settings="chart.settings"
+        :settings="chart1.settings"
         :legend-visible="false"
-        :grid="chart.grid"
+        :grid="chart1.grid"
+        :extend="chart1.extend"
+        height="180px"
+      ></ve-histogram>
+    </panel>
+
+    <panel type="kpi" title="业绩指标" label="(元)">
+      <ve-histogram
+        :data="kpi"
+        :settings="chart2.settings"
+        :legend-visible="false"
+        :grid="chart2.grid"
+        :extend="chart2.extend"
         height="180px"
       ></ve-histogram>
     </panel>
@@ -79,16 +91,44 @@ export default {
     return {
       data: {},
       loaded: false,
-      chart: {
+      chart1: {
+        extend: {
+          xAxis: {
+            axisLabel: {
+              rotate: -90
+            }
+          }
+        },
         settings: {
-          labelMap: {
-            money: "营业额"
-          },
-          // yAxisType: ["KMB"],
           itemStyle: {
             color: "#686cff"
           },
-          digit: 1
+          digit: 1,
+          labelMap: {
+            money: "营业额"
+          }
+        },
+        grid: {
+          top: 20,
+          bottom: 10
+        }
+      },
+      chart2: {
+        extend: {
+          xAxis: {
+            axisLabel: {
+              rotate: -90
+            }
+          }
+        },
+        settings: {
+          itemStyle: {
+            color: "#e94c46"
+          },
+          digit: 1,
+          labelMap: {
+            money: "kpi"
+          }
         },
         grid: {
           top: 20,
@@ -96,6 +136,10 @@ export default {
         }
       },
       sale: {
+        columns: ["date", "money"],
+        rows: []
+      },
+      kpi: {
         columns: ["date", "money"],
         rows: []
       },
@@ -131,7 +175,12 @@ export default {
 
     await this.$http.get(`api/store/${id}/income`).then(data => {
       this.sale.rows = data;
-      this.sale.month = (data[data.length - 1].money).toLocaleString('en-US');
+      this.sale.month = data[data.length - 1].money.toLocaleString("en-US");
+    });
+
+    await this.$http.get(`api/store/${id}/kpi`).then(data => {
+      this.kpi.rows = data;
+      this.kpi.month = data[data.length - 1].money.toLocaleString("en-US");
     });
 
     this.loaded = true;
