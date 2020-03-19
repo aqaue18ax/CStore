@@ -43,7 +43,7 @@ export default {
     },
     post(code) {
       api.terminal(code).then(data => {
-        this.avg = parseFloat(data.avg);
+        this.avg = parseFloat(data.avg) || 0;
         this.data = data.data;
       });
     }
