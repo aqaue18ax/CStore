@@ -1,5 +1,5 @@
 <template>
-  <panel type="pie" title="市场开发统计" :height="22 * chart.data.length">
+  <panel type="pie" title="市场开发统计" :unfold="chart.data.length > 7">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>区域门店数量（家）

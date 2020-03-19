@@ -1,5 +1,5 @@
 <template>
-  <panel type="memory" title="销售额统计" :height="22 * chart.data.length">
+  <panel type="memory" title="销售额统计" :unfold="chart.data.length > 7">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>预估销售额（万）

@@ -1,5 +1,5 @@
 <template>
-  <panel type="memory" title="业绩指标统计" :height="22 * chart.data.length">
+  <panel type="memory" title="业绩指标统计" :unfold="chart.data.length > 7">
     <div slot="label" class="flex">
       <div class="flex align-center">
         <div class="color" style="background: #686cff"></div>业绩指标（万）

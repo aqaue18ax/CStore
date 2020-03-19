@@ -10,7 +10,7 @@
         {{label}}
       </div>
     </div>
-    <div class="body" ref="body" :style="{maxHeight: show ? '100%' : '170px', overflowY: unfold ? 'hidden' : ''}">
+    <div class="body" ref="body" :style="{maxHeight: unfold && !show ? '170px' : '100%', overflowY: unfold ? 'hidden' : ''}">
       <!-- <div v-show="!loading"> -->
         <slot />
       <!-- </div>
@@ -31,11 +31,15 @@ export default {
     title: String,
     type: String,
     label: String,
-    height: Number,
-    maxHeight: {
-      type: String,
-      default: '170px'
+    unfold: {
+      type: Boolean,
+      default: false
     }
+    // height: Number,
+    // maxHeight: {
+    //   type: String,
+    //   default: '170px'
+    // }
   },
 
   data() {
@@ -45,9 +49,9 @@ export default {
   },
 
   computed: {
-    unfold () {
-      return this.height > 180
-    },
+    // unfold () {
+    //   return this.height > 180
+    // },
   },
 
   methods: {
