@@ -81,17 +81,11 @@ export default {
   },
   methods: {
     item(id) {
-      this.$router.push({
-        name: "operation",
-        query: { id, month: this.month }
-      });
+      this.module_id = parseInt(id) || 1;
+      this.search({id: this.module_id, month: this.month})
     },
     datePicker() {
-      this.$router.push({
-        name: "operation",
-        query: { id: this.id, month: this.month }
-      });
-
+      this.search({id: this.module_id, month: this.month})
       this.$refs.item.toggle(false)
     },
     search(params) {
@@ -113,16 +107,7 @@ export default {
     }
   },
   async created() {
-    const { id, month } = this.$route.query;
-    this.module_id = parseInt(id) || 1;
-    this.currentDate = month ? new Date(month) : this.currentDate
-
-    await this.search({ month });
-  },
-  beforeRouteUpdate(to, from, next) {
-    const month = to.query.month;
-    this.search({ month });
-    next();
+    await this.search({ id: this.module_id, month: this.month });
   }
 };
 </script>
