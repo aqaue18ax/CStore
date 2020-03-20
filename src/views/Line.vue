@@ -71,9 +71,7 @@
         <competitor
           v-for="competitor in data.competitors"
           :key="competitor.name"
-          :name="competitor.name"
-          :sale="competitor.money"
-          :info="competitor.introduce"
+          :data="competitor"
         />
       </div>
     </panel>
