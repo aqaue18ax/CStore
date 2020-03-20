@@ -1,5 +1,5 @@
 <template>
-  <div class="competitor">
+  <div class="competitor padding-bottom-xs">
     <div class="header flex justify-between">
       <div class="name text-bold">{{data.name}}</div>
       <div class="sale">
