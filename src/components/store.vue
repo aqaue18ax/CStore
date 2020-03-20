@@ -74,7 +74,6 @@ export default {
       await this.$parent.search({});
       await this.find(id);
       this.$root.center = this.store.coordinate;
-      this.$root.zoom = 18;
     } else {
       await this.find(id);
     }

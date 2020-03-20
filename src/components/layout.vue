@@ -56,7 +56,6 @@ export default {
   methods: {
     pin(store) {
       this.$root.center = store.coordinate;
-      this.$root.zoom = 18;
     },
     onChange(index) {
       this.index = index;

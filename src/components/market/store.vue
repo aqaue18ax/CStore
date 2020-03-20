@@ -81,7 +81,6 @@ export default {
 
     await this.find(cid);
     this.$root.center = this.store.coordinate;
-    this.$root.zoom = 18;
   },
   activated() {
     this.isShow = true;
