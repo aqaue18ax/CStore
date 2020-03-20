@@ -110,7 +110,7 @@ export default {
 
 .cover {
   position: absolute;
-  top: -84px;
+  top: -95px;
   right: 20px;
 }
 
