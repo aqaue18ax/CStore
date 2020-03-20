@@ -1,5 +1,5 @@
 <template>
-  <ve-map :data="chartData" :extend="chartExtend" :settings="chartSettings" height="300px" />
+  <ve-map :data="chartData" :extend="chartExtend" :settings="chartSettings" :height="height" />
 </template>
 
 <script>
@@ -21,6 +21,9 @@ export default {
   },
 
   computed: {
+    height() {
+      return window.innerWidth * 0.72 + 'px'
+    },
     chartData() {
       return {
         columns: ["name", "percent"],
