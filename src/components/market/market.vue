@@ -60,10 +60,15 @@
                   <div class="red padding-bottom-xs">
                     一级数量：
                     <span>{{competitor.one_count}}</span>
-                  </div>
-                  <div class="red padding-bottom-xs">
+
                     二级数量：
                     <span>{{competitor.two_count}}</span>
+                  </div>
+                  <div class="red padding-bottom-xs">
+                  </div>
+                  <div class="red padding-bottom-xs">
+                    市场份额：
+                    <span>{{competitor.percent}}</span>
                   </div>
                   <div class="red padding-bottom-xs">
                     户外广告：

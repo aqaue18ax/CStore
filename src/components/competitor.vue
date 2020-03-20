@@ -18,6 +18,10 @@
         <span>{{data.two_count}}</span>
       </div>
       <div class="red padding-bottom-xs">
+        市场份额：
+        <span>{{data.percent}}</span>
+      </div>
+      <div class="red padding-bottom-xs">
         户外广告：
         <span>{{data.outdoor}}</span>
       </div>

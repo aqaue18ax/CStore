@@ -15,7 +15,7 @@
 export default {
   name: 'year',
   data() {
-    this.min = 2018;
+    this.min = 2000;
     this.year = new Date().getFullYear();
 
     return {
