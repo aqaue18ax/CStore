@@ -73,7 +73,7 @@ export default {
   },
   created() {
     if (localStorage.getItem("token")) {
-      this.$router.replace(`/home`);
+      this.$router.replace(`/index-image`);
     }
   }
 };

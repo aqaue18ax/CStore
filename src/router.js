@@ -18,6 +18,7 @@ import Develop from './pages/develop/index.vue'
 
 import Index from './views/Index.vue'
 import Home from './views/Home.vue'
+import IndexImage from './views/IndexImage.vue'
 
 import cStore from "./components/store.vue";
 import cLayout from "./components/layout.vue";
@@ -54,6 +55,14 @@ const router = new Router({
       component: Reg,
       meta: {
         title: '注册'
+      }
+    },
+    {
+      path: '/index-image',
+      name: 'index-image',
+      component: IndexImage,
+      meta: {
+        title: '首页'
       }
     },
     {

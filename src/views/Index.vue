@@ -44,7 +44,7 @@ export default {
   name: "index",
   methods: {
     navTo() {
-      this.$router.replace("/home")
+      this.$router.replace("/index-image")
     }
   }
 };
