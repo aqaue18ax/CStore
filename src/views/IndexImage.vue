@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="text text-sm">
-        <div class="statistic-content-title">截止2020-03-20全国数据统计</div>
+        <div class="statistic-content-title">全国数据建设</div>
         <div class="statistic2-content">
           <van-row>
             <van-col span="22" :offset="1">
