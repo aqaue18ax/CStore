@@ -44,27 +44,19 @@
         <div class="statistic-content-title">全国数据建设</div>
         <div class="statistic2-content">
           <van-row>
-            <van-col span="22" :offset="1">
-              品牌体验馆
-              <span class="three">10</span>家|工业超市旗舰店
-              <span class="three">9</span>家|工业超市标准店
-              <span class="three">10</span>家
-            </van-col>
+            <van-col class="center" span="8">品牌体验馆<span class="three">10</span>家</van-col>
+            <van-col class="center" span="8">工业超市旗舰店<span class="three">9</span>家</van-col>
+            <van-col class="center" span="8">工业超市标准店<span class="three">10</span>家</van-col>
           </van-row>
           <van-row>
-            <van-col span="22" :offset="1">
-              SI专卖店
-              <span class="three">220</span>家|二级形象店
-              <span class="three">110</span>家|二级门招
-              <span class="three">3250</span>家
-            </van-col>
+            <van-col class="center" span="8">SI专卖店<span class="three">220</span>家</van-col>
+            <van-col class="center" span="8">二级形象店<span class="three">110</span>家</van-col>
+            <van-col class="center" span="8">二级门招<span class="three">3250</span>家</van-col>
           </van-row>
           <van-row>
-            <van-col span="22" :offset="1">
-              户外广告
-              <span class="three">20</span>个|正泰岗亭
-              <span class="three">90</span>个
-            </van-col>
+            <van-col class="center" span="8">户外广告<span class="three">20</span>个</van-col>
+            <van-col class="center" span="8">正泰岗亭<span class="three">90</span>个</van-col>
+            <van-col class="center" span="8"></van-col>
           </van-row>
         </div>
       </div>
@@ -141,6 +133,10 @@
 
 .statistic2-content .van-row {
   margin-top: 6px;
+}
+
+.statistic2-content .van-row .van-col:nth-child(2),.statistic2-content .van-row .van-col:nth-child(1) {
+  border-right: 1px solid #999999;
 }
 </style>
 
