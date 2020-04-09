@@ -2,12 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import VueAMap from 'vue-amap';
+import Vuex from 'vuex'
+import store from './store'
 import http from './utils/http'
 import { ImagePreview, Popup, Picker, Icon, Area, Loading } from 'vant';
 
 localStorage.setItem('loading', 0)
 
 Vue.use(VueAMap);
+Vue.use(Vuex)
 
 Vue.prototype.$http = http;
 
@@ -17,6 +20,7 @@ Vue.use(Popup);
 Vue.use(Picker);
 Vue.use(Loading);
 Vue.use(ImagePreview);
+
 
 
 VueAMap.initAMapApiLoader({
@@ -104,6 +108,7 @@ new Vue({
     }
   },
 
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')

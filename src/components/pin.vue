@@ -2,7 +2,7 @@
   <div class="location" :style="{transform: `scale(${zoom})`, 'transform-origin': 'center'}">
     <div class="flex justify-center flex-direction align-center">
       <div class="store" :style="{background: color}">
-        <img :src="cover || avatar" width="43" height="43">
+        <!-- <img :src="cover || avatar" width="43" height="43"> -->
       </div>
       <div class="pulse"></div>
     </div>
@@ -18,6 +18,7 @@ import avatar from "../assets/avatar.png";
 
 export default {
   props: {
+    selected: Boolean,
     type: String,
     name: String,
     cover: String,
@@ -37,8 +38,8 @@ export default {
 
 <style scoped>
 .store {
-  width: 70px;
-  height: 70px;
+  width: 30px;
+  height: 30px;
   border-radius: 50% 50% 50% 5px;
   border: 1px solid #fff;
   transform: rotate(-45deg);

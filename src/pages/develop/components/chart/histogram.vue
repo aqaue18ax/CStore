@@ -1,16 +1,14 @@
 <template>
-  <vebar :extend="chartExtend" :data-empty="empty" :height="data.length == 0 ? '20px' : data.length * 20 + 'px'" />
+  <vhistogram :extend="chartExtend" :height="data.length * 20 + 'px'" />
 </template>
 
 <script>
-import vebar from "v-charts/lib/bar.common";
-import 'v-charts/lib/style.css'
+import vhistogram from "v-charts/lib/histogram.common";
 
 export default {
   props: {
     y: Array,
     data: Array,
-    empty: Boolean,
     tooltip: String
   },
 
@@ -19,12 +17,13 @@ export default {
       return Math.max(...this.data) * 1.2 || 10;
     },
     maxs() {
-      let max = Math.max(...this.data) * 1.3 || 10;
+      let max = Math.max(...this.data) * 1.2 || 10;
 
       const maxs = [];
       for (let i = 0; i < this.data.length; i++) {
         maxs.push(max);
       }
+
       return maxs;
     },
     chartExtend() {
@@ -44,15 +43,15 @@ export default {
           }
         },
         xAxis: {
-          show: false,
-          axisLabel: {
-            show: false
-          },
+        //   show: false,
+        //   axisLabel: {
+        //     show: false
+        //   },
+          data: this.y,
           max: this.maxs,
         },
         yAxis: {
-          data: this.y,
-          inverse: true
+        //   inverse: true
         },
         series: [
           {
@@ -93,7 +92,7 @@ export default {
   },
 
   components: {
-    vebar
+    vhistogram
   }
 };
 </script>

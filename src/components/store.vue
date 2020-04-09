@@ -70,7 +70,8 @@ export default {
   },
   async created() {
     const id = this.$route.params.id;
-    if (!this.$root.stores.length) {
+    // if (!this.$root.stores.length) {
+    if (!this.$store.state.stores.length) {
       await this.$parent.search({});
       await this.find(id);
       this.$root.center = this.store.coordinate;

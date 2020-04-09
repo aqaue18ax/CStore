@@ -1,5 +1,9 @@
 import http from '@/utils/http'
 
+//首页统计数据
+function config() {
+  return http.get("api/config/index")
+}
 function agency() {
   return http.get("api/agency?all=1")
 }
@@ -40,6 +44,16 @@ function terminal(code) {
   return http.post("api/statistics/terminal", { code })
 }
 
+// 办事处历年费用,year:年份
+function agenceSpending(year) {
+  return http.get("api/agency_fee/index", { year })
+}
+
+// 强弱区域终端建设历年费用,year:年份
+function terminalSpending(year) {
+  return http.get("api/region_contrast_fee/index", { year })
+}
+
 function marketTop10(type = 'performance', year) {
   return http.post(`api/statistics/marketTop10`, { type, year })
 }
@@ -49,6 +63,7 @@ function storeTop10(type = 'performance', year) {
 }
 
 export default {
+  config,
   agency,
   province,
   city,
@@ -60,6 +75,8 @@ export default {
   kpi,
   competitor,
   terminal,
+  agenceSpending,
+  terminalSpending,
   marketTop10,
-  storeTop10
+  storeTop10,
 }

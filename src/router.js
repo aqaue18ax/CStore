@@ -15,10 +15,13 @@ import Brand from './views/Brand.vue'
 import Line from './views/Line.vue'
 import Operation from './views/Operation.vue'
 import Develop from './pages/develop/index.vue'
+import OperationReport from './pages/develop/operation.vue'
+import Terminal from './pages/develop/terminal.vue'
 
 import Index from './views/Index.vue'
 import Home from './views/Home.vue'
 import IndexImage from './views/IndexImage.vue'
+import Notice from "./views/Notice.vue"
 
 import cStore from "./components/store.vue";
 import cLayout from "./components/layout.vue";
@@ -63,6 +66,14 @@ const router = new Router({
       component: IndexImage,
       meta: {
         title: '首页'
+      }
+    },
+    {
+      path: '/notice/:id',
+      name: 'notice',
+      component: Notice,
+      meta: {
+        title: '竞品信息'
       }
     },
     {
@@ -143,6 +154,26 @@ const router = new Router({
       component: Develop,
       meta: {
         title: '开发统计',
+        auth: true,
+        role: roles.dev.devStatistics || false
+      }
+    },
+    {
+      path: '/operationReport',
+      name: 'operationReport',
+      component: OperationReport,
+      meta: {
+        title: '运营数据',
+        auth: true,
+        role: roles.dev.devStatistics || false
+      }
+    },
+    {
+      path: '/terminal',
+      name: 'terminal',
+      component: Terminal,
+      meta: {
+        title: '终端数据',
         auth: true,
         role: roles.dev.devStatistics || false
       }

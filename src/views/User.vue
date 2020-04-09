@@ -16,13 +16,13 @@
         <cell title="正泰门店" is-link :to="{name: 'stores', query: {module_id: 21, title: '正泰门店'}}" v-if="user.roles.store.CHINTStore" />
       </cell-group> -->
 
-      <cell-group class="font-regular margin-tb-xs" v-if="user.role.modules.length">
+      <!-- <cell-group class="font-regular margin-tb-xs" v-if="user.role.modules.length">
         <cell title="运营状况" is-link :to="{name: 'operation'}" />
-      </cell-group>
+      </cell-group> -->
 
-      <cell-group class="font-regular margin-tb-xs" v-if="user.roles.dev.devStatistics">
+      <!-- <cell-group class="font-regular margin-tb-xs" v-if="user.roles.dev.devStatistics">
         <cell title="开发统计" is-link :to="{name: 'develop'}" />
-      </cell-group>
+      </cell-group> -->
 
       <cell-group class="font-regular margin-tb-xs padding">
         <div class="title padding-bottom-xs solid-bottom">我的资料</div>

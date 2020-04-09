@@ -8,10 +8,7 @@
       </div>
     </panel>
 
-    <panel type="dealer" title="一级经销商">
-      <div class="pbody">
-        <span class="boolean">{{data.is_one ? '是' : '否'}}</span>
-      </div>
+    <panel type="dealer" :title="data.is_one ? '一级经销商' : '二级经销商'">
     </panel>
 
     <panel type="time" title="建店时间">

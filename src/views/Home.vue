@@ -3,16 +3,18 @@
     <navBar
       :title="$route.meta.title"
       :z-index="9"
+      left-arrow
       @click-right="navTo('/user')"
+      @click-left="navTo('/index-image')"
       class="font-regular"
       fixed
     >
-      <icon name="user-o" slot="right" size="20px" color="#fff"/>
+    <icon name="user-o" slot="right" size="20px" color="#fff"/>
     </navBar>
 
-    <search @onSearch="onSearch"/>
+    <search @onSearch="onSearch" />
     <count :isShow="show.count" />
-    <info :is-show="show.info"/>
+    <!-- <info :is-show="show.info"/> -->
 
     <router-view></router-view>
 
@@ -23,7 +25,7 @@
 <script>
 import { NavBar, Icon } from "vant";
 import Search from "@/components/search.vue";
-import Info from "@/components/info.vue";
+// import Info from "@/components/info.vue";
 import Count from "@/components/count.vue";
 import Amap from "@/components/amap.vue";
 
@@ -34,13 +36,14 @@ export default {
       modules: [],
       show: {
         info: false,
-        count: false,
+        count: false
       }
     };
   },
   computed: {
     stores() {
-      return this.$root.stores;
+        // return this.$root.stores;
+      return this.$store.state.stores
     },
     center() {
       return this.$root.center;
@@ -48,7 +51,7 @@ export default {
     zoom() {
       return this.$root.zoom;
     },
-    range () {
+    range() {
       return this.$root.range;
     }
   },
@@ -56,7 +59,7 @@ export default {
     Search,
     Icon,
     NavBar,
-    Info,
+    // Info,
     Count,
     // Layout,
     Amap
@@ -67,6 +70,16 @@ export default {
     },
     async onSearch(data) {
       this.$router.push(`/home/search?search=${data.search}`);
+    },
+    onFilter() {
+      // console.log(this.storeData);
+      // if (data.codes.length == 0) {
+      //    this.$root.stores = this.storeData;
+      // } else {
+      //   this.$root.stores = this.stores.filter(item =>
+      //     data.codes.find(code => code == parseInt(item.module_id))
+      //   );
+      // }
     },
     async search(data) {
       await this.$http
@@ -90,19 +103,22 @@ export default {
             };
           });
 
-          this.$root.stores = stores;
+          // this.$root.stores = stores;
+          
+          this.$store.dispatch('setStores', stores)
         });
     },
     pin(store) {
       this.show.info = false;
       this.show.count = false;
-
       if (store.type == "store") {
+        this.$store.dispatch('setSelectStore', store)
         this.$router.push(`/home/store/${store.id}`);
       }
 
       if (store.type == "market") {
         this.$router.push(`/home/market/${store.id}`);
+      this.$store.dispatch('setMapZoom', 16)
       }
     }
   },
@@ -119,8 +135,8 @@ export default {
     //   this.show.info = false;
     // }
 
-    if (to.name == 'home/search') {
-      this.show.count = false
+    if (to.name == "home/search") {
+      this.show.count = false;
     }
 
     if (from.name == "home/market" && to.name == "home") {

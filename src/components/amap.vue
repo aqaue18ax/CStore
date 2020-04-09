@@ -19,7 +19,7 @@
         :offset="[-85 * z / 15, -92 * z / 16]"
       >
         <div class="title text-sm font-regular" :style="{transform: `scale(${z / 16})`, 'transform-origin': z >= 16 ? 'center' : 'left'}">
-          <span :style="{background: store.color}">{{store.name}}</span>
+          <span :style="{background: jumpStore == store.id ? '#ff9800': store.color}">{{store.name}}</span>
         </div>
       </el-amap-marker>
       <div v-if="z >= 14 && !range.length">
@@ -38,7 +38,7 @@ import Pin from "@/components/pin";
 export default {
   props: {
     type: String,
-    stores: Array,
+    // stores: Array,
     zoom: {
       type: Number,
       default: 14
@@ -53,11 +53,40 @@ export default {
           this.z = this.$refs.map.$$getInstance().getZoom()
         }
       },
-      z: 12
+      z: 12,
+      jumpStore: ""
     };
   },
   components: {
     Pin
+  },
+  watch:{
+    selectStore(val){
+      this.$refs.map.$$getInstance().setZoomAndCenter(18, val.coordinate)
+      this.jumpStore = val.id
+    },
+    mapZoom(val){
+      this.$refs.map.$$getInstance().setZoom(val)
+    }
+  },
+  computed:{
+    filterCode(){
+      return this.$store.state.filter
+    },
+    stores(){
+      if(this.filterCode.length == 0){
+        return this.$store.state.stores
+      }
+      return this.$store.state.stores.filter(item =>
+          this.filterCode.find(code => code == parseInt(item.module_id))
+        );
+    },
+    selectStore(){
+      return this.$store.state.selectStore
+    },
+    mapZoom(){
+      return this.$store.state.mapZoom
+    }
   }
 };
 </script>

@@ -51,7 +51,8 @@ export default {
 
 
         this.$root.range = data.range
-        this.$root.stores = children;
+        // this.$root.stores = children;
+        this.$store.dispatch('setStores', children)
         // this.$root.zoom = 18;
         this.$root.center = data.coordinate;
       });
@@ -60,6 +61,7 @@ export default {
     },
     pin(store) {
       if (store.type == "store") {
+        this.$store.dispatch('setSelectStore', store)
         this.$router.push(
           `/home/market/${this.$route.params.id}/store/${store.id}`
         );

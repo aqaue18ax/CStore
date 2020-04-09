@@ -1,5 +1,5 @@
 <template>
-  <popup position="bottom" :overlay="false" v-model="isShow">
+  <popup position="bottom" :overlay="false" v-model="isShow" style="overflow-y: scroll;">
     <div class="market">
       <div class="content">
         <div class="img" v-if="domain && store.plan">
@@ -11,6 +11,8 @@
           background="#eee"
           animated
           swipeable
+          ellipsis
+          swipe-threshold="3"
           color="#f7403a"
           v-if="$root.market.intro || $root.market.distribution || $root.market.level "
         >
@@ -25,21 +27,13 @@
               <div class="padding-bottom-xs">{{store.sales_area}}</div>
             </div>
           </tab>
-          <tab title="市场分布" v-if="$root.market.distribution">
+          <tab title="正泰门店" v-if="$root.market.distribution">
             <div
               class="store text-df"
               v-for="store in store.children"
               :key="store.id"
               @click="pin(store)"
             >{{store.name}}</div>
-          </tab>
-          <tab title="级别区分" v-if="$root.market.level">
-            <div class="flex flex-wrap padding text-df">
-              <div class="area" v-for="v in store.area" v-bind:key="v.name">
-                <div class="color" :style="`background: ${v.color}`"></div>
-                {{v.name}} {{v.count}}
-              </div>
-            </div>
           </tab>
           <tab title="竞争对手">
             <div class="info text-df">
@@ -82,6 +76,14 @@
               </div>
             </div>
           </tab>
+          <tab title="正泰终端汇总" v-if="$root.market.level">
+            <div class="flex flex-wrap padding text-df">
+              <div class="area" v-for="v in store.area" v-bind:key="v.name">
+                <div class="color" :style="`background: ${v.color}`"></div>
+                {{v.name}} {{v.count}}
+              </div>
+            </div>
+          </tab>
         </tabs>
         <button
           class="btn bg-blue margin-tb-xs radius padding-tb-sm text-center"
@@ -116,7 +118,11 @@ export default {
   },
   methods: {
     pin(store) {
-      this.$root.center = store.coordinate;
+      
+      this.$store.dispatch('setSelectStore', store)
+      // console.log(store)
+      // this.$root.center = store.coordinate;
+      // this.$root.zoom = 18;
     },
     preview() {
       ImagePreview({
@@ -140,7 +146,6 @@ export default {
 <style scoped>
 .market {
   width: 100%;
-  height: 100%;
 }
 
 .content {

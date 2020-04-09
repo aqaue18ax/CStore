@@ -7,6 +7,12 @@
       >
         <div class="padding-right-xs">{{area.text}}</div><icon name="arrow-down"/>
       </div>
+      <!-- <div
+        class="area font-medium radius bg-gray text-sm flex align-center justify-center"
+        @click="isShowStoreFilter = !isShowStoreFilter"
+      >
+        <div class="padding-right-xs">{{storeType.text}}</div><icon name="arrow-down"/>
+      </div> -->
       <div class="input radius bg-gray flex align-center">
         <input
           type="text"
@@ -19,6 +25,12 @@
       </div>
     </div>
 
+    <Type
+      :typeList="filter"
+      @onHide="isShowStoreFilter = false"
+      radius
+      @confirm="confirmFilter"
+    />
     <Area
       :areaList="area.data"
       @onHide="isShowPicker = false"
@@ -26,13 +38,22 @@
       radius
       @confirm="confirm"
     />
+    <!-- <Type
+      :typeList="filter"
+      @onHide="isShowStoreFilter = false"
+      v-show="isShowStoreFilter"
+      radius
+      @confirm="confirmFilter"
+    /> -->
   </div>
 </template>
 
 <script>
 import { Icon } from "vant";
 import data from "@/utils/area";
+import filter from "@/utils/storeFilter";
 import Area from "@/components/area";
+import Type from "@/components/storeType";
 
 export default {
   data() {
@@ -43,12 +64,20 @@ export default {
         text: "区域搜索",
         code: "000000"
       },
-      isShowPicker: false
+      filter,
+      filterCodes: [],
+      storeType: {
+        data: "",
+        text: "门店类型"
+      },
+      isShowPicker: false,
+      isShowStoreFilter: false
     };
   },
   components: {
     Icon,
-    Area
+    Area,
+    Type
   },
   methods: {
     confirm(data) {
@@ -68,8 +97,21 @@ export default {
         this.isShowPicker = false;
       });
     },
+    confirmFilter(data){
+      const item = data[0]
+      this.isShowStoreFilter = false;
+      if(item.value.length == 0){
+        this.filterCodes = []
+        this.storeType.text = "门店类型"
+      }else{
+        this.filterCodes = item.value.split(',')
+        this.storeType.text = item.name
+      }
+        this.$store.dispatch('setFilter', this.filterCodes)
+    },
     onSubmit() {
       this.isShowPicker = false;
+      this.isShowStoreFilter = false;
       this.$emit("onSearch", { search: this.search, code: this.area.code });
     }
   },
@@ -94,7 +136,7 @@ export default {
 
 <style scoped>
 .search-box {
-  width: 100%;
+  width: 100vw;
   position: absolute;
   top: 100px;
   z-index: 1;
