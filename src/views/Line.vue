@@ -8,7 +8,12 @@
       </div>
     </panel>
 
-    <panel type="dealer" :title="data.is_one ? '一级经销商' : '二级经销商'">
+    <panel type="dealer" :title="data.is_one ? '一级经销商' : '二级经销商'"></panel>
+
+    <panel type="operation" title="运营状态">
+      <div class="pbody">
+        <span>{{data.operate_status == 0 ? '停滞' : '运营中'}}</span>
+      </div>
     </panel>
 
     <panel type="time" title="建店时间">
@@ -21,6 +26,30 @@
         <span class="padding-xs">日</span>
       </div>
     </panel>
+
+    <!-- <panel type="memory" title="项目建设费用">
+    <div class="pbody">-->
+    <Collapse class="panel" v-model="activeNames">
+      <CollapseItem class="radius" name="1">
+        <template #title>
+          <img :src="`assets/memory.png`" class="icon" />
+          <span class="title">项目建设费用</span>
+          <span class="title" style="float: right;">总计：{{buildTotal}}</span>
+        </template>
+        <van-row>
+          <van-col span="8">明细</van-col>
+          <van-col span="8">费用</van-col>
+          <van-col span="8">时间</van-col>
+        </van-row>
+        <van-row v-for="item in data.project_build_fee" :key="item.name">
+          <van-col span="8">{{ item.name }}</van-col>
+          <van-col span="8">{{ item.money }}</van-col>
+          <van-col span="8">{{ item.date }}</van-col>
+        </van-row>
+      </CollapseItem>
+    </Collapse>
+    <!-- </div>
+    </panel>-->
 
     <panel type="computer" title="终端化建设">
       <div class="pbody">{{data.terminal_construction_text}}</div>
@@ -76,7 +105,7 @@
 </template>
 
 <script>
-import { NavBar } from "vant";
+import { NavBar, Collapse, CollapseItem, Col, Row } from "vant";
 import Panel from "@/components/panel";
 import Competitor from "@/components/competitor";
 import VeHistogram from "v-charts/lib/histogram.common";
@@ -138,14 +167,29 @@ export default {
         columns: ["date", "money"],
         rows: []
       },
-      create: {}
+      create: {},
+      activeNames: ["0"]
     };
+  },
+  computed: {
+    buildTotal() {
+      let total = 0;
+      this.data.project_build_fee.map(item => {
+        total += Number(item.money);
+      });
+      return total;
+    }
   },
   components: {
     NavBar,
     Panel,
     Competitor,
-    VeHistogram
+    VeHistogram,
+    Collapse,
+    CollapseItem,
+    'van-col': Col, 
+    'van-row': Row
+
   },
   async beforeMount() {},
   async created() {
@@ -220,5 +264,28 @@ export default {
 
 .pbody {
   padding-left: 40px;
+}
+.panel {
+  margin: 15px;
+  margin-bottom: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 18px 0px rgba(52, 87, 155, 0.1);
+  font-size: 24px;
+}
+
+.radius {
+  margin: 15px;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  padding-left: 15px;
 }
 </style>
