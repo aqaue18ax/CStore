@@ -42,9 +42,15 @@
         <div class="statistic-content-title">截止2020-03-20全国数据统计</div>
         <div class="statistic-content">
           <van-row>
-            <van-col class="center one" span="8">{{config.AGENT_TOTAL}}</van-col>
-            <van-col class="center one" span="8">{{config.AGENT_TOTAL_OPEN}}</van-col>
-            <van-col class="center one" span="8">{{percentAgent}}</van-col>
+            <van-col class="center one" span="8">
+              <vns :start="0" :end="Number(config.AGENT_TOTAL)" :times="times" :speed="10" />
+            </van-col>
+            <van-col class="center one" span="8">
+              <vns :start="0" :end="Number(config.AGENT_TOTAL_OPEN)" :times="times" :speed="10" />
+            </van-col>
+            <van-col class="center one" span="8">
+              <vns :start="0" :end="percentAgent" :times="times" :speed="10" />%
+            </van-col>
           </van-row>
           <van-row>
             <van-col class="center" span="8">全国经销商总数</van-col>
@@ -52,9 +58,9 @@
             <van-col class="center" span="8">已建设经销商门店占比</van-col>
           </van-row>
           <van-row>
-            <van-col class="center two" span="8">{{config.AGENT_TWO}}</van-col>
-            <van-col class="center two" span="8">{{config.AGENT_TWO_OPEN}}</van-col>
-            <van-col class="center two" span="8">{{percentAgentTwo}}</van-col>
+            <van-col class="center two" span="8"><vns :start="0" :end="Number(config.AGENT_TWO)" :times="times" :speed="10" /></van-col>
+            <van-col class="center two" span="8"><vns :start="0" :end="Number(config.AGENT_TWO_OPEN)" :times="times" :speed="10" /></van-col>
+            <van-col class="center two" span="8"><vns :start="0" :end="percentAgentTwo" :times="times" :speed="10" />%</van-col>
           </van-row>
           <van-row>
             <van-col class="center" span="8">全国二级分销商总数</van-col>
@@ -70,25 +76,25 @@
             <van-col class="center" span="6">
               <van-row>品牌体验馆</van-row>
               <van-row>
-                <span class="one">{{config.PPTYG_COUNT}}</span>家
+                <span class="one"><vns :start="0" :end="Number(config.PPTYG_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>工业超市旗舰店</van-row>
               <van-row>
-                <span class="one">{{config.GYCSQJD_COUNT}}</span>家
+                <span class="one"><vns :start="0" :end="Number(config.GYCSQJD_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>工业超市标准店</van-row>
               <van-row>
-                <span class="one">{{config.GYCSBZD_COUNT}}</span>家
+                <span class="one"><vns :start="0" :end="Number(config.GYCSBZD_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>SI专卖店</van-row>
               <van-row>
-                <span class="one">{{config.SIZMD_COUNT}}</span>家
+                <span class="one"><vns :start="0" :end="Number(config.SIZMD_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
           </van-row>
@@ -96,25 +102,25 @@
             <van-col class="center" span="6">
               <van-row>二级形象店</van-row>
               <van-row>
-                <span class="two">{{config.EJXXD_COUNT}}</span>家
+                <span class="two"><vns :start="0" :end="Number(config.EJXXD_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>二级门招</van-row>
               <van-row>
-                <span class="two">{{config.EJMZ_COUNT}}</span>家
+                <span class="two"><vns :start="0" :end="Number(config.EJMZ_COUNT)" :times="times" :speed="10" /></span>家
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>户外广告</van-row>
               <van-row>
-                <span class="two">{{config.HWGG_COUNT}}</span>个
+                <span class="two"><vns :start="0" :end="Number(config.HWGG_COUNT)" :times="times" :speed="10" /></span>个
               </van-row>
             </van-col>
             <van-col class="center" span="6">
               <van-row>正泰岗亭</van-row>
               <van-row>
-                <span class="two">{{config.ZTGT_COUNT}}</span>个
+                <span class="two"><vns :start="0" :end="Number(config.ZTGT_COUNT)" :times="times" :speed="10" /></span>个
               </van-row>
             </van-col>
           </van-row>
@@ -155,9 +161,9 @@
   width: 100%;
   height: 100px;
 }
-.swipe-panel {
+/* .swipe-panel {
   margin-bottom: 120px;
-}
+} */
 .my-swipe {
   border-radius: 5px;
 }
@@ -182,10 +188,10 @@
   text-align: center;
   font-size: 0.6rem;
   line-height: 1.2rem;
-  position: absolute;
+  /* position: absolute;
   width: 90%;
   left: 5%;
-  top: 330px;
+  top: 330px; */
 }
 
 .btn {
@@ -207,10 +213,13 @@
 
 /* 通知 */
 .notice-panel {
-  padding: 0 0.5rem;
+  padding: 0.5rem 0.5rem;
   color: #fff;
 }
 
+.van-col{
+  line-height: 16px;
+}
 /* 全国数据统计 */
 
 .statistic-content,
@@ -236,7 +245,7 @@
 .statistic-content {
   padding-top: 20px;
   padding-bottom: 20px;
-  margin: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .statistic-content .van-row:nth-child(3) {
@@ -247,7 +256,7 @@
   color: #1e90ff;
 }
 .statistic2-content {
-  margin: 15px;
+  /* margin: 15px; */
   padding: 10px;
 }
 
@@ -294,6 +303,7 @@
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 import { Col, Row } from "vant";
+import vns from "@/components/util/vue-number-scroll";
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Col);
@@ -325,8 +335,13 @@ export default {
         HWGG_COUNT: "",
         ZTGT_COUNT: ""
       },
-      images: []
+      images: [],
+      //数字变动次数
+      tiles: 50
     };
+  },
+  components: {
+    vns
   },
   computed: {
     noticeItem() {
@@ -334,23 +349,21 @@ export default {
     },
     percentAgent() {
       if (this.config.AGENT_TOTAL == "" || this.config.AGENT_TOTAL_OPEN == "") {
-        return "";
+        return 0;
       }
-      return (
+      return Number(
         (
           (this.config.AGENT_TOTAL_OPEN / this.config.AGENT_TOTAL) *
           100
-        ).toFixed(2) + "%"
+        ).toFixed(2)
       );
     },
     percentAgentTwo() {
       if (this.config.AGENT_TWO == "" || this.config.AGENT_TWO_OPEN == "") {
-        return "";
+        return 0;
       }
-      return (
-        ((this.config.AGENT_TWO_OPEN / this.config.AGENT_TWO) * 100).toFixed(
-          2
-        ) + "%"
+      return Number(
+        ((this.config.AGENT_TWO_OPEN / this.config.AGENT_TWO) * 100).toFixed(2)
       );
     }
   },

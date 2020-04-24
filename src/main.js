@@ -5,12 +5,14 @@ import VueAMap from 'vue-amap';
 import Vuex from 'vuex'
 import store from './store'
 import http from './utils/http'
+// import VCharts from 'v-charts'
 import { ImagePreview, Popup, Picker, Icon, Area, Loading } from 'vant';
 
 localStorage.setItem('loading', 0)
 
 Vue.use(VueAMap);
 Vue.use(Vuex)
+// Vue.use(VCharts)
 
 Vue.prototype.$http = http;
 

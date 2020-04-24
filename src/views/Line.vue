@@ -69,11 +69,11 @@
         :legend-visible="false"
         :grid="chart1.grid"
         :extend="chart1.extend"
-        height="180px"
+        height="230px"
       ></ve-histogram>
     </panel>
 
-    <panel type="kpi" title="业绩指标" label="(元)">
+    <!-- <panel type="kpi" title="业绩指标" label="(元)">
       <ve-histogram
         :data="kpi"
         :settings="chart2.settings"
@@ -82,7 +82,7 @@
         :extend="chart2.extend"
         height="180px"
       ></ve-histogram>
-    </panel>
+    </panel> -->
 
     <panel type="box" title="经营产品">
       <div class="pbody">{{data.business_product}}</div>
@@ -105,10 +105,13 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { NavBar, Collapse, CollapseItem, Col, Row } from "vant";
 import Panel from "@/components/panel";
 import Competitor from "@/components/competitor";
 import VeHistogram from "v-charts/lib/histogram.common";
+import VeLine from "v-charts/lib/line.common";
+Vue.use(VeLine)
 
 export default {
   data: function() {
@@ -124,13 +127,16 @@ export default {
           }
         },
         settings: {
+          showLine: ["kpi"],
           itemStyle: {
             color: "#686cff"
           },
-          digit: 1,
+          digit: 2,
           labelMap: {
-            money: "营业额"
-          }
+            money: "营业额",
+            percent: "完成率"
+          },
+          legendName: ["1", "2"]
         },
         grid: {
           top: 20,
@@ -160,7 +166,7 @@ export default {
         }
       },
       sale: {
-        columns: ["date", "money"],
+        columns: ["date", "money", "kpi", "percent"],
         rows: []
       },
       kpi: {
@@ -220,6 +226,16 @@ export default {
     await this.$http.get(`api/store/${id}/kpi`).then(data => {
       this.kpi.rows = data;
       this.kpi.month = data[data.length - 1].money.toLocaleString("en-US");
+      this.sale.rows.map(item => {
+        data.map(kpi => {
+          if(item.date == kpi.date && item.money != 0){
+            item["kpi"] = kpi.money
+          }
+          if(item.date == kpi.date && item.money != 0){
+            item["percent"] = item.money / kpi.money
+          }
+        })
+      })
     });
 
     this.loaded = true;
