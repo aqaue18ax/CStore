@@ -2,6 +2,7 @@
   <panel type="map" title="终端建设覆盖率统计">
     <div class="pbody flex flex-wrap">
       <province :columns="provinces" @confirm="confirm" />
+      <Dealer  @confirm="confirm" />
     </div>
 
     <chinaMap :position="position" :avg="avg" :data="data" />
@@ -14,12 +15,14 @@ import Panel from "@/components/panel";
 
 import map from "./_/map";
 import Province from "./_/province";
+import Dealer from "./_/dealer";
 
 export default {
   name: "terminal",
   data() {
     return {
       position: "china",
+      dealer: "coverage",
       avg: 100,
       data: []
     };
@@ -33,17 +36,27 @@ export default {
 
   methods: {
     confirm(e) {
-      if (e.code == "all") {
-        this.position = "china";
-      } else {
-        this.position = e.type + "/" + e.pinyin;
+      if(e.type == 'province'){
+        if (e.code == "all") {
+          this.position = "china";
+        } else {
+          this.position = e.type + "/" + e.pinyin;
+        }
+      }
+      if(e.type == "Dealer"){
+        this.dealer = e.id
       }
 
       this.post(e.code);
     },
     post(code) {
       api.terminal(code).then(data => {
-        this.avg = parseFloat(data.avg) || 0;
+        this.avg = (parseFloat(data.avg) * 100) || 0;
+        data.data.map(o => {
+          o.percent = parseFloat(o[this.dealer]) || 0
+          o.percent = o.percent * 100
+          // console.log(o[this.dealer])
+        })
         this.data = data.data;
       });
     }
@@ -52,7 +65,8 @@ export default {
   components: {
     Panel,
     Province,
-    chinaMap: map
+    chinaMap: map,
+    Dealer
   },
   created() {
     this.post("all");

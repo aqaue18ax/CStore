@@ -4,7 +4,7 @@
       <div class="swipe-panel h1 text-xxl font-bold">
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
           <van-swipe-item v-for="v in images" :key="v.file_url">
-            <img height="200px" width="100%" :src="v.file_url" />
+            <img height="200px" width="100%" style="object-fit: cover;" :src="v.file_url" />
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -137,9 +137,6 @@
   </div>
 </template>
 <style>
-.van-swipe__indicators {
-  bottom: 40px;
-}
 </style>
 <style scoped>
 .index {
@@ -337,7 +334,7 @@ export default {
       },
       images: [],
       //数字变动次数
-      tiles: 50
+      times: 50
     };
   },
   components: {
