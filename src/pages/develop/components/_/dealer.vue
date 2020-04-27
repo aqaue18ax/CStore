@@ -27,10 +27,10 @@ export default {
     return {
         columns: [
             // "一级经销商", "二级经销商"
-            {id: 'coverage', name: "一级经销商"},
-            {id: 'two_coverage', name: "二级经销商"}
+            {id: 'coverage', name: "一级店面"},
+            {id: 'two_coverage', name: "二级门招"}
         ],
-      name: "一级经销商",
+      name: "一级店面",
       show: false,
       id: 1
     };
