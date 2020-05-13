@@ -9,14 +9,14 @@
         </van-swipe>
       </div>
       <!-- 通知 -->
-      <van-row type="flex" class="notice-panel">
-        <van-col span="1">
-          <van-icon name="volume-o" />
+      <van-row type="flex"  justify="center" class="notice-panel">
+        <van-col span="2" style=" display: flex; justify-content: center; align-items: center;">
+          <van-icon name="volume-o" size="1.5rem" />
         </van-col>
-        <van-col span="23">
+        <van-col span="22">
           <van-swipe
             class="notice-swipe"
-            style="height: 20px; width: 100%;"
+            style="height: 40px; width: 100%;"
             :autoplay="3000"
             :show-indicators="false"
             vertical
@@ -27,6 +27,7 @@
               @click="noticeClickHandler(item)"
             >
               <p>{{ item.item + item.promotion + item.other }}</p>
+              <p>{{ item.create }}</p>
             </van-swipe-item>
           </van-swipe>
         </van-col>
@@ -39,7 +40,7 @@
         </div>
       </div>
       <div class="text text-sm count">
-        <div class="statistic-content-title">截止2020-03-20全国数据统计</div>
+        <div class="statistic-content-title">全国数据统计 <span class="date">截止至{{configDate}}</span></div>
         <div class="statistic-content">
           <van-row>
             <van-col class="center one" span="8">
@@ -70,7 +71,7 @@
         </div>
       </div>
       <div class="text text-sm">
-        <div class="statistic-content-title">全国数据建设</div>
+        <div class="statistic-content-title">全国数据建设  <span class="date">截止至{{configDate}}</span></div>
         <div class="statistic2-content">
           <van-row>
             <van-col class="center" span="6">
@@ -217,6 +218,9 @@
 .van-col{
   line-height: 16px;
 }
+.van-row{
+    margin-bottom: 5px;
+}
 /* 全国数据统计 */
 
 .statistic-content,
@@ -238,6 +242,10 @@
 .statistic-content-title {
   margin: 15px;
   color: #fff;
+}
+.statistic-content-title .date {
+  float:right;
+  color: #636363
 }
 .statistic-content {
   padding-top: 20px;
@@ -312,12 +320,13 @@ export default {
   data() {
     return {
       btns: [
-        { text: "市场开发数", icon: "btn1", to: "develop" },
+        { text: "开发统计", icon: "btn1", to: "develop" },
         { text: "运营数据", icon: "btn2", to: "operationReport" },
         { text: "地图检索", icon: "btn3", to: "home" },
         { text: "终端数据", icon: "btn4", to: "terminal" }
         // { text: "个人信息", icon: "btn5", to: "user" }
       ],
+      configDate: '',
       config: {
         AGENT_TOTAL: "",
         AGENT_TOTAL_OPEN: "",
@@ -365,6 +374,7 @@ export default {
     }
   },
   mounted() {
+    this.configDate = new Date().Format('yyyy-MM-dd')
     this.initData();
     this.initNotice();
     this.initConfig();
@@ -377,6 +387,13 @@ export default {
     },
     initNotice() {
       http.get("/api/competitor/index").then(res => {
+        var create = res.data[0].create_time
+        // console.log(create)
+        // console.log(new Date(create))
+        // console.log(new Date(create * 1000).Format('yyyy-MM-dd'))
+        res.data.forEach(o => {
+          o.create = new Date(create * 1000).Format('yyyy-MM-dd')
+        })
         this.$store.dispatch("setNotice", res.data);
       });
     },

@@ -11,6 +11,8 @@ export default{
         //二级形象店
         {name: "二级形象店", value: "12,32"},
         //二级门招
-        {name: "二级门招", value: "13,33"}
+        {name: "二级门招", value: "13,33"},
+        //SI专卖店
+        {name: "SI专卖店", value: "4,24"}
     ]
 }
