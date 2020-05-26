@@ -594,7 +594,15 @@ input {
 }
 
 .text-xxl {
-  font-size: 36px;
+  font-size: 36px !important;
+}
+
+.text-xxxl {
+  font-size: 40px;
+}
+
+.text-max {
+  font-size: 50px;
 }
 
 .text-center {
@@ -633,12 +641,17 @@ input {
 	color: #fff;
 }
 
+.text-red{
+  color: #e83125;
+}
+
 /* ==================
           边框
  ==================== */
 
 /* -- 实线 -- */
 
+.position-r,
 .solid,
 .solid-top,
 .solid-right,

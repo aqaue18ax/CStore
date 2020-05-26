@@ -1,16 +1,20 @@
 <template>
   <div class="login">
+    <logo />
     <div class="content flex flex-direction justify-center align-center">
-      <div class="form-group margin-top-sm bg-gray flex align-center">
+      <div class="title">
+        <img src="../assets/title.png" />
+      </div>
+      <div class="form-group bg-gray flex align-center" style="margin-top: -20px;">
         <i class="iconfont icon-md-phone-portrait"></i>
         <input
           type="number"
           name="phone"
           id="phone"
-          class="form-control text-lg text-gray"
+          class="form-control text-df text-gray"
           placeholder="请输入手机号码"
           v-model="phone"
-        >
+        />
       </div>
       <div class="form-group margin-top-sm bg-gray flex align-center">
         <i class="iconfont icon-md-key"></i>
@@ -18,20 +22,18 @@
           type="password"
           name="password"
           id="password"
-          class="form-control text-lg text-gray"
+          class="form-control text-df text-gray"
           placeholder="请输入密码"
           v-model="pwd"
-        >
+        />
       </div>
 
       <div class="button-group flex flex-direction margin-xl">
-        <button class="btn text-sm bg-white" :class="{'bg-blue': check}" @click="login">登陆</button>
-        <button class="btn text-sm bg-white" @click="navTo('reg')">注册</button>
-        <div class="text-black text-sm text-center margin-top-sm" @click="navTo('forget')">忘记密码?</div>
+        <button class="btn text-lg bg-white text-blue" :class="{'bg-blue text-white': check}" @click="login">登入</button>
+        <button class="btn text-lg bg-white text-blue" @click="navTo('reg')">注册</button>
+        <div class="text-white text-sm text-center margin-top-sm" @click="navTo('forget')">忘记密码?</div>
       </div>
     </div>
-
-    <logo/>
   </div>
 </template>
 
@@ -64,7 +66,7 @@ export default {
           localStorage.setItem("token", res.token);
           localStorage.setItem("roles", JSON.stringify(res.roles));
           // this.$router.replace(`/home`);
-          location.reload()
+          location.reload();
         });
     },
     navTo(url) {
@@ -82,7 +84,19 @@ export default {
 <style scoped>
 .login {
   height: 100%;
-  background: #fff;
+  position: relative;
+  background-image: url("../assets/login_bg.png");
+  background-color: #005bac;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.title {
+  text-align: center;
+  width: 100%;
+  margin-top: -50px;
+}
+.title img {
+  width: 70%;
 }
 
 .content {
@@ -94,6 +108,8 @@ export default {
   height: 80px;
   border-radius: 10px;
   padding: 0 20px;
+  background: #00a0e9;
+  color: #fff;
 }
 
 .form-control {
@@ -107,16 +123,21 @@ input {
   line-height: 54px;
   margin: 0;
   padding: 0;
-  color: #323233;
+  color: #fff;
   background-color: transparent;
   border: 0;
   resize: none;
 }
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #fff;
+}
 
 .btn {
   height: 80px;
-  width: 580px;
+  /* width: 580px; */
   margin-top: 20px;
+  padding: 0 150px;
   border: none;
   border-radius: 5px;
   border: 1px solid #f0f0f0;
