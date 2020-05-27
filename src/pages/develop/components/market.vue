@@ -78,10 +78,10 @@ export default {
       this.onPost();
     },
     onPost() {
-      api.market(this.province, this.module, this.agency).then(data => {
+      api.market(this.province, this.module, this.agency).then(res => {
         let y = [];
         let chart = [];
-
+        var data = res.list
         data.sort((a, b) => {
           return b.value - a.value;
         });
@@ -90,6 +90,8 @@ export default {
           y.push(v.area);
           chart.push(v.value);
         });
+        y.push("合计")
+          chart.push(res.total);
 
         this.chart.y = y;
         this.chart.data = chart;
