@@ -2,12 +2,16 @@
   <div class="index flex align-center">
     <logo />
     <div class="content">
+      
       <div class="title">
-        <img src="../assets/title2.png" />
+        <img src="../assets/title3.png" />
       </div>
-      <div class="h1 text-xxxl margin-bottom-xs font-bold">正泰C-Store</div>
+      <div class="title2">
+        <img src="../assets/title4.png" />
+      </div>
+      <!-- <div class="h1 text-xxxl margin-bottom-xs font-bold">正泰C-Store</div>
       <div class="h1 text-xxxl margin-bottom-xs font-bold">终端建设平台</div>
-      <div class="text text-df">便捷查询的正泰市场战略系统</div>
+      <div class="text text-df">便捷查询的正泰市场战略系统</div> -->
       <div class="btn" @click="navTo">立即体验</div>
     </div>
   </div>
@@ -16,7 +20,7 @@
 <style scoped>
 .index {
   height: 100%;
-  background: url("../assets/bg.png") no-repeat;
+  background: url("../assets/bg2.png") no-repeat;
   background-size: 100% 100%;
 }
 
@@ -33,6 +37,12 @@
 }
 .title img {
   width: 50%;
+}
+.title2 {
+  margin: 4rem 0;
+}
+.title2 img {
+  width: 30%;
 }
 
 .text {

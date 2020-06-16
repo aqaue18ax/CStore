@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="index text-gray">
     <div class="content">
       <div class="swipe-panel h1 text-xxl font-bold">
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -8,6 +8,7 @@
           </van-swipe-item>
         </van-swipe>
       </div>
+      <div class="testborder"></div>
       <!-- 通知 -->
       <van-row type="flex" justify="center" class="notice-panel">
         <van-col span="2" class="flex align-start justify-center flex-direction">
@@ -39,86 +40,90 @@
       </van-row>
       <div class="content-panel">
         <div class="btn-panel">
-          <div class="btn" v-for="item in btns" :key="item.text" @click="navTo(item.to)">
+          <div
+            class="btn angle-border"
+            v-for="item in btns"
+            :key="item.text"
+            @click="navTo(item.to)"
+          >
             <img :src="require(`@/assets/index/${item.icon}.png`)" alt />
             <!-- <img src="/assets/index/btn1.png" alt=""> -->
             <h4>{{item.text}}</h4>
           </div>
         </div>
         <div class="text text-sm count">
-          <div class="statistic-content-title text-df">
-            <span class="title">全国数据统计</span>
-            <span class="date">截止至{{configDate}}</span>
+          <div style="margin: 10px auto; padding: 2px 0;">
+            <div class="statistic-content-title text-df flex align-center justify-center">
+              <div class="statistic-content-title-left" style="width: 58%;">
+                <span class="title"></span>
+              </div>
+              <div class="statistic-content-title-mid" style="width: 1%;"></div>
+              <div
+                class="statistic-content-title-right flex align-end flex-direction-reverse justify-end"
+                style="width: 41%;"
+              >
+                <span class="date"></span>
+              </div>
+            </div>
           </div>
-          <div class="statistic-content">
-            <van-row class="border-bottom">
-              <van-col span="16">
-                <van-row>
-                  <van-row class="bg-blue2">
-                    <van-col span="12" class="padding-xs text-df">全国经销商总数</van-col>
-                    <van-col span="12" class="padding-xs text-xxl">
-                      <vns :start="0" :end="Number(config.AGENT_TOTAL)" :times="times" :speed="10" />
-                    </van-col>
-                  </van-row>
-                </van-row>
-                <van-row class="bg-red">
-                  <van-col span="12" class="padding-xs text-df">已建设门店经销商总数</van-col>
-                  <van-col span="12" class="padding-xs text-xxl">
-                    <vns
-                      :start="0"
-                      :end="Number(config.AGENT_TOTAL_OPEN)"
-                      :times="times"
-                      :speed="10"
-                    />
-                  </van-col>
-                </van-row>
-              </van-col>
-              <van-col span="8">
-                <van-row class="text-right padding-xs">已建设经销商门店占比</van-row>
-                <van-row class="text-center padding-xs text-red text-max text-bold">
+          <div class="statistic-content-title text-df flex align-center justify-center">
+            <div class="statistic-content-title-left">
+              <span class="title text-lg">全国数据统计</span>
+            </div>
+            <div class="statistic-content-title-mid"></div>
+            <div
+              class="statistic-content-title-right flex align-end flex-direction-reverse justify-end"
+            >
+              <span class="date text-xs text-gray">截止至{{configDate}}</span>
+            </div>
+          </div>
+          <div class="statistic-content flex align-center justify-between">
+            <div style="width: 48%; background: rgb(16, 40, 95, 0.5); over-flow: hidden;">
+              <div class="angle-border">
+                <img style="width: 100%" :src="require(`@/assets/index/bar1.png`)" alt />
+                <bar3D
+                  :x="['全国经销商总数', '已建设门店总数']"
+                  :data="[config.AGENT_TOTAL, config.AGENT_TOTAL_OPEN]"
+                  v-show="false"
+                />
+
+                <van-row class="text-center padding-xs text-gray">已建设经销商门店占比</van-row>
+                <van-row class="text-center padding-xs text-blue2 text-max text-bold">
                   <vns :start="0" :end="percentAgent" :times="times" :speed="10" />%
                 </van-row>
-              </van-col>
-            </van-row>
-            <van-row class="border-bottom">
-              <van-col span="16">
-                <van-row>
-                  <van-row class="bg-blue2">
-                    <van-col span="12" class="padding-xs text-df">全国二级分销商总数</van-col>
-                    <van-col span="12" class="padding-xs text-xxl">
-                      <vns :start="0" :end="Number(config.AGENT_TWO)" :times="times" :speed="10" />
-                    </van-col>
-                  </van-row>
-                </van-row>
-                <van-row class="bg-red">
-                  <van-col span="12" class="padding-xs text-df">已建设门店分销商总数</van-col>
-                  <van-col span="12" class="padding-xs text-xxl">
-                    <vns
-                      :start="0"
-                      :end="Number(config.AGENT_TWO_OPEN)"
-                      :times="times"
-                      :speed="10"
-                    />
-                  </van-col>
-                </van-row>
-              </van-col>
-              <van-col span="8">
-                <van-row class="text-right padding-xs">已建设二级门店占比</van-row>
-                <van-row class="text-center padding-xs  text-red text-max text-bold">
+              </div>
+            </div>
+            <div style="width: 48%; background: rgb(16, 40, 95, 0.5); over-flow: hidden;">
+              <div class="angle-border">
+                <img style="width: 100%" :src="require(`@/assets/index/bar2.png`)" alt />
+                <bar3D2 v-show="false" />
+
+                <van-row class="text-center padding-xs text-gray">已建设二级门店占比</van-row>
+                <van-row class="text-center padding-xs text-blue2 text-max text-bold">
                   <vns :start="0" :end="percentAgentTwo" :times="times" :speed="10" />%
                 </van-row>
-              </van-col>
-            </van-row>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="text text-sm">
-          <div class="statistic-content-title text-df">
-            <span class="title">全国数据建设</span>
-            <span class="date">截止至{{configDate}}</span>
+        <div class="text text-sm">          
+          <div class="margin-bottom-xs">
+          <div class="statistic-content-title text-df flex align-center justify-center">
+            <div class="statistic-content-title-left">
+              <span class="title text-lg">全国数据建设</span>
+            </div>
+            <div class="statistic-content-title-mid"></div>
+            <div
+              class="statistic-content-title-right flex align-end flex-direction-reverse justify-end"
+            >
+              <span class="date text-xs text-gray">截止至{{configDate}}</span>
+            </div>
+            </div>
           </div>
           <div class="statistic2-content">
+            <div class="angle-border padding-tb-sm padding-lr-xs">
             <van-row>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>品牌体验馆</van-row>
                 <van-row>
                   <span class="one">
@@ -126,7 +131,7 @@
                   </span>家
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>工业超市旗舰店</van-row>
                 <van-row>
                   <span class="one">
@@ -134,7 +139,7 @@
                   </span>家
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>工业超市标准店</van-row>
                 <van-row>
                   <span class="one">
@@ -142,7 +147,7 @@
                   </span>家
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>SI专卖店</van-row>
                 <van-row>
                   <span class="one">
@@ -152,7 +157,7 @@
               </van-col>
             </van-row>
             <van-row>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>二级形象店</van-row>
                 <van-row>
                   <span class="two">
@@ -160,7 +165,7 @@
                   </span>家
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>二级门招</van-row>
                 <van-row>
                   <span class="two">
@@ -168,7 +173,7 @@
                   </span>家
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>户外广告</van-row>
                 <van-row>
                   <span class="two">
@@ -176,7 +181,7 @@
                   </span>个
                 </van-row>
               </van-col>
-              <van-col class="center" span="6">
+              <van-col class="left" span="6">
                 <van-row>正泰岗亭</van-row>
                 <van-row>
                   <span class="two">
@@ -185,6 +190,7 @@
                 </van-row>
               </van-col>
             </van-row>
+            </div>
           </div>
         </div>
       </div>
@@ -197,21 +203,44 @@
 <style>
 </style>
 <style scoped>
+.angle-border {
+  /* height: 3rem;
+margin: 0 50px; */
+  /* box-shadow: 0 0 2.5vw #237ad4 inset; */
+  background: linear-gradient(to left, #43f0fa, #43f0fa) left top,
+    linear-gradient(to bottom, #43f0fa, #43f0fa) left top,
+    linear-gradient(to left, #43f0fa, #43f0fa) right top,
+    linear-gradient(to bottom, #43f0fa, #43f0fa) right top,
+    linear-gradient(to left, #43f0fa, #43f0fa) left bottom,
+    linear-gradient(to bottom, #43f0fa, #43f0fa) left bottom,
+    linear-gradient(to left, #43f0fa, #43f0fa) right bottom,
+    linear-gradient(to left, #43f0fa, #43f0fa) right bottom;
+  background-repeat: no-repeat;
+  background-size: 0.05rem 0.4rem, 0.4rem 0.05rem, 0.05rem 0.4rem,
+    0.4rem 0.05rem;
+  /* background-size: 0.1vw 18vw, 1.5vw 0.1vw; */
+}
 .bg-blue2 {
   color: #fff;
   background-color: #0294e2;
+}
+.text-blue2 {
+  color: #43f0fa;
 }
 .bg-red {
   color: #fff;
   background-color: #e83125;
 }
 .index {
-  background-color: #0294e2;
+  background: url("../assets/bg2.png") no-repeat;
+  background-size: 100% 100%;
+  /* background-color: #0294e2; */
   font-size: 0.4rem;
   position: relative;
   min-height: 100%;
+  color: #94959a;
 }
-.border-bottom{
+.border-bottom {
   border-bottom: 0.03333rem solid #ccc;
 }
 .content {
@@ -242,9 +271,10 @@
 }
 
 .content-panel {
+  padding: 0 0.5rem;
   border-radius: 5px;
   overflow: hidden;
-  background-color: #0294e2;
+  /* background-color: #0294e2; */
 }
 
 /* 按钮 */
@@ -252,30 +282,33 @@
   width: 100%;
   padding: 10px 0;
   /* border-radius: 5px; */
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
   text-align: center;
   font-size: 0.6rem;
   line-height: 1.2rem;
   margin-bottom: 4px;
+  color: #43f0fa;
   /* position: absolute;
   width: 90%;
   left: 5%;
   top: 330px; */
 }
 .btn-panel .btn {
-  padding: 10px 0;
-  width: 25%;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  /* width: 25%; */
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
+  border: 1px solid #0e4487;
 }
 
-.btn-panel .btn:not(:last-child)::after {
+/* .btn-panel .btn:not(:last-child)::after {
   content: "";
   position: absolute;
   top: 15%;
@@ -286,7 +319,7 @@
   padding: 0;
   border-right: 2px solid #ccc;
   overflow: hidden;
-}
+} */
 
 .btn img {
   align-self: center;
@@ -300,11 +333,13 @@
 .center {
   text-align: center;
 }
+.left {
+  text-align: left;
+}
 
 /* 通知 */
 .notice-panel {
   padding: 0.5rem 0.5rem;
-  color: #fff;
 }
 
 .van-col {
@@ -319,7 +354,7 @@
 .statistic2-content {
   margin-top: -2px;
   /* border-radius: 5px; */
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 
 .percent-bg {
@@ -345,37 +380,41 @@
 
 .one {
   font-size: 40px;
-  color: #1e90ff;
+  color: #2aa2d5;
   font-weight: bold;
 }
 .two {
   font-size: 40px;
   font-weight: bold;
-  color: #63b8ff;
+  color: #2aa2d5;
 }
 .statistic-content-title {
-  background-color: #fff;
+  /* background-color: #fff; */
   position: relative;
-  padding: 20px 40px;
+  height: 1.5rem;
+  overflow: hidden;
+  /* padding: 20px 0; */
   /* color: #fff; */
 }
-.statistic-content-title::after {
+/* .statistic-content-title::after {
   content: " ";
   bottom: 0;
   left: 40px;
   right: 40px;
   position: absolute;
   border-bottom: 1px solid #ccc;
-}
+} */
 .statistic-content-title .date {
   float: right;
-  color: #636363;
+  /* margin-top: 20px; */
+  /* color: #636363; */
 }
 .statistic-content-title .title {
   position: relative;
   overflow: hidden;
   display: inline-block;
   padding-left: 20px;
+  color: #43f0fa;
 }
 
 .statistic-content-title .title::before {
@@ -386,10 +425,52 @@
   height: 20px;
   width: 20px;
   transform: rotate(45deg);
-  background-color: #0294e2;
+  background-color: #43f0fa;
 }
+
+.statistic-content-title-left,
+.statistic-content-title-right {
+  height: 100%;
+  width: 49.5%;
+  position: relative;
+}
+.statistic-content-title-mid {
+  width: 1%;
+  /* position: relative; */
+  height: 100%;
+}
+.statistic-content-title-left::after {
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 20px;
+  height: 1px;
+  background-color: #10285f;
+}
+.statistic-content-title-mid::after {
+  content: " ";
+  position: absolute;
+  top: -1rem;
+  /* left: 49%; */
+  width: 0.2rem;
+  transform: rotate(45deg);
+  height: 4rem;
+  background-color: #43f0fa;
+  box-shadow: 0px 0px 4px #43f0fa;
+}
+.statistic-content-title-right::after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 30px;
+  right: 0;
+  height: 1px;
+  background-color: #10285f;
+}
+
 .statistic-content {
-  padding: 20px 40px;
+  padding: 20px 0;
   /* margin-bottom: 15px; */
 }
 
@@ -401,8 +482,9 @@
   color: #1e90ff;
 }
 .statistic2-content {
-  /* margin: 15px; */
-  padding: 20px 40px;
+  background: rgb(16, 40, 95, 0.5);
+  /* margin: 10px 0; */
+  /* padding: 20px 40px; */
 }
 
 .statistic2-content > .van-row > .center {
@@ -411,27 +493,30 @@
   flex-direction: column;
   justify-content: center;
 }
+.statistic2-content .left{
+  padding-left: 20px;
+}
 
 .statistic2-content .van-row:nth-child(1) .van-col:nth-child(3),
 .statistic2-content .van-row:nth-child(1) .van-col:nth-child(2),
 .statistic2-content .van-row:nth-child(1) .van-col:nth-child(1) {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #94959a;
   /* border-bottom: 1px solid #ddd; */
 }
 .statistic2-content .van-row:nth-child(1) .van-col:nth-child(4) {
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #94959a;
+  border-right: 1px solid #94959a;
 }
 .statistic2-content .van-row:nth-child(2) .van-col:nth-child(3),
 .statistic2-content .van-row:nth-child(2) .van-col:nth-child(2),
 .statistic2-content .van-row:nth-child(2) .van-col:nth-child(1) {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #94959a;
 }
 .statistic2-content .van-row:nth-child(2) .van-col:nth-child(4) {
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #94959a;
+  border-right: 1px solid #94959a;
 }
-.statistic2-content .center .van-row:nth-child(2){
+.statistic2-content .center .van-row:nth-child(2) {
   padding-left: 10px;
   text-align: left;
 }
@@ -439,13 +524,13 @@
 /* 介绍 */
 .info {
   text-indent: 2rem;
-  color: #ffffff;
+  color: #43f0fa;
   line-height: 1rem;
   padding-bottom: 10px;
 }
 
 .info .title {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
   text-indent: 0;
@@ -458,6 +543,8 @@ import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 import { Col, Row } from "vant";
 import vns from "@/components/util/vue-number-scroll";
+import bar3D from "@/components/3dBar";
+import bar3D2 from "@/components/3dBar2";
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Col);
@@ -496,7 +583,9 @@ export default {
     };
   },
   components: {
-    vns
+    vns,
+    bar3D,
+    bar3D2
   },
   computed: {
     noticeItem() {

@@ -75,6 +75,10 @@ input {
   flex-direction: column;
 }
 
+.flex-direction-reverse {
+  flex-direction: column;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
