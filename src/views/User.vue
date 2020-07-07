@@ -42,7 +42,7 @@
       <div>正在审核您的信息</div>
     </div>
 
-    <logo />
+    <!-- <logo /> -->
   </div>
 </template>
 
@@ -77,7 +77,7 @@
 </style>
 
 <script>
-import logo from "@/components/logo";
+// import logo from "@/components/logo";
 import { NavBar, CellGroup, Cell, Uploader, Icon } from "vant";
 import avatar from "@/assets/avatar.png";
 
@@ -102,7 +102,7 @@ export default {
     // Field,
     CellGroup,
     Cell,
-    logo,
+    // logo,
     Uploader,
     Icon
   },

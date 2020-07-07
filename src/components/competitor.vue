@@ -9,7 +9,7 @@
     </div>
     <div class="padding-tb-sm">{{data.introduce}}</div>
     <div>
-      <div class="red padding-bottom-xs">
+      <!-- <div class="red padding-bottom-xs">
         一级数量：
         <span>{{data.one_count}}</span>
       </div>
@@ -24,7 +24,7 @@
       <div class="red padding-bottom-xs">
         户外广告：
         <span>{{data.outdoor}}</span>
-      </div>
+      </div> -->
       <div class="red padding-bottom-xs">
         终端形象建设：
         <span>{{data.content}}</span>

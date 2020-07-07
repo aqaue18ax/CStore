@@ -7,7 +7,7 @@
           {{ item.name}}
         </Radio>
       </RadioGroup>
-    <Button class="btn bg-blue" type="info" plain  @click="showFilter = !showFilter" v-show="showFilter" >关闭</button>
+    <Button class="btn bg-blue text-white" type="info" plain  @click="showFilter = !showFilter" v-show="showFilter" >关闭</button>
       <!-- <icon class="circle" name="cross"  @click="showFilter = !showFilter" v-show="showFilter" /> -->
     </div>
     <!-- <div class="flex padding-tb-sm toolbar justify-between align-center margin-lr">

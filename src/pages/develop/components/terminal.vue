@@ -51,10 +51,13 @@ export default {
     },
     post(code) {
       api.terminal(code).then(data => {
-        this.avg = (parseFloat(data.avg) * 100) || 0;
+        this.avg = (parseFloat(data.avg))// * 100) || 0;
         data.data.map(o => {
+          if(this.dealer == 'two_coverage'){
+            o.percent = o.two_percent
+          }
           o.percent = o[this.dealer] || 0
-          o.percent = parseFloat(o.percent * 100).toFixed(2)
+          // o.percent = parseFloat(o.percent * 100).toFixed(2)
         })
         this.data = data.data;
       });

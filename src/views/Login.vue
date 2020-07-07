@@ -29,7 +29,11 @@
       </div>
 
       <div class="button-group flex flex-direction margin-xl">
-        <button class="btn text-lg bg-white text-blue" :class="{'bg-blue text-white': check}" @click="login">登入</button>
+        <button
+          class="btn text-lg bg-white text-blue"
+          :class="{'bg-blue text-white': check}"
+          @click="login"
+        >登入</button>
         <button class="btn text-lg bg-white text-blue" @click="navTo('reg')">注册</button>
         <div class="text-white text-sm text-center margin-top-sm" @click="navTo('forget')">忘记密码?</div>
       </div>
@@ -64,8 +68,9 @@ export default {
         .post("/api/login", { phone: this.phone, password: this.pwd })
         .then(res => {
           localStorage.setItem("token", res.token);
-          localStorage.setItem("roles", JSON.stringify(res.roles));
-          // this.$router.replace(`/home`);
+          if (res.code != 401) {
+            localStorage.setItem("roles", JSON.stringify(res.roles));
+          }
           location.reload();
         });
     },
@@ -75,7 +80,7 @@ export default {
   },
   created() {
     if (localStorage.getItem("token")) {
-      this.$router.replace(`/index-image`);
+      this.$router.replace(`/`);
     }
   }
 };

@@ -31,7 +31,7 @@
                 style="height: 100%; padding-left: 5px;"
                 class="flex align-start justify-center flex-direction"
               >
-                <p>{{ item.item + item.promotion + item.other }}</p>
+                <p>{{ item.item + ',' + item.promotion+ ',' + item.other }}</p>
                 <p>{{ item.create }}</p>
               </div>
             </van-swipe-item>
@@ -80,28 +80,28 @@
           <div class="statistic-content flex align-center justify-between">
             <div style="width: 48%; background: rgb(16, 40, 95, 0.5); over-flow: hidden;">
               <div class="angle-border">
-                <img style="width: 100%" :src="require(`@/assets/index/bar1.png`)" alt />
+                <img style="width: 100%; padding-bottom: 10px;" :src="require(`@/assets/index/bar1.png`)" alt />
                 <bar3D
                   :x="['全国经销商总数', '已建设门店总数']"
                   :data="[config.AGENT_TOTAL, config.AGENT_TOTAL_OPEN]"
                   v-show="false"
                 />
 
-                <van-row class="text-center padding-xs text-gray">已建设经销商门店占比</van-row>
-                <van-row class="text-center padding-xs text-blue2 text-max text-bold">
+                <div class="text-center padding-xs text-gray">已建设经销商门店占比</div>
+                <div class="text-center padding-xs text-blue2 text-max text-bold">
                   <vns :start="0" :end="percentAgent" :times="times" :speed="10" />%
-                </van-row>
+                </div>
               </div>
             </div>
             <div style="width: 48%; background: rgb(16, 40, 95, 0.5); over-flow: hidden;">
               <div class="angle-border">
-                <img style="width: 100%" :src="require(`@/assets/index/bar2.png`)" alt />
+                <img style="width: 100%; padding-bottom: 10px;" :src="require(`@/assets/index/bar2.png`)" alt />
                 <bar3D2 v-show="false" />
 
-                <van-row class="text-center padding-xs text-gray">已建设二级门店占比</van-row>
-                <van-row class="text-center padding-xs text-blue2 text-max text-bold">
+                <div class="text-center padding-xs text-gray">已建设二级门店占比</div>
+                <div class="text-center padding-xs text-blue2 text-max text-bold">
                   <vns :start="0" :end="percentAgentTwo" :times="times" :speed="10" />%
-                </van-row>
+                </div>
               </div>
             </div>
           </div>

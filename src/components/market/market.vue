@@ -51,7 +51,7 @@
                 </div>
                 <div class="padding-bottom-sm">{{competitor.introduce}}</div>
                 <div>
-                  <div class="red padding-bottom-xs">
+                  <!-- <div class="red padding-bottom-xs">
                     一级数量：
                     <span>{{competitor.one_count}}</span>
 
@@ -67,7 +67,7 @@
                   <div class="red padding-bottom-xs">
                     户外广告：
                     <span>{{competitor.outdoor}}</span>
-                  </div>
+                  </div> -->
                   <div class="red padding-bottom-xs">
                     终端形象建设：
                     <span>{{competitor.content}}</span>

@@ -44,7 +44,7 @@
         <van-row v-for="item in data.project_build_fee" :key="item.name">
           <van-col span="8">{{ item.name }}</van-col>
           <van-col span="8">{{ item.money }}</van-col>
-          <van-col span="8">{{ item.date }}</van-col>
+          <van-col span="8">{{ item.date | dateFormat }}</van-col>
         </van-row>
       </CollapseItem>
     </Collapse>
@@ -73,7 +73,7 @@
       ></ve-histogram>
     </panel>
 
-    <!-- <panel type="kpi" title="业绩指标" label="(元)">
+    <panel type="kpi" title="业绩指标" label="(元)">
       <ve-histogram
         :data="kpi"
         :settings="chart2.settings"
@@ -82,15 +82,15 @@
         :extend="chart2.extend"
         height="180px"
       ></ve-histogram>
-    </panel> -->
+    </panel>
 
-    <panel type="box" title="经营产品">
+    <!-- <panel type="box" title="经营产品">
       <div class="pbody">{{data.business_product}}</div>
     </panel>
 
     <panel type="memory" title="销售范围">
       <div class="pbody">{{data.sales_area}}</div>
-    </panel>
+    </panel> -->
 
     <panel type="attack" title="竞争对手情况">
       <div class="pbody">
@@ -114,6 +114,11 @@ import VeLine from "v-charts/lib/line.common";
 Vue.use(VeLine)
 
 export default {
+  filters:{
+    dateFormat(date){
+      return new Date(date).Format("yyyy-MM-dd")
+    }
+  },
   data: function() {
     return {
       data: {},
