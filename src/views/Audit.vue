@@ -35,7 +35,8 @@
         :value="user.agency ? user.agency.name : ''"
         input-align="right"
         placeholder="请选择办事处"
-        required
+        :required="user.role_id == 2"
+        v-show="user.role_id == 2"
         readonly
         @click="showPicker2 = true"
       />
@@ -156,7 +157,6 @@ export default {
         role_id: this.user.role_id,
         agency_id: this.user.agency_id
       };
-
       http.put("api/user/audit", data).then(() => {
         this.$root.user.audit_status = 3;
         this.$router.replace(`/user`);

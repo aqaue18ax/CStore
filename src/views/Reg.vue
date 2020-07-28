@@ -124,7 +124,8 @@ export default {
 
       http.post("api/reg", data).then(res => {
         localStorage.setItem("token", res.token);
-        this.$router.replace(`/home`);
+        // this.$router.replace(`/home`);
+          location.reload();
       })
     }
   }
